@@ -4,34 +4,6 @@
 	<classpathentry kind="src" output="ArcheionPersistencia/classes" path="ArcheionPersistencia/src"/>
 	<classpathentry kind="src" output="ArcheionNegocio/classes" path="ArcheionNegocio/src"/>
 	<classpathentry kind="src" path="ArcheionWeb/src"/>
-	<classpathentry kind="lib" path="lib/compila/antlr-2.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/compila/ejb.jar"/>
-	<classpathentry kind="lib" path="lib/compila/el-api.jar"/>
-	<classpathentry kind="lib" path="lib/compila/servlet-api.jar"/>
-	<classpathentry kind="lib" path="lib/compila/spring-test.jar"/>
-	<classpathentry kind="lib" path="lib/source/acegi-security-1.0.7-sources.jar"/>
-	<classpathentry kind="lib" path="lib/source/acegi-security-tiger-1.0.7-sources.jar"/>
-	<classpathentry kind="lib" path="lib/source/myfaces-api-1.2.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/source/myfaces-impl-1.2.2-sources.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/annotations-api.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/bootstrap.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/catalina.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/catalina-ant.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/catalina-ha.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/catalina-tribes.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/el-api.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/jasper.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/jasper-el.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/jasper-jdt.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/jsp-api.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/servlet-api.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-coyote.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-dbcp.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-i18n-es.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-i18n-fr.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-i18n-ja.jar"/>
-	<classpathentry kind="lib" path="lib/tomcat/tomcat-juli.jar"/>
-	<classpathentry kind="lib" path="lib/ant/jsch-0.1.38.jar"/>
 	<classpathentry kind="lib" path="ArcheionWeb/public_html/WEB-INF/lib/acegi-security-1.0.7.jar"/>
 	<classpathentry kind="lib" path="ArcheionWeb/public_html/WEB-INF/lib/acegi-security-tiger-1.0.7.jar"/>
 	<classpathentry kind="lib" path="ArcheionWeb/public_html/WEB-INF/lib/aopalliance.jar"/>
@@ -87,5 +59,6 @@
 	<classpathentry kind="lib" path="ArcheionWeb/public_html/WEB-INF/lib/jcommon-1.0.15.jar"/>
 	<classpathentry kind="lib" path="ArcheionWeb/public_html/WEB-INF/lib/jfreechart-1.0.12.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0"/>
 	<classpathentry kind="output" path="ArcheionWeb/public_html/WEB-INF/classes"/>
 </classpath>
