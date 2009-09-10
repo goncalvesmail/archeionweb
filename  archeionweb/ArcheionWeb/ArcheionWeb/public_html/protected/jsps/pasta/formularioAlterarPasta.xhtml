@@ -1,0 +1,339 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['pasta.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>	
+
+			<h:form id="form">
+			
+				<table width="70%">
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.empresa']}:" for="empresa" />
+						</td>
+						<td align="left">
+						<a4j:region id="localRegion">
+							<h:selectOneMenu id="empresa" value="#{pastaBean.pasta.local.empresa.id}" 
+								styleClass="campo" valueChangeListener="#{pastaBean.valueChangedEmpresa}"
+								disabled="#{pastaBean.visualizar}">  
+								<f:selectItems value="#{pastaBean.listaEmpresa}" />  
+								 <a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>
+							</h:selectOneMenu>
+						</a4j:region>
+						</td>	
+					</tr>				
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['local.nome']}:" for="local" />
+						</td>
+						<td>
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<a4j:region id="containerLocal">
+									<h:selectOneMenu id="local" value="#{pastaBean.pasta.local.id}" 
+										styleClass="campo" disabled="#{pastaBean.visualizar}"
+										valueChangeListener="#{pastaBean.valueChangedLocal}">  
+										
+										<f:selectItems value="#{pastaBean.listaLocal}" />
+										<a4j:support event="onchange" reRender="outEvento" id="localAjax"/>
+										
+									</h:selectOneMenu>
+								</a4j:region>
+							</a4j:outputPanel>
+							
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+					</tr>
+					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['itemdocumental.nome']}:" for="item" />
+						</td>
+						<td>
+							<a4j:region id="containerItem">
+								<h:selectOneMenu id="item" value="#{pastaBean.pasta.itemDocumental.id}" 
+									styleClass="campo" disabled="#{pastaBean.visualizar}"
+									valueChangeListener="#{pastaBean.valueChangedItem}">								
+									<f:selectItems value="#{pastaBean.listaItemDocumental}" />		
+									
+									<a4j:support event="onchange" reRender="outEvento" id="itemAjax"/>						  
+								</h:selectOneMenu>		
+							</a4j:region>				
+						</td>
+					</tr>
+					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.titulo']}:" for="titulo" />
+						</td>
+						<td align="left">
+							<h:inputText id="titulo" required="true" 
+								styleClass="campo" value="#{pastaBean.pasta.titulo}" 
+								requiredMessage="#{msgs['error.business.requiredField']}" 
+								disabled="#{pastaBean.visualizar}"/>
+							<h:message for="titulo" errorStyle="color: red;" />
+						</td>	
+					</tr>
+					<tr>
+						<td align="right">
+							<h:outputLabel styleClass="label" value="#{msgs['pasta.data.abertura.referencia']}:" for="dataAbertura" />
+						</td>						
+						<td align="left" valign="middle">
+							<a4j:region id="containerData">
+								<t:inputCalendar id="dataAbertura"
+									renderAsPopup="true"
+									popupTodayString="#{msgs['geral.texto.data']}"
+									popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+									renderPopupButtonAsImage="true"
+									popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" styleClass="campo"
+									value="#{pastaBean.pasta.dataAbertura}"
+									converterMessage="#{msgs['error.business.dataInvalida']}"
+									disabled="#{pastaBean.visualizar}"
+									valueChangeListener="#{pastaBean.valueChangedData}">
+									
+										<a4j:support event="onchange" reRender="outEvento" id="dataAjax"/>
+								</t:inputCalendar>
+							</a4j:region>
+							<h:message for="data" errorStyle="color: red;" />
+						</td>
+					</tr>		
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="label" value="#{msgs['pasta.texto.caixeta']}:" for="caixeta" />
+						</td>
+						<td align="left" >
+							<h:inputText id="caixeta" 
+								styleClass="campo" value="#{pastaBean.pasta.caixeta}" 
+								requiredMessage="#{msgs['error.business.requiredField']}" 
+								converterMessage="#{msgs['error.business.numericField']}"
+								disabled="#{pastaBean.visualizar}"/>
+							<h:message for="caixeta" errorStyle="color: red;" />
+						</td>	
+					</tr>	
+																				
+					<tr>
+						<td colspan="2" align="center">		
+						
+						<a4j:outputPanel ajaxRendered="true" id="outEvento"> 
+						<table width="62%">
+							<tr>
+								<td align="center">									
+								<fieldset>
+									<legend><span class="label">#{msgs['pasta.texto.tipo.referencia']}</span></legend>
+									<table width="1%">
+										<tr>
+											<td align="right" width="50%">
+												<h:outputLabel styleClass="label" value="#{msgs['eventocontagem.nome']}:" for="evento" />
+											</td>						
+											<td align="left">							 
+												<h:inputText id="evento" styleClass="campo" 
+													value="#{pastaBean.ttd.eventoContagem.nome}"
+													readonly="true"/>
+											</td>							
+											
+											<td align="right" width="50%">
+												<h:outputLabel styleClass="label" value="#{msgs['pasta.texto.guardar']}:" for="ge" />
+											</td>						
+											<td align="left" nowrap="nowrap">							 
+												<h:inputText id="ge" styleClass="campo" 
+													value="#{pastaBean.nomeEventoContagem}"
+													readonly="true"/>
+													<a4j:status for="containerLocal" id="status1">
+										                <f:facet name="start">
+										                    <h:graphicImage  value="/images/loader.gif"/>
+										                </f:facet>
+										            </a4j:status>
+										            <a4j:status for="containerItem" id="status2">
+										                <f:facet name="start">
+										                    <h:graphicImage  value="/images/loader.gif"/>
+										                </f:facet>
+										            </a4j:status>
+											</td>						
+										</tr>								
+									</table>
+								</fieldset>
+								<fieldset>
+									<legend><span class="label">#{msgs['pasta.texto.previsao']}</span></legend>
+									<table width="1%">
+										<tr>
+											<td align="right" width="50%">
+												<h:outputLabel styleClass="label" value="#{msgs['geral.recolhimento']}:" for="recolhimento" />
+											</td>						
+											<td align="left" nowrap="nowrap">							 
+												<h:inputText id="recolhimento" styleClass="campo" 
+													value="#{pastaBean.pasta.previsaoRecolhimento}"
+													readonly="true"/>
+											</td>							
+											
+											<td align="right" width="50%">
+												<h:outputLabel styleClass="label" value="#{msgs['geral.expurgo']}:" for="expurgo" />
+											</td>						
+											<td align="left" nowrap="nowrap">							 
+												<h:inputText id="expurgo" styleClass="campo" 
+													value="#{pastaBean.pasta.previsaoExpurgo}"
+													readonly="true"/>										           
+											</td>						
+										</tr>								
+									</table>
+								</fieldset>								
+								</td>
+							</tr>
+						</table>
+						</a4j:outputPanel>
+						
+						</td>
+					</tr>				
+					
+					<tr>
+						<td colspan="2" align="center">		
+					
+						<table width="62%">
+							<tr><td align="center">									
+								<fieldset>
+									<legend><span class="label">#{msgs['pasta.texto.limites']}</span></legend>
+									<table width="1%">
+										<tr>
+											<td align="right" width="1%" nowrap="nowrap">
+												<h:outputLabel styleClass="label" value="#{msgs['pasta.texto.data']}:" for="data" />
+											</td>
+											<td align="left" nowrap="nowrap">
+												<t:inputCalendar id="data"
+													renderAsPopup="true"
+													popupTodayString="#{msgs['geral.texto.data']}"
+													popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+													renderPopupButtonAsImage="true"
+													popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" styleClass="campo"
+													value="#{pastaBean.pasta.limiteDataInicial}"
+													converterMessage="#{msgs['error.business.dataInvalida']}"
+													disabled="#{pastaBean.visualizar}">
+													
+												</t:inputCalendar>
+												<h:message for="data" errorStyle="color: red;" />
+											</td>
+											<td align="left" nowrap="nowrap">
+												<t:inputCalendar id="data1"
+													renderAsPopup="true"
+													popupTodayString="#{msgs['geral.texto.data']}"
+													popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+													renderPopupButtonAsImage="true"
+													popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" styleClass="campo"
+													value="#{pastaBean.pasta.limiteDataFinal}"
+													converterMessage="#{msgs['error.business.dataInvalida']}"
+													disabled="#{pastaBean.visualizar}">
+													
+												</t:inputCalendar>
+												<h:message for="data1" errorStyle="color: red;" />
+											</td>																
+										</tr>
+										<tr>
+											<td align="right"  width="1%" nowrap="nowrap">
+												<h:outputLabel styleClass="label" value="#{msgs['pasta.texto.valor']}:" for="valor" />
+											</td>
+											<td align="left" >
+												<h:inputText id="valor" 
+													styleClass="campo" value="#{pastaBean.pasta.limiteNumeroInicial}" 
+													requiredMessage="#{msgs['error.business.requiredField']}" 
+													converterMessage="#{msgs['error.business.numericField']}" 
+													disabled="#{pastaBean.visualizar}"/>
+												<h:message for="valor" errorStyle="color: red;" />
+											</td>
+											<td align="left" >
+												<h:inputText id="valor1" 
+													styleClass="campo" value="#{pastaBean.pasta.limiteNumeroFinal}" 
+													requiredMessage="#{msgs['error.business.requiredField']}" 
+													converterMessage="#{msgs['error.business.numericField']}" 
+													disabled="#{pastaBean.visualizar}"/>
+												<h:message for="valor1" errorStyle="color: red;" />
+											</td>		
+										</tr>
+										<tr>
+											<td align="right"  width="1%" nowrap="nowrap">
+												<h:outputLabel styleClass="label" value="#{msgs['pasta.texto.nome']}:" for="nome" />
+											</td>
+											<td align="left" >
+												<h:inputText id="nome" 
+													styleClass="campo" value="#{pastaBean.pasta.limiteNomeInicial}" 
+													requiredMessage="#{msgs['error.business.requiredField']}"
+													disabled="#{pastaBean.visualizar}"/>
+												<h:message for="nome" errorStyle="color: red;" />
+											</td>
+											<td align="left" >
+												<h:inputText id="nome1" 
+													styleClass="campo" value="#{pastaBean.pasta.limiteNomeFinal}" 
+													requiredMessage="#{msgs['error.business.requiredField']}" 
+													disabled="#{pastaBean.visualizar}"/>
+												<h:message for="nome1" errorStyle="color: red;" />
+											</td>		
+										</tr>								
+									</table>
+								</fieldset>
+							</td></tr>
+							<tr><td>
+								<table>
+									<tr>
+										<td colspan="2">
+											<h:outputLabel styleClass="label" value="#{msgs['geral.observacao']}:" for="observacao" />
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<h:inputTextarea id="observacao" 
+												value="#{pastaBean.pasta.observacao}" cols="63"
+												disabled="#{pastaBean.visualizar}"/>
+											<h:message for="observacao" errorStyle="color: red;" />
+										</td>
+									</tr>
+								</table>
+							</td></tr>
+						</table>
+						
+						</td>
+					</tr>										
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.salvar']}" styleClass="botaoIntuitivo"
+								action="#{pastaBean.alterar}" rendered="#{!pastaBean.visualizar}"/>		
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{pastaBean.findAll}" immediate="true" />	
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

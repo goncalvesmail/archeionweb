@@ -1,0 +1,171 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['emprestimo.caixa.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>	
+
+			<h:form id="form">
+			
+				<table width="70%">
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" 
+								value="#{msgs['emprestimo.caixa.responsavel']}:" for="responsavel" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="responsavel" styleClass="campo" 
+								value="#{emprestimoCaixaBean.emprestimo.responsavel.id}" >  
+								<f:selectItems value="#{emprestimoCaixaBean.listaResponsavel}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>			
+					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" 
+								value="#{msgs['emprestimo.caixa.solicitada']}:" for="caixa" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="caixa" styleClass="campo" 
+								value="#{emprestimoCaixaBean.emprestimo.caixa.id}" >  
+								<f:selectItems value="#{emprestimoCaixaBean.listaCaixa}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>		
+					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" 
+								value="#{msgs['emprestimo.caixa.data.saida']}:" for="dataSaida" />
+						</td>
+						<td align="left">
+							<t:inputCalendar id="dataSaida"
+								renderAsPopup="true"
+								popupTodayString="#{msgs['geral.texto.data']}"
+								popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+								renderPopupButtonAsImage="true"
+								popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" 
+								styleClass="campo"
+								required="true"
+								requiredMessage="#{msgs['error.business.requiredField']}" 
+								value="#{emprestimoCaixaBean.emprestimo.dataEmprestimo}"
+								converterMessage="#{msgs['error.business.dataInvalida']}">
+								
+							</t:inputCalendar>
+							<h:message for="dataSaida" errorStyle="color: red;" />
+						</td>	
+					</tr>	
+					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" for="previsaoDevolucao"
+								value="#{msgs['emprestimo.caixa.data.previsao.devolucao']}:" />
+						</td>
+						<td align="left">
+							<t:inputCalendar id="previsaoDevolucao"
+								renderAsPopup="true"
+								popupTodayString="#{msgs['geral.texto.data']}"
+								popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+								renderPopupButtonAsImage="true"
+								popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" 
+								styleClass="campo"
+								required="true"
+								requiredMessage="#{msgs['error.business.requiredField']}" 
+								value="#{emprestimoCaixaBean.emprestimo.previsaoDevolucao}"
+								converterMessage="#{msgs['error.business.dataInvalida']}">
+								
+							</t:inputCalendar>
+							<h:message for="previsaoDevolucao" errorStyle="color: red;" />
+						</td>	
+					</tr>						
+					
+					<tr>
+						<td colspan="2" align="center">						
+							<table width="40%">
+							<tr>
+								<td align="center">								
+									<fieldset>
+									<legend><span class="label">#{msgs['emprestimo.caixa.solicitante']}</span></legend>
+										
+										<table width="1%">
+											<tr>
+												<td align="right" width="50%">
+													<h:outputLabel styleClass="label" 
+														value="#{msgs['emprestimo.caixa.interno']}:" for="interno" />
+												</td>
+												<td align="left">
+													<h:selectOneMenu id="interno" styleClass="campo" 
+														value="#{emprestimoCaixaBean.emprestimo.solicitante.id}" >  
+														<f:selectItem itemValue="-1" itemLabel=""/>
+														<f:selectItems value="#{emprestimoCaixaBean.listaSolicitante}" />  
+													</h:selectOneMenu>
+												</td>	
+											</tr>	
+											<tr>
+												<td align="right" width="50%">
+													<h:outputLabel styleClass="label" 
+														value="#{msgs['emprestimo.caixa.externo']}:" for="externo" />
+												</td>
+												<td align="left">
+													<h:inputText id="externoeLocal"	styleClass="campo"
+														value="#{emprestimoCaixaBean.emprestimo.solicitanteExterno}" />
+												</td>	
+											</tr>												
+										</table>
+										
+									</fieldset>
+								</td>
+							</tr>
+							</table>						
+						</td>
+					</tr>						
+
+
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.salvar']}" styleClass="botaoIntuitivo"
+								action="#{emprestimoCaixaBean.incluir}" />		
+							<h:commandButton value="#{msgs['geral.botao.salvarMais']}" styleClass="botaoIntuitivo"
+								action="#{emprestimoCaixaBean.incluirMais}" />
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{emprestimoCaixaBean.findAll}" immediate="true" />	
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

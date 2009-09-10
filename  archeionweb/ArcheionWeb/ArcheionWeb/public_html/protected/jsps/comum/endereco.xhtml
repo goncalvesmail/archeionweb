@@ -1,0 +1,97 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:composition>
+
+		<f:loadBundle basename="br.gov.dataprev.siprev.resources.messages"
+			var="msgs" />
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.tipoLogradouro']}"
+				for="inputTipoLogradouro" /></td>
+			<td><h:selectOneMenu
+				value="#{form.orgao.endereco.tipoLogradouro.codigo}"
+				id="inputTipoLogradouro" styleClass="campo"
+				disabled="#{form.desabilitado}">
+				<f:selectItems value="#{logradouroBean.logradourosCombo}" />
+			</h:selectOneMenu></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.logradouro']}" for="inputLogradouro" />
+			</td>
+			<td><h:inputText size="50"
+				value="#{form.orgao.endereco.logradouro}" id="inputLogradouro"
+				styleClass="campo" disabled="#{form.desabilitado}" /></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.numero']}"
+				for="inputNumeroLogradouro" /></td>
+			<td><h:inputText size="5"
+				value="#{form.orgao.endereco.numeroLogradouro}"
+				id="inputNumeroLogradouro" styleClass="campo"
+				disabled="#{form.desabilitado}" /></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.complemento']}"
+				for="inputComplementoLogradouro" /></td>
+			<td><h:inputText size="50"
+				value="#{form.orgao.endereco.complementoLogradouro}"
+				id="inputComplementoLogradouro" styleClass="campo"
+				disabled="#{form.desabilitado}" /></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.bairro']}" for="inputBairro" /></td>
+			<td><h:inputText size="40" value="#{form.orgao.endereco.bairro}"
+				id="inputBairro" styleClass="campo" disabled="#{form.desabilitado}" /></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.cep']}" for="inputCEP" /></td>
+			<td><h:inputText size="10" value="#{form.orgao.endereco.cep}"
+				id="inputCEP" styleClass="campo" disabled="#{form.desabilitado}" />
+			</td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.uf']}" for="inputUF" /></td>
+			<td><h:selectOneMenu
+				value="#{form.orgao.endereco.municipio.uf.id}" id="inputUF"
+				styleClass="campo" disabled="#{form.desabilitado}">
+				<f:selectItems value="#{ufBean.unidadeFederacaoCombo}" />
+			</h:selectOneMenu></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.municipio']}" for="inputMunicipio" />
+			</td>
+			<td><h:selectOneMenu value="#{form.orgao.endereco.municipio.id}"
+				id="inputMunicipio" styleClass="campo"
+				disabled="#{form.desabilitado}">
+				<f:selectItems value="#{municipioBean.municipiosCombo}" />
+			</h:selectOneMenu></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.telefone']}" for="inputTelefone" />
+			</td>
+			<td><h:inputText size="20" value="#{form.orgao.telefone}"
+				id="inputTelefone" styleClass="campo"
+				disabled="#{form.desabilitado}" /></td>
+		</tr>
+		<tr>
+			<td class="label"><h:outputLabel
+				value="#{msgs['orgao.formulario.fax']}" for="inputFax" /></td>
+			<td><h:inputText size="20" value="#{form.orgao.fax}"
+				id="inputFax" styleClass="campo" disabled="#{form.desabilitado}" />
+			</td>
+		</tr>
+
+	</ui:composition>
+</jsp:root>

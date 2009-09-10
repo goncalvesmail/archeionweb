@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<f:view>
+		<ui:composition>
+			<div class="menu_superior"><h:graphicImage
+				value="/images/s.gif" width="3" height="3" /></div>
+			<div class="menu"><h:form>
+				<ul class="udm" id="udm">
+					<li><h:commandLink value="#{msgs['menu.beneficios']}" />
+					<ul style="width: 155px;">
+						<li>
+						<div class="trans-off" onmouseover="this.className='trans-on'"
+							onmouseout="this.className='trans-off'"><h:commandLink
+							value="#{msgs['menu.beneficios.concessao']}" /></div>
+						<ul style="width: 160px;">
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.habilitar']}"
+								action="menu.beneficios.habilitar" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.simular']}"
+								action="menu.beneficios.simular" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.concedidos']}"
+								action="#{consultaServidorBean.carregarTelaPesquisa}">
+								<f:param name="_proxima_tela" value="beneficios" />
+							</h:commandLink></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.revisar']}" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.formulario']}" /></div>
+							</li>
+						</ul>
+						</li>
+						<li>
+						<div class="trans-off" onmouseover="this.className='trans-on'"
+							onmouseout="this.className='trans-off'"><h:commandLink
+							value="#{msgs['menu.beneficios.recursos']}" /></div>
+						<ul style="width: 160px;">
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.tipos']}"
+								action="menu.beneficios.tipos" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.tipos.unidadeadministrativa']}"
+								action="menu.beneficios.unidadeadministrativa" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.etapasprocesso']}"
+								action="menu.beneficios.etapasprocesso" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.regrascalculo']}"
+								action="menu.beneficios.regrascalculo" /></div>
+							</li>
+							<li>
+							<div class="trans-off" onmouseover="this.className='trans-on'"
+								onmouseout="this.className='trans-off'"><h:commandLink
+								value="#{msgs['menu.beneficios.acaojudicial']}"
+								action="menu.beneficios.acaojudicial" /></div>
+							</li>
+						</ul>
+						</li>
+					</ul>
+					</li>
+					
+
+					<li><h:commandLink value="Empresas" 
+						action="#{empresaBean.findAll}" /></li>
+
+					<li><h:commandLink value="#{msgs['menu.ajuda']}"
+						action="ajuda.intro" immediate="true" /></li>
+					<li><h:commandLink value="#{msgs['menu.sair']}"
+						action="#{authenticationController.logout}" immediate="true" /></li>
+				</ul>
+			</h:form></div>
+			<div class="menu_inferior"><h:graphicImage
+				value="/images/s.gif" width="3" height="3" /></div>
+			<div class="usuario">Usuario:<strong><h:outputText
+				value="#{authenticationController.usuario.nome}" /></strong></div>
+		</ui:composition>
+	</f:view>
+</jsp:root>

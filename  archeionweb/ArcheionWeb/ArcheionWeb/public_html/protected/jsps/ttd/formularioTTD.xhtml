@@ -1,0 +1,174 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['ttd.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+
+			<h:form>
+			
+				<table width="70%">
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.empresa']}:" for="empresa" />
+						</td>
+						<td align="left">
+						<a4j:region id="localRegion">
+							<h:selectOneMenu id="empresa" value="#{ttdBean.ttd.local.empresa.id}" 
+								styleClass="campo" valueChangeListener="#{ttdBean.valueChanged}">  
+								<f:selectItems value="#{ttdBean.listaEmpresa}" />  
+								 <a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>
+							</h:selectOneMenu>
+						</a4j:region>
+						</td>	
+					</tr>
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.local']}:" for="local" />
+						</td>
+						<td align="left">
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<h:selectOneMenu id="local" 
+										value="#{ttdBean.ttd.local.id}" 
+										styleClass="campo">  
+									<f:selectItems value="#{ttdBean.listaLocal}" />  
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>	
+					</tr>
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['itemdocumental.nome']}:" for="itemDocumental" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="itemDocumental" value="#{ttdBean.ttd.itemDocumental.id}" styleClass="campo">  
+								<f:selectItems value="#{ttdBean.listaItemDocumental}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>	
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['eventocontagem.nome']}:" for="evento" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="evento" value="#{ttdBean.ttd.eventoContagem.id}" styleClass="campo">  
+								<f:selectItems value="#{ttdBean.listaEventoContagem}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.arquivocorrente']}:" for="ac" />
+						</td>
+						<td align="left" >
+							<h:inputText id="ac" required="false" 
+								styleClass="campo" value="#{ttdBean.ttd.tempoArquivoCorrente}" 
+								converterMessage="#{msgs['error.business.numericField']}"/>
+							<h:message for="ac" errorStyle="color: red;" />
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.anos']}" for="ac" />
+						</td>	
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+						
+							<table width="70%">
+								<tr><td width="70%">
+									<fieldset style="height: 100%; ">
+					    				<legend class="label">#{msgs['ttd.texto.temporaliedade']}</legend>
+					    				<span class="labelObrigatorio">#{msgs['ttd.texto.guardarem']}</span>
+										<h:selectOneMenu value="#{ttdBean.ttd.temporaliedadeSelecionada}" styleClass="campo">
+											<f:selectItem id="item1" itemLabel="#{msgs['geral.nenhum']}" itemValue="1" styleClass="label"/>								
+											<f:selectItem id="item2" itemLabel="#{msgs['ttd.texto.arquivopermanente']}" itemValue="2" styleClass="label" />								
+											<f:selectItem id="item3" itemLabel="#{msgs['ttd.texto.arquivointermediario.combo']}" itemValue="3" styleClass="label" />						  
+										</h:selectOneMenu>						
+										<br/>
+					    				<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.arquivointermediario']}:" for="inter" />
+										<h:inputText id="inter" required="false" 
+											styleClass="campo" value="#{ttdBean.ttd.tempoArquivoIntermediario}" 
+											converterMessage="#{msgs['error.business.numericField']}"/>
+										<h:message for="inter" errorStyle="color: red;" />
+										<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.anos']}" for="inter" />
+										<br/>										
+									</fieldset>
+								</td>
+								<td>
+									<fieldset style="height: 100%; ">	
+										<legend class="label">#{msgs['ttd.texto.indicadores']}</legend>			
+										<h:selectBooleanCheckbox id="dig" value="#{ttdBean.ttd.digitalizacao}" />
+										<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.digitalizacao']}" for="dig" /><br/>
+										<h:selectBooleanCheckbox id="mic" value="#{ttdBean.ttd.microfilmagem}" />							
+										<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['ttd.texto.microfilmagem']}" for="mic" />
+									</fieldset>
+								</td>
+								</tr>
+								<tr>								
+									<td colspan="2">									
+										<h:outputLabel styleClass="label" 
+											value="#{msgs['geral.observacao']}:" for="observacao" />									
+									</td>
+								</tr>
+								<tr>								
+									<td colspan="2">									
+										<h:inputTextarea id="observacao" 
+											value="#{ttdBean.ttd.observacao}" cols="75"/>										
+									</td>
+								</tr>								
+							</table>
+						
+						</td>
+					</tr>
+				</table>	
+
+				
+				<table>
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.salvar']}" styleClass="botaoIntuitivo"
+								action="#{ttdBean.incluir}" />		
+							<h:commandButton value="#{msgs['geral.botao.salvarMais']}" styleClass="botaoIntuitivo"
+								action="#{ttdBean.incluirMais}" />
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{ttdBean.findAll}" immediate="true" />	
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

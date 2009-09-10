@@ -1,0 +1,254 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['documento.localizar']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2" width="1">
+					<tr>
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.campos']}:" for="chave1" />
+						</td>
+						
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.operadores']}:" for="op1" />
+						</td>
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.valores']}:" for="val1" />
+						</td>
+							
+						<td></td>
+					</tr>
+					
+					<tr>						
+						<td align="center">
+							<a4j:region id="regionChave1">
+								<h:selectOneMenu id="chave1" styleClass="campo" 
+									value="#{localizarDocumentoBean.chave1}"									
+									valueChangeListener="#{localizarDocumentoBean.changedChave1}">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{localizarDocumentoBean.listaChaves1}" />  
+									<a4j:support event="onchange" reRender="oper1" id="empresaAjax"/>
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper1"> 
+								<h:selectOneMenu id="op1" styleClass="campo"
+									value="#{localizarDocumentoBean.operador1}"  >										
+									<f:selectItems value="#{localizarDocumentoBean.listaOperadores1}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave1">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val1" styleClass="campo" value="#{localizarDocumentoBean.valor1}"  />
+						</td>
+						<td align="center">
+							<h:selectOneMenu id="bol1" value="#{localizarDocumentoBean.operadorBoleano1}" styleClass="campo" >										
+								<f:selectItems value="#{localizarDocumentoBean.listaOperadoresBoleanos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">						
+							<a4j:region id="regionChave2">
+								<h:selectOneMenu id="chave2" value="#{localizarDocumentoBean.chave2}" styleClass="campo"									
+									valueChangeListener="#{localizarDocumentoBean.changedChave2}" > 
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>  
+									<f:selectItems value="#{localizarDocumentoBean.listaChaves2}" />  
+									<a4j:support event="onchange" reRender="oper2" />
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper2"> 
+								<h:selectOneMenu id="op2" value="#{localizarDocumentoBean.operador2}" styleClass="campo" >										
+									<f:selectItems value="#{localizarDocumentoBean.listaOperadores2}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave2">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val2" styleClass="campo" value="#{localizarDocumentoBean.valor2}"  />
+						</td>				
+						<td align="center">
+							<h:selectOneMenu id="bol2" value="#{localizarDocumentoBean.operadorBoleano2}" styleClass="campo" >										
+								<f:selectItems value="#{localizarDocumentoBean.listaOperadoresBoleanos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>	
+					<tr>
+						<td align="center">
+							<a4j:region id="regionChave3">
+								<h:selectOneMenu id="chave3" value="#{localizarDocumentoBean.chave3}" styleClass="campo" 									
+									valueChangeListener="#{localizarDocumentoBean.changedChave3}">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{localizarDocumentoBean.listaChaves3}" />  
+									<a4j:support event="onchange" reRender="oper3" />
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper3"> 
+								<h:selectOneMenu id="op3" value="#{localizarDocumentoBean.operador3}" styleClass="campo" >										
+									<f:selectItems value="#{localizarDocumentoBean.listaOperadores3}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave3">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val3" styleClass="campo" value="#{localizarDocumentoBean.valor3}"  />
+						</td>				
+						<td></td>
+					</tr>	
+					<tr>						
+						<td colspan="5" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.pesquisar']}" styleClass="botaoIntuitivo"
+								action="#{localizarDocumentoBean.localizarDocumento}" />								
+
+							<h:commandButton value="#{msgs['geral.botao.pesquisar.todos']}" styleClass="botaoIntuitivo"
+								action="#{localizarDocumentoBean.localizarTodosDocumento}" />								
+						</td>
+					</tr>
+				</table>
+			</h:form>
+			
+			<br />
+			<h:outputText value="#{msgs['documento.lista.vazia']}" styleClass="label" rendered="#{empty localizarDocumentoBean.listaDocumento}"/>
+			<br />
+			
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2" >
+					<tr>
+						<td><h:dataTable id="itens" rows="10"
+							value="#{localizarDocumentoBean.listaDocumento}" var="lista"
+							rendered="#{not empty localizarDocumentoBean.listaDocumento}" align="center"
+							cellpadding="0" cellspacing="0" styleClass="tabela tabelaCss"
+							headerClass="tabela_header" rowClasses="odd, even"
+							columnClasses="col,col,col,col,col,col,col_btn,col_btn"
+							style="width: 100%; cellspacing:2;">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.local']}" />
+								</f:facet>
+								<h:outputText value="#{lista.local.nome}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.pasta']}" />
+								</f:facet>
+								<h:outputText value="#{lista.pasta.titulo}" />
+							</h:column>			
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['tipodocumento.nome']}" />
+								</f:facet>
+								<h:outputText value="#{lista.tipoDocumento.nome}" />
+							</h:column>			
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.referencia']}" />
+								</f:facet>
+								<h:outputText value="#{lista.referencia}" />
+							</h:column>		
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.data']}" />
+								</f:facet>
+								<h:outputText value="#{lista.data}" />
+							</h:column>	
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.origem']}" />
+								</f:facet>
+								<h:outputText value="#{lista.origem}" />
+							</h:column>															
+						</h:dataTable></td>
+					</tr>
+				
+					<tr>
+						<td align="right">
+						<t:dataScroller id="Paginador"
+							for="itens" fastStep="10" pageCountVar="pageCount"
+							pageIndexVar="pageIndex" styleClass="paginacao" paginator="true"
+							paginatorMaxPages="5" paginatorTableClass="paginator"
+							paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
+							rendered="#{not empty localizarDocumentoBean.listaDocumento}">
+							<f:facet name="first">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.primeira']} "
+									title="#{msgs['geral.pesquisa.paginacao.primeira.alt']} " />
+							</f:facet>
+							<f:facet name="last">
+								<h:outputText value="#{msgs['geral.pesquisa.paginacao.ultima']} "
+									title="#{msgs['geral.pesquisa.paginacao.ultima.alt']} " />
+							</f:facet>
+							<f:facet name="previous">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.anterior']} " />
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.proxima']} " />
+							</f:facet>
+							<f:facet name="fastforward">
+							</f:facet>
+							<f:facet name="fastrewind">
+							</f:facet>
+						</t:dataScroller>
+						</td>
+					</tr>
+				</table>
+			</h:form>
+
+			<br />
+			<h:form>				
+				<h:commandButton value="#{msgs['geral.botao.imprimir']}" styleClass="botaoIntuitivo"
+					action="#{localizarDocumentoBean.imprimirLocalizar}" />
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

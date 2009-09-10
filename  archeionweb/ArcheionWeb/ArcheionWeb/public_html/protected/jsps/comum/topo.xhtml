@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:composition>
+		<f:loadBundle basename="br.com.archeion.resources.messages"	var="msgs" />
+
+		<table width="995" 
+			height="45px"
+			cellpadding="0"
+			cellspacing="0"
+			style="border-bottom:1px; z-index: 10;
+				background-image: url('${facesContext.externalContext.requestContextPath}/images/back_top01.jpg')">
+			<tr height="46px">
+				<td width="7px" height="46px">
+					<img src="${facesContext.externalContext.requestContextPath}/images/_back_left_top.jpg" width="7px" height="46px"/>
+				</td>
+				<td align="left" height="46px"
+					width="99%">
+					
+					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: white;">		 
+						<script Language="JavaScript">
+						<!--
+						mydate = new Date();
+						myday = mydate.getDay();
+						mymonth = mydate.getMonth()+1;
+						myweekday= mydate.getDate();
+						var year=mydate.getYear()
+						if (year<2000)
+						year += (year < 1900) ? 1900 : 0
+											
+						weekday= myweekday; 
+						
+						if(myday == 0)
+						day = " Domingo "					
+						else if(myday == 1)
+						day = " Segunda-Feira "					
+						else if(myday == 2)
+						day = " Terça-Feira "					
+						else if(myday == 3)
+						day = " Quarta-Feira "					
+						else if(myday == 4)
+						day = " Quinta-Feira "					
+						else if(myday == 5)
+						day = " Sexta-Feira "					
+						else if(myday == 6)
+						day = " Sábado " 
+						
+						document.write(myweekday+"/"+mymonth+"/"+year+", "+ day);
+						// -->
+	                	</script>		
+ 					</div>
+				</td>
+				<td valign="middle" nowrap="nowrap" height="46px" align="right">							
+					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: white;">
+						<b><i>ArcheionWeb</i></b>
+					</div>
+					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 9px; color: white;">
+						<i>beta</i>
+					</div>
+				</td>
+				<td valign="middle" nowrap="nowrap" height="46px" align="right" >							
+					<img src="${facesContext.externalContext.requestContextPath}/images/barra_dots.jpg" border="0" height="44px"/>
+				</td>
+				<td valign="middle" nowrap="nowrap" height="46px" align="right">							
+					<div style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; color: white;">
+						<b><i>SInforme </i></b>
+					</div>
+				</td>
+				<td valign="middle" nowrap="nowrap" height="46px" align="right" >							
+					<img src="${facesContext.externalContext.requestContextPath}/images/barra_dots.jpg" border="0" height="44px"/>
+				</td>				
+			</tr>
+		</table>
+
+	</ui:composition>
+</jsp:root>

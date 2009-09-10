@@ -1,0 +1,204 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['pasta.titulo.etiqueta']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>	
+
+			<h:form id="form">
+			
+				<table width="1%">
+					<tr>
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.campos']}:" for="chave1" />
+						</td>
+						
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.operadores']}:" for="op1" />
+						</td>
+						<td align="center" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.texto.valores']}:" for="val1" />
+						</td>
+							
+						<td></td>
+					</tr>
+					
+	
+						<tr>						
+						<td align="center">
+							<a4j:region id="regionChave1">
+								<h:selectOneMenu id="chave1" styleClass="campo" 
+									value="#{localizarPastaBean.chave1}"									
+									valueChangeListener="#{localizarPastaBean.changedChave1}">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{localizarPastaBean.listaChaves1}" />  
+									<a4j:support event="onchange" reRender="oper1" id="empresaAjax"/>
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper1"> 
+								<h:selectOneMenu id="op1" styleClass="campo"
+									value="#{localizarPastaBean.operador1}"  >										
+									<f:selectItems value="#{localizarPastaBean.listaOperadores1}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave1">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val1" styleClass="campo" value="#{localizarPastaBean.valor1}"  />
+						</td>
+						<td align="center">
+							<h:selectOneMenu id="bol1" value="#{localizarPastaBean.operadorBoleano1}" styleClass="campo" >										
+								<f:selectItems value="#{localizarPastaBean.listaOperadoresBoleanos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">						
+							<a4j:region id="regionChave2">
+								<h:selectOneMenu id="chave2" value="#{localizarPastaBean.chave2}" styleClass="campo"									
+									valueChangeListener="#{localizarPastaBean.changedChave2}" > 
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>  
+									<f:selectItems value="#{localizarPastaBean.listaChaves2}" />  
+									<a4j:support event="onchange" reRender="oper2" />
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper2"> 
+								<h:selectOneMenu id="op2" value="#{localizarPastaBean.operador2}" styleClass="campo" >										
+									<f:selectItems value="#{localizarPastaBean.listaOperadores2}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave2">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val2" styleClass="campo" value="#{localizarPastaBean.valor2}"  />
+						</td>				
+						<td align="center">
+							<h:selectOneMenu id="bol2" value="#{localizarPastaBean.operadorBoleano2}" styleClass="campo" >										
+								<f:selectItems value="#{localizarPastaBean.listaOperadoresBoleanos}" />
+							</h:selectOneMenu>
+						</td>
+					</tr>	
+					<tr>
+						<td align="center">
+							<a4j:region id="regionChave3">
+								<h:selectOneMenu id="chave3" value="#{localizarPastaBean.chave3}" styleClass="campo" 									
+									valueChangeListener="#{localizarPastaBean.changedChave3}">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{localizarPastaBean.listaChaves3}" />  
+									<a4j:support event="onchange" reRender="oper3" />
+								</h:selectOneMenu>
+							</a4j:region>
+						</td>	
+						<td align="center">
+							<a4j:outputPanel ajaxRendered="true" id="oper3"> 
+								<h:selectOneMenu id="op3" value="#{localizarPastaBean.operador3}" styleClass="campo" >										
+									<f:selectItems value="#{localizarPastaBean.listaOperadores3}" />
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="regionChave3">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>
+						<td align="center">
+							<h:inputText id="val3" styleClass="campo" value="#{localizarPastaBean.valor3}"  />
+						</td>				
+						<td></td>
+					</tr>	
+	
+					<tr>
+						<td colspan="4" align="center">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['emprestimo.caixa.situacao']}:" for="situacao" />
+				            
+				            <h:selectOneMenu id="situacao" value="#{localizarPastaBean.pasta.situacao}" 
+								styleClass="campo">    
+								<f:selectItems value="#{localizarPastaBean.listaSituacao}" />  									
+							</h:selectOneMenu>	
+							
+							<br/>
+							
+							<h:commandButton value="#{msgs['geral.botao.pesquisar']}" styleClass="botaoIntuitivo"
+								action="#{localizarPastaBean.localizarEtiquetas}" />								
+						</td>	
+					</tr>	
+					<tr>
+						<td colspan="4" align="center">
+							<br/>
+							<rich:listShuttle var="item" sourceValue="#{localizarPastaBean.listaPasta}" 
+								targetValue="#{localizarPastaBean.listaPastaTarget}" 
+								copyControlLabel="#{msgs['geral.componente.rich.copiar']}" 
+								removeControlLabel="#{msgs['geral.componente.rich.remover']}"
+                        		copyAllControlLabel="#{msgs['geral.componente.rich.copiar.todos']}" 
+                        		removeAllControlLabel="#{msgs['geral.componente.rich.copiar.todos']}"
+                        		fastOrderControlsVisible="false" orderControlsVisible="false"
+                        		converter="etiquetaPastaConverter">
+								<h:column >							
+							    	<f:facet name="header">							
+							        	<h:outputText value="#{msgs['pasta.texto']}" />							
+							        </f:facet>	
+							        <h:outputText value="#{item.titulo}" />							
+							    </h:column>							
+							</rich:listShuttle>
+						</td>
+					</tr>								
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.imprimir.por.caixa']}" styleClass="botaoIntuitivo"
+								action="#{localizarPastaBean.imprimirEtiquetaPorCaixa}" />
+						</td>	
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.imprimir.por.caixeta']}" styleClass="botaoIntuitivo"
+								action="#{localizarPastaBean.imprimirEtiquetaPorCaixeta}" />
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>
