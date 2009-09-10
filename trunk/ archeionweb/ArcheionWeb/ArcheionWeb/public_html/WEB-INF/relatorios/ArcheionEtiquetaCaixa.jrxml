@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ArcheionEtiquetaCaixa"
+		 columnCount="2"
+		 printOrder="Horizontal"
+		 orientation="Portrait"
+		 pageWidth="609"
+		 pageHeight="788"
+		 columnWidth="289"
+		 columnSpacing="14"
+		 leftMargin="8"
+		 rightMargin="8"
+		 topMargin="36"
+		 bottomMargin="36"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idsCaixa" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select a.id_caixa, a.id_endereco_caixa, b.vao_endereco_caixa,a.nu_vao_endereco_caixa, 
+       d.nm_empresa, a.dt_expurgo, a.cs_tipo_arquivo
+from tb_caixa a, tb_endereco_caixa b, tb_local c, tb_empresa d
+where a.id_endereco_caixa = b.id_endereco_caixa
+  and a.id_local = c.id_local
+  and c.id_empresa = d.id_empresa
+  and a.id_caixa in ($P!{idsCaixa})
+order by b.vao_endereco_caixa,a.nu_vao_endereco_caixa]]></queryString>
+
+	<field name="id_caixa" class="java.lang.Long"/>
+	<field name="id_endereco_caixa" class="java.lang.Long"/>
+	<field name="vao_endereco_caixa" class="java.lang.String"/>
+	<field name="nu_vao_endereco_caixa" class="java.lang.Integer"/>
+	<field name="nm_empresa" class="java.lang.String"/>
+	<field name="dt_expurgo" class="java.sql.Date"/>
+	<field name="cs_tipo_arquivo" class="java.lang.Integer"/>
+
+	<variable name="nomeCaixa" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new String($F{vao_endereco_caixa}+$F{nu_vao_endereco_caixa}).trim()]]></variableExpression>
+	</variable>
+	<variable name="dataExpurgo" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new String(
+$F{cs_tipo_arquivo}.equals(new Integer(2))? "(Permanente)":
+ ($F{dt_expurgo} != null)?new SimpleDateFormat("dd/MM/yyyy").format($F{dt_expurgo}):"" 
+)]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="235"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" vAlign="Middle" hAlign="Center" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="80"
+						y="155"
+						width="121"
+						height="41"
+						forecolor="#000000"
+						backcolor="#FFFFFF"
+						key="barcode-1"/>
+					<box></box>
+					<graphicElement stretchType="NoStretch" fill="Solid" />
+					<imageExpression class="java.awt.Image"><![CDATA[it.businesslogic.ireport.barcode.BcImage.getBarcodeImage(9,new String($F{id_caixa}.intValue()+""),false,false,null,0,0)]]></imageExpression>
+				</image>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="13"
+						y="38"
+						width="261"
+						height="106"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="58"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{nomeCaixa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="13"
+						y="11"
+						width="261"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_empresa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="53"
+						y="202"
+						width="87"
+						height="18"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Data de Espurgo:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="145"
+						y="202"
+						width="100"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{dataExpurgo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
