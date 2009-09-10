@@ -1,0 +1,83 @@
+/* CSS para o projeto  */
+
+.td {
+	text-align: center;	
+}
+
+.destaques_governo {
+	background-color: #F8C400;
+	color:#1D0300;
+}
+
+.tabelasemlinha {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-align: left;
+}
+
+.campoDisable {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 1px solid #003366;
+	margin: 3px;
+  background-color: #e0e0e0;
+}
+
+.labelDesejavel {
+	text-align: right;
+	padding-right: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003366;
+	white-space: nowrap;
+}
+
+.col {
+	width:100px;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.col_id {
+	width: 20px;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.col_btn {
+	width: 5px;
+	white-space: nowrap;	
+	text-align: center;
+}
+
+.header {
+	text-align: center;
+	white-space: nowrap;
+}
+.imageLink {
+	white-space: nowrap;
+	margin: 0,0,0,0;
+	padding: 0,0,0,0;
+}
+.tabelaCss {
+	text-align: center;
+	width: 500px;
+}
+.tabelaLogCss {
+	text-align: center;
+}
+
+td.esq {
+	text-align: left;
+}
+td.dir {
+	text-align: right;
+}
+td.cen {
+	text-align: center;
+}
+.botaoImagem {
+	border: none;
+}

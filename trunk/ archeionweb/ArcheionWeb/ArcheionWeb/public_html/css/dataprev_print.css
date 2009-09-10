@@ -1,0 +1,329 @@
+/* Blocos */
+#header {
+	visibility: hidden;
+	display: none;
+}
+
+#menu {
+	visibility: hidden;
+	display: none;
+}
+
+#footer {
+	visibility: hidden;
+	display: none;
+}
+
+#conteudo {
+	width: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#noprint {
+	visibility: hidden;
+	display: none;
+}
+
+/* Titulo da Pagina */
+.titulopag {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;
+	width: 100%;
+}
+
+.cabecalho {
+	text-align: left;
+	width: 98%;
+	border-bottom: 1px solid #000000;
+	margin-bottom: 10px;
+	margin-left: 7px;
+	margin-right: 7px;
+}
+
+/* Botões */
+.botaoIntuitivo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	height: 22px;
+}
+
+.botao {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	height: 22px;
+}
+
+.botaodesabilitado {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FFFFFF;
+	border: 1px solid #000000;
+	height: 22px;
+}
+
+/* Tabelas */
+.tabela_header {
+	font-size: 11px;
+	color: #000000;
+	text-align: center;
+	background-repeat: repeat-x;
+	height: 18px;
+	background-color: #FFFFFF;
+	font-weight: bold;
+	white-space: nowrap;
+	border: 1px solid;
+	margin-top: 10px;
+}
+
+tabelaGrande {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding: 10px;
+}
+
+.tabela {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-align: center;
+}
+
+.tabela th a:link {
+	color: #000000;
+	text-align: center;
+	height: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.tabela th a:hover {
+	color: #000000;
+	text-align: center;
+	height: 18px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.tabela th a:visited {
+	color: #000000;
+	text-align: center;
+	height: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.tabela th a:active {
+	color: #000000;
+	text-align: center;
+	height: 18px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.tabela tr.even {
+	height: 17px;
+	background-color: #f7f7f7;
+}
+
+.tabela tr.even a:link {
+	height: 17px;
+	text-decoration: none;
+}
+
+.tabela tr.even a:hover {
+	height: 17px;
+	text-decoration: underline;
+}
+
+.tabela tr.odd {
+	height: 50px;
+	background-color: #ebebeb;
+	border: 1px solid #000000;
+}
+
+.tabela tr.odd a:link {
+	height: 17px;
+	text-decoration: none;
+}
+
+.tabela tr.odd a:hover {
+	height: 17px;
+	text-decoration: none;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+/* LABEL */
+.label {
+	text-align: right;
+	padding-right: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	white-space: nowrap;
+}
+
+.labelElevado {
+	text-align: right;
+	padding-right: 5px;
+	padding-bottom: 7px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	white-space: nowrap;
+}
+
+.labelCampoFixo {
+	text-align: left;
+	padding-left: 3px;
+	padding-bottom: 7px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	white-space: nowrap;
+}
+
+.labelObrigatorio {
+	text-align: right;
+	padding-right: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #882222;
+	white-space: nowrap;
+}
+
+.labelDesejavel {
+	text-align: right;
+	padding-right: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #003366;
+	white-space: nowrap;
+}
+
+.textosimples {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	text-align: left;
+}
+
+.textoImperativo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding-left: 10px;
+	background-repeat: no-repeat;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+.textoImperativo a:link {
+	color: #003366;
+	font-size: 11px;
+}
+
+.textoImperativo a:hover {
+	color: #003366;
+	font-size: 11px;
+}
+
+.textoImperativo a:visited {
+	color: #003366;
+	font-size: 11px;
+}
+
+.textoImperativo a:active {
+	color: #003366;
+	font-size: 11px;
+}
+
+/* CAMPOS */
+.campo {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 1px solid #000000;
+	margin: 3px;
+}
+
+select {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+.campoRadio {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	border: 0px;
+	margin: 3px;
+}
+
+/* OUTROS */
+.panel {
+	text-align: center;
+	width: 98%;
+	margin-bottom: 10px;
+}
+
+.bct {
+	font-family: Arial;
+	font-size: 9px;
+	color: #999999;
+	padding-left: 15px;
+}
+
+.bct a:link {
+	colwor: #999999;
+	text-decoration: none;
+}
+
+.bct a:hover {
+	color: #999999;
+	text-decoration: underline;
+}
+
+.bct a:active {
+	color: #999999;
+	text-decoration: none;
+}
+
+.bct a:visited {
+	color: #999999;
+	text-decoration: none;
+}
