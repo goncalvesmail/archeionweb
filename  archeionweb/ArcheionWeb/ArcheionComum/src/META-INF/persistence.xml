@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+						 xmlns="http://java.sun.com/xml/ns/persistence"
+						 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+						 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+																 
+	<persistence-unit name="ARCHEION" transaction-type="RESOURCE_LOCAL">
+		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
+ 
+		<class>br.com.archeion.modelo.AbstractTO</class>
+		<class>br.com.archeion.modelo.empresa.Empresa</class>
+		<class>br.com.archeion.modelo.local.Local</class>
+		<class>br.com.archeion.modelo.itemdocumental.ItemDocumental</class>
+		<class>br.com.archeion.modelo.tipodocumento.TipoDocumento</class>
+		<class>br.com.archeion.modelo.grupo.Grupo</class>
+		<class>br.com.archeion.modelo.usuario.Usuario</class>
+		<class>br.com.archeion.modelo.funcionalidade.Funcionalidade</class>
+		<class>br.com.archeion.modelo.eventocontagem.EventoContagem</class>
+		<class>br.com.archeion.modelo.enderecocaixa.EnderecoCaixa</class>
+		<class>br.com.archeion.modelo.log.Log</class>
+		<class>br.com.archeion.modelo.ttd.TTD</class>
+		<class>br.com.archeion.modelo.documento.Documento</class>
+		<class>br.com.archeion.modelo.pasta.Pasta</class>
+		<class>br.com.archeion.modelo.caixa.Caixa</class>
+		<class>br.com.archeion.modelo.caixa.EmprestimoCaixa</class>
+		<class>br.com.archeion.modelo.pasta.EmprestimoPasta</class>
+	
+		<properties>
+			<property name="toplink.jdbc.driver" value="org.postgresql.Driver"/> 
+			<property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/archeionweb" />
+			<property name="toplink.ddl-generation" value="create-tables"/>  
+			<!--<property name="toplink.ddl-generation" value="drop-and-create-tables"/>-->
+			<property name="toplink.jdbc.user" value="postgres" />
+			<property name="toplink.jdbc.password" value="123456" />
+			<property name="toplink.target-database" value="PostgreSQL"/>
+		</properties>
+		<!-- 
+		<properties>
+			<property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
+			<property name="toplink.jdbc.url" value="jdbc:derby://localhost:1527/ARCHEION;create=true" />
+			<property name="toplink.ddl-generation" value="drop-and-create-tables"/>
+			<property name="toplink.jdbc.user" value="archeion" />
+			<property name="toplink.jdbc.password" value="archeion" />
+		</properties>
+		 -->
+	</persistence-unit>
+	
+	<!-- 
+	<persistence-unit name="ARCHEION_POSTGRE" transaction-type="RESOURCE_LOCAL">
+		<provider>oracle.toplink.essentials.PersistenceProvider</provider>
+
+		<class>br.com.archeion.modelo.AbstractTO</class>
+		<class>br.com.archeion.modelo.empresa.Empresa</class>
+	
+
+		<properties>
+			<property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
+			<property name="toplink.jdbc.url" value="jdbc:derby://localhost:1527/ARCHEION;create=true" />
+			<property name="toplink.ddl-generation" value="drop-and-create-tables"/>
+			<property name="toplink.jdbc.user" value="archeion" />
+			<property name="toplink.jdbc.password" value="archeion" />
+		</properties>
+		
+	</persistence-unit>
+	-->
+</persistence>
