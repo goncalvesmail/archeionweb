@@ -1,0 +1,65 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['itemdocumental.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+			<h:form>
+			
+				<table width="70%">
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['itemdocumental.nome']}:" for="nomeEmpresa" />
+						</td>
+						<td align="left">
+							<h:inputText id="nomeEmpresa" required="true" 
+								styleClass="campo" value="#{itemDocumentalBean.itemDocumental.nome}" 
+								requiredMessage="#{msgs['error.business.requiredField']}" />
+							<h:message for="nomeEmpresa" errorStyle="color: red;" />
+						</td>	
+					</tr>		
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.salvar']}" styleClass="botaoIntuitivo"
+								action="#{itemDocumentalBean.incluir}" />	
+							<h:commandButton value="#{msgs['geral.botao.salvarMais']}" styleClass="botaoIntuitivo"
+								action="#{itemDocumentalBean.incluirMais}" />	
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{itemDocumentalBean.findAll}" immediate="true" />	
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

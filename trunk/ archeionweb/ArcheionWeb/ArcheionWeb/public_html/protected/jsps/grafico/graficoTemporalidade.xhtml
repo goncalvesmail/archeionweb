@@ -1,0 +1,131 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://sourceforge.net/projects/jsf-comp"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['grafico.temporalidade.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>		
+			
+			
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2">
+					<tr>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['empresa.nome']}:" for="emp" />
+						
+							<a4j:region id="localRegion">						
+								<h:selectOneMenu id="emp" value="#{graficoTemporalidadeBean.pasta.local.empresa.id}" 
+									styleClass="campo" valueChangeListener="#{graficoTemporalidadeBean.valueChangedLista}">
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{graficoTemporalidadeBean.listaEmpresa}" />  
+									<a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>  
+								</h:selectOneMenu> 
+							</a4j:region>
+						</td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['local.nome']}:" for="local" />
+						
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<h:selectOneMenu id="local" value="#{graficoTemporalidadeBean.pasta.local.id}" styleClass="campo">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>
+									<f:selectItems value="#{graficoTemporalidadeBean.listaLocal}" />  
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+				        </td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['geral.previsao']}:" for="previsao" />
+							<h:selectOneMenu id="previsao" value="#{graficoTemporalidadeBean.previsao}" styleClass="campo">  
+								<f:selectItems value="#{graficoTemporalidadeBean.listaPrevisao}" />  
+							</h:selectOneMenu>						
+						</td>				        
+				     </tr>
+				     <tr>
+				     	<td>
+				            <h:outputLabel styleClass="labelObrigatorio" value="#{msgs['log.data.inicial']}:" for="inicio" />
+							<t:inputCalendar id="inicio"
+									renderAsPopup="true"
+									popupTodayString="#{msgs['geral.texto.data']}"
+									popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+									renderPopupButtonAsImage="true"
+									popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" 
+									styleClass="campo"
+									value="#{graficoTemporalidadeBean.inicio}"
+									converterMessage="#{msgs['error.business.dataInvalida']}">
+									
+							</t:inputCalendar>
+						</td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['log.data.final']}:" for="fim" />
+							<t:inputCalendar id="fim"
+									renderAsPopup="true"
+									popupTodayString="#{msgs['geral.texto.data']}"
+									popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+									renderPopupButtonAsImage="true"
+									popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" 
+									styleClass="campo"
+									value="#{graficoTemporalidadeBean.fim}"
+									converterMessage="#{msgs['error.business.dataInvalida']}">
+									
+							</t:inputCalendar>
+						
+						</td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['geral.diario']}:" for="diario" />
+							<h:selectBooleanCheckbox id="diario" value="#{graficoTemporalidadeBean.diario}"/>
+							
+							<h:commandButton value="#{msgs['geral.botao.pesquisa']}" styleClass="botaoIntuitivo"
+								action="#{graficoTemporalidadeBean.pesquisar}" /><br/>					
+						</td>						
+					</tr>
+				</table>
+			</h:form>			
+			
+			
+		
+			<c:chart id="chart1" datasource="#{graficoTemporalidadeBean.categoryDataset}" 
+				type="line" 
+				xlabel="#{msgs['geral.periodo']}"				
+				ylabel="#{msgs['geral.qtd.pastas']}"
+				antialias="true" 
+				outline="true" 
+				legend="false"
+				domainGridLines="true"
+				rangeGridLines="true"
+				width="500"
+				height="400"
+				is3d="false"
+				orientation="vertical">
+			</c:chart>						
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

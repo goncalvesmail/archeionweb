@@ -1,0 +1,47 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://sourceforge.net/projects/jsf-comp"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['grafico.vaga.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>		
+					
+			<c:chart id="chart1" datasource="#{graficoVagaBean.categoryDataset}" 
+				type="bar" 
+				xlabel="#{msgs['enderecoCaixa.nome']}"				
+				ylabel="#{msgs['geral.quantidade']}"	
+				antialias="true" 
+				outline="true" 
+				legend="true"
+				domainGridLines="true"
+				rangeGridLines="true"
+				width="500"
+				height="400"
+				orientation="vertical">
+			</c:chart>						
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

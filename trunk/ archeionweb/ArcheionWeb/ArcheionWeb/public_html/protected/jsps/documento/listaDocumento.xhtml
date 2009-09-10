@@ -1,0 +1,143 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['documento.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+			
+			<h:outputText value="#{msgs['documento.lista.vazia']}" styleClass="label" rendered="#{empty documentoBean.listaDocumento}"/>
+
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2">
+					<tr>
+						<td><h:dataTable id="locais" rows="10"
+							value="#{documentoBean.listaDocumento}" var="lista"
+							rendered="#{not empty documentoBean.listaDocumento}" align="center"
+							cellpadding="0" cellspacing="0" styleClass="tabela tabelaCss"
+							headerClass="tabela_header" rowClasses="odd, even"
+							columnClasses="col,col,col,col,col,col,col">
+				
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.local']}" />
+								</f:facet>
+								<h:outputText value="#{lista.local.nome}" />
+							</h:column>		
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.tipo']}" />
+								</f:facet>
+								<h:outputText value="#{lista.tipoDocumento.nome}" />
+							</h:column>			
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.origem']}" />
+								</f:facet>
+								<h:outputText value="#{lista.origem.descricao}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['documento.referencia']}" />
+								</f:facet>
+								<h:outputText value="#{lista.referencia}" />
+							</h:column>		
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.visualizar']}" />
+								</f:facet>
+								<h:commandLink action="#{documentoBean.goToVisualizar}" id="botaoVisualizar">
+									<h:graphicImage value="/images/visualizar.png" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>						
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.alterar']}" />
+								</f:facet>
+								<h:commandLink action="#{documentoBean.goToAlterar}" id="botaoAlterar">
+									<h:graphicImage value="/images/editar2.gif" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.excluir']}" />
+								</f:facet>
+								<h:commandLink action="#{documentoBean.remover}" id="botaoRemover"
+									onclick="if( !confirm('#{msgs['geral.mensagem.confirma.excluir']}') ) return false;">
+									<h:graphicImage value="/images/excluir2.gif" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>				
+						</h:dataTable></td>
+					</tr>
+				
+					<tr>
+						<td align="right">
+						<t:dataScroller id="Paginador"
+							for="locais" fastStep="10" pageCountVar="pageCount"
+							pageIndexVar="pageIndex" styleClass="paginacao" paginator="true"
+							paginatorMaxPages="5" paginatorTableClass="paginator"
+							paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
+							rendered="#{not empty documentoBean.listaDocumento}">
+							<f:facet name="first">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.primeira']} "
+									title="#{msgs['geral.pesquisa.paginacao.primeira.alt']} " />
+							</f:facet>
+							<f:facet name="last">
+								<h:outputText value="#{msgs['geral.pesquisa.paginacao.ultima']} "
+									title="#{msgs['geral.pesquisa.paginacao.ultima.alt']} " />
+							</f:facet>
+							<f:facet name="previous">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.anterior']} " />
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.proxima']} " />
+							</f:facet>
+							<f:facet name="fastforward">
+							</f:facet>
+							<f:facet name="fastrewind">
+							</f:facet> 
+						</t:dataScroller>
+						</td>
+					</tr>
+				</table>
+			</h:form>
+
+			<br />
+			<h:form>
+				<h:commandButton value="#{msgs['geral.botao.incluir']}" styleClass="botaoIntuitivo"
+					action="#{documentoBean.goToForm}" />
+				<h:commandButton value="#{msgs['geral.botao.imprimir']}" styleClass="botaoIntuitivo"
+					action="#{documentoBean.imprimir}" />
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

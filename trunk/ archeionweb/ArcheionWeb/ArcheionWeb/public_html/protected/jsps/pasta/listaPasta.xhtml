@@ -1,0 +1,187 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['pasta.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+			
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2">
+					<tr>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['empresa.nome']}:" for="emp" />
+						
+							<a4j:region id="localRegion">						
+								<h:selectOneMenu id="emp" value="#{pastaBean.pasta.local.empresa.id}" 
+									styleClass="campo" valueChangeListener="#{pastaBean.valueChangedLista}">
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{pastaBean.listaEmpresa}" />  
+									<a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>  
+								</h:selectOneMenu> 
+							</a4j:region>
+						
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['local.nome']}:" for="local" />
+						
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<h:selectOneMenu id="local" value="#{pastaBean.pasta.local.id}" styleClass="campo">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>
+									<f:selectItems value="#{pastaBean.listaLocal}" />  
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+				            
+
+				            <h:outputLabel styleClass="labelObrigatorio" value="#{msgs['emprestimo.caixa.situacao']}:" for="situacao" />
+				            
+				            <h:selectOneMenu id="situacao" value="#{pastaBean.pasta.situacao}" 
+								styleClass="campo">    
+								<f:selectItems value="#{pastaBean.listaSituacao}" />  									
+							</h:selectOneMenu>				            
+						
+							<h:commandButton value="#{msgs['geral.botao.pesquisa']}" styleClass="botaoIntuitivo"
+								action="#{pastaBean.findByEmpresaLocal}" /><br/>
+						</td>
+					</tr>
+				</table>
+			</h:form>
+			
+			<h:outputText value="#{msgs['pasta.lista.vazia']}" styleClass="label" rendered="#{empty pastaBean.listaPasta}"/>
+			
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2" >
+					<tr>
+						<td><h:dataTable id="itens" rows="20"
+							value="#{pastaBean.listaPasta}" var="lista"
+							rendered="#{not empty pastaBean.listaPasta}" align="center"
+							cellpadding="0" cellspacing="0" styleClass="tabela tabelaCss"
+							headerClass="tabela_header" rowClasses="odd, even"
+							columnClasses="col,col,col,col,col,col,col,col"
+							style="width: 100%; cellspacing:2;">
+		
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['pasta.texto.titulo']}" />
+								</f:facet>
+								<h:outputText value="#{lista.titulo}" />
+							</h:column>			
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['pasta.texto.caixeta']}" />
+								</f:facet>
+								<h:outputText value="#{lista.caixeta}" />
+							</h:column>		
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['emprestimo.caixa.situacao']}" />
+								</f:facet>
+								<h:outputText value="#{lista.situacao.descricao}" />
+							</h:column>								
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.visualizar']}" />
+								</f:facet>
+								<h:commandLink action="#{pastaBean.goToVisualizar}" id="botaoVisualizar">
+									<h:graphicImage value="/images/visualizar.png" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>															
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.alterar']}" />
+								</f:facet>
+								<h:commandLink action="#{pastaBean.goToAlterar}"
+								 	rendered="#{lista.situacao.id==2}"
+									id="botaoAlterar">
+									<h:graphicImage value="/images/editar2.gif" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{msgs['geral.botao.excluir']}" />
+								</f:facet>
+								<h:commandLink action="#{pastaBean.remover}" id="botaoRemover"
+								 	rendered="#{lista.situacao.id==2}"
+									onclick="if( !confirm('#{msgs['geral.mensagem.confirma.excluir']}') ) return false;">
+									<h:graphicImage value="/images/excluir2.gif" border="0" />
+									<f:param name="_id" value="#{lista.id}" />
+								</h:commandLink>
+							</h:column>
+						</h:dataTable></td>
+					</tr>
+				
+					<tr>
+						<td align="right">
+						<t:dataScroller id="Paginador"
+							for="itens" fastStep="20" pageCountVar="pageCount"
+							pageIndexVar="pageIndex" styleClass="paginacao" paginator="true"
+							paginatorMaxPages="5" paginatorTableClass="paginator"
+							paginatorActiveColumnStyle="font-weight:bold;" immediate="true"
+							rendered="#{not empty pastaBean.listaPasta}">
+							<f:facet name="first">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.primeira']} "
+									title="#{msgs['geral.pesquisa.paginacao.primeira.alt']} " />
+							</f:facet>
+							<f:facet name="last">
+								<h:outputText value="#{msgs['geral.pesquisa.paginacao.ultima']} "
+									title="#{msgs['geral.pesquisa.paginacao.ultima.alt']} " />
+							</f:facet>
+							<f:facet name="previous">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.anterior']} " />
+							</f:facet>
+							<f:facet name="next">
+								<h:outputText
+									value="#{msgs['geral.pesquisa.paginacao.proxima']} " />
+							</f:facet>
+							<f:facet name="fastforward">
+							</f:facet>
+							<f:facet name="fastrewind">
+							</f:facet>
+						</t:dataScroller>
+						</td>
+					</tr>
+				</table>
+			</h:form>
+
+			<br />
+			<h:form>
+				<h:commandButton value="#{msgs['geral.botao.incluir']}" styleClass="botaoIntuitivo"
+					action="#{pastaBean.goToForm}" />
+<h:commandButton value="#{msgs['geral.botao.imprimir']}" styleClass="botaoIntuitivo"
+					action="#{pastaBean.imprimir}" />					
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

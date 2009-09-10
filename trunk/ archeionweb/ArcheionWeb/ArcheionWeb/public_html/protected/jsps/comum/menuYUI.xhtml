@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<f:view>
+		<ui:composition>
+         
+        <h:form>
+	        <rich:toolBar contentStyle="z-index:100;">
+	            <rich:dropDownMenu value="Tabelas">
+	            	<rich:menuItem value="Empresa" action="#{empresaBean.findAll}" style="text-align: left"/>
+			        <rich:menuItem value="Local" action="#{localBean.findAll}" style="text-align: left"/>
+			        <rich:menuItem value="Item Documental" action="#{itemDocumentalBean.findAll}" style="text-align: left"/>
+			        <rich:menuItem value="Evento de Contagem" action="#{eventoContagemBean.findAll}" style="text-align: left"/>
+			        <rich:menuItem value="Tipo de Documento" action="#{tipoDocumentoBean.findAll}" style="text-align: left"/>
+			        <rich:menuItem value="Endereço da Caixa" action="#{enderecoCaixaBean.findAll}" style="text-align: left"/>
+			    </rich:dropDownMenu>
+			    <rich:dropDownMenu value="TTD">	            	
+			       	<rich:menuItem value="Cadastro" action="#{ttdBean.findAll}" style="text-align: left"/>
+			    </rich:dropDownMenu>
+			    <rich:dropDownMenu value="Documento">	            	
+			       	<rich:menuItem value="Cadastro" action="#{documentoBean.findAll}" style="text-align: left"/>
+			       	<rich:menuItem value="Localizar" action="#{localizarDocumentoBean.goToLocalizarDocumento}" style="text-align: left"/>
+			    </rich:dropDownMenu>	
+			    <rich:dropDownMenu value="Pasta">	            	
+			       	<rich:menuItem value="Cadastro" action="#{pastaBean.findAll}" style="text-align: left"/>
+			       	<rich:menuItem value="Localizar" action="#{localizarPastaBean.goToLocalizarPasta}" style="text-align: left"/>
+			       	<rich:menuItem value="Imprimir Etiqueta" action="#{localizarPastaBean.goToEtiquetaPasta}" style="text-align: left"/>
+			       	<rich:menuItem value="Expurgo" action="#{expurgoPastaBean.goToForm}" style="text-align: left"/>
+			    	<rich:menuItem value="Empréstimo" action="#{emprestimoPastaBean.findAll}" style="text-align: left"/>
+			    	<rich:menuItem value="Recolhimento" action="#{caixaBean.goToForm}" style="text-align: left"/>
+			    </rich:dropDownMenu>
+			    <rich:dropDownMenu value="Caixa">	            	
+			       	<rich:menuItem value="Cadastro" action="#{caixaBean.findAll}" style="text-align: left"/>
+			       	<rich:menuItem value="Imprimir Etiqueta" action="#{caixaBean.goToEtiqueta}" style="text-align: left"/>			       	
+			       	<rich:menuItem value="Expurgo" action="#{expurgoCaixaBean.goToForm}" style="text-align: left"/>
+			       	<rich:menuItem value="Empréstimo" action="#{emprestimoCaixaBean.findAll}" style="text-align: left"/>
+			    </rich:dropDownMenu>
+			    <rich:dropDownMenu value="Gráficos">	            	
+			       	<rich:menuItem value="Gráfico Vagas" action="#{graficoVagaBean.goToGrafico}" style="text-align: left"/>
+			       	<rich:menuItem value="Gráfico Documentos" action="#{graficoDocumentoBean.goToGrafico}" style="text-align: left"/>
+			       	<rich:menuItem value="Gráfico Temporalidade" action="#{graficoTemporalidadeBean.goToGrafico}" style="text-align: left"/>
+			    </rich:dropDownMenu>				    		    
+			    <rich:dropDownMenu value="Administração">	            	
+			       	<rich:menuItem value="Usuários" action="#{usuarioBean.findAll}" style="text-align: left"/>
+			       	<rich:menuItem value="Grupos" action="#{grupoBean.findAll}" style="text-align: left"/>
+			       	<rich:menuItem value="Auditoria" action="#{logBean.pesquisar}" style="text-align: left"/>
+			    </rich:dropDownMenu>
+	    
+			</rich:toolBar>
+			
+			<table style="width: 100%; text-align: right; white-space: nowrap;">
+				<tr>
+					<td nowrap="nowrap">			
+						<img src="${facesContext.externalContext.requestContextPath}/images/user.png" 
+							width="16px" height="16px"/>
+						<h:outputText value="#{authenticationController.usuario.nome}," styleClass="label"/>
+						
+						<h:commandLink immediate="true" value="Sair" 
+							action="#{authenticationController.logout}" styleClass="label">
+						</h:commandLink> 
+						
+					</td>
+				</tr>
+			</table>
+			
+		</h:form>
+		
+		</ui:composition>
+	</f:view>
+</jsp:root>

@@ -1,0 +1,71 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" 
+				cellpadding="0" cellspacing="0"	bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['empresa.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>
+			</table>	
+			
+			<h:outputText value="#{msgs['empresa.lista.vazia']}" styleClass="label" rendered="#{empresaBean.rootNode == null}"/>
+
+			<h:form>
+						
+				<table class="tabelasemlinha" align="center">
+					<tr class="tabela_header">
+						<td >
+							<h:outputText value="#{msgs['empresa.nome']}" rendered="#{empresaBean.rootNode != null}" />
+						</td>
+					</tr>	
+					<tr>
+						<td>
+							<rich:tree style="width:300px" 
+              			  		switchType="client" value="#{empresaBean.rootNode}"
+                				rendered="#{empresaBean.rootNode != null}"  
+                				var="item">
+                				
+                				<rich:treeNode>  
+                         			<h:commandLink immediate="true" value="#{item}" 
+										action="#{empresaBean.goToAlterar}" styleClass="label">
+										<f:param name="_id" value="#{item}" />
+									</h:commandLink>                            		
+                    			</rich:treeNode> 
+                				
+							</rich:tree>	
+						</td>
+					</tr>				
+				</table>
+			</h:form>
+
+			<br />
+			<h:form>
+				<h:commandButton value="#{msgs['geral.botao.incluir']}" styleClass="botaoIntuitivo"
+					action="#{empresaBean.goToForm}" />				
+				<h:commandButton value="#{msgs['geral.botao.imprimir']}" styleClass="botaoIntuitivo"
+					action="#{empresaBean.imprimir}" />
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>
