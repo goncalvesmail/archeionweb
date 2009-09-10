@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+<wb-module deploy-name="ArcheionWeb">
+<wb-resource deploy-path="/" source-path="/ArcheionWeb/public_html"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/ArcheionComum/src"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/ArcheionPersistencia/src"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/ArcheionNegocio/src"/>
+<wb-resource deploy-path="/WEB-INF/classes" source-path="/ArcheionWeb/src"/>
+<property name="java-output-path" value="build/classes"/>
+<property name="context-root" value="archeion"/>
+</wb-module>
+</project-modules>
