@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS ENTITY="JSFProcess">
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#pesquisa#*"
+  PATH="/protected/jsps/pesquisa/*" SHAPE="32,17,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem"
+   ID="rules:#protected#jsps#pesquisa#*:0" NAME="item" PATH="/protected/jsps/pesquisa/*">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioRepresentanteBean.novo}:#protected#jsps#cadastros#formularioRepresentante.jsf"
+    NAME="output4"
+    PATH="/protected/jsps/cadastros/formularioRepresentante.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioRepresentante.jsf" TITLE="#{formularioRepresentanteBean.novo}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioRepresentanteBean.detalhar}:#protected#jsps#cadastros#formularioRepresentante.jsf"
+    NAME="output5"
+    PATH="/protected/jsps/cadastros/formularioRepresentante.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioRepresentante.jsf" TITLE="#{formularioRepresentanteBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioRepresentanteBean.alterar}:#protected#jsps#cadastros#formularioRepresentante.jsf"
+    NAME="output6"
+    PATH="/protected/jsps/cadastros/formularioRepresentante.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioRepresentante.jsf" TITLE="#{formularioRepresentanteBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioBeneficiosBean.abrir}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output7" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioBeneficiosBean.abrir}:sucesso"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup" NAME="rules:*" PATH="*" SHAPE="32,353,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem" ID="rules:*:0" NAME="item" PATH="*">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioHistoricoFuncionalBean.listar}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output12" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioHistoricoFuncionalBean.listar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="exibeLimites::#protected#jsps#cadastros#exibeLimites.jsf"
+    NAME="output13" PATH="/protected/jsps/cadastros/exibeLimites.jsf"
+    TARGET="rules:#protected#jsps#cadastros#exibeLimites.jsf" TITLE="exibeLimites"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="alteraLimites::#protected#jsps#cadastros#alteracaoLimites.jsf"
+    NAME="output14"
+    PATH="/protected/jsps/cadastros/alteracaoLimites.jsf"
+    TARGET="rules:#protected#jsps#cadastros#alteracaoLimites.jsf" TITLE="alteraLimites"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioDependentesBean.listar}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output23" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioDependentesBean.listar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioDependentesBean.detalhar}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output24" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioDependentesBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioDependentesBean.alterar}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output25" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioDependentesBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioDependentesBean.incluir}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output26" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioDependentesBean.incluir}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioEnteBean.configurarEnte}:#protected#jsps#cadastros#formularioEnte.jsf"
+    NAME="output27" PATH="/protected/jsps/cadastros/formularioEnte.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioEnte.jsf" TITLE="#{formularioEnteBean.configurarEnte}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioEnteBean.detalharEnte}:#protected#jsps#cadastros#formularioEnte.jsf"
+    NAME="output28" PATH="/protected/jsps/cadastros/formularioEnte.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioEnte.jsf" TITLE="#{formularioEnteBean.detalharEnte}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{configuracaoEnteBean.atualizarMaioridade}:#protected#jsps#maioridade#pesquisaMaioridade.jsf"
+    NAME="output"
+    PATH="/protected/jsps/maioridade/pesquisaMaioridade.jsf"
+    TARGET="rules:#protected#jsps#maioridade#pesquisaMaioridade.jsf" TITLE="#{configuracaoEnteBean.atualizarMaioridade}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioTemposAposentadoriaBean.listar}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output1" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioTemposAposentadoriaBean.listar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioTemposAposentadoriaBean.detalharTempoDeContribuicao}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output2" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioTemposAposentadoriaBean.detalharTempoDeContribuicao}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioTemposAposentadoriaBean.alterarTempoDeContribuicao}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output3" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioTemposAposentadoriaBean.alterarTempoDeContribuicao}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioHistoricoFinanceiroBean.selecionarFichaFuncional}:#protected#jsps#cadastros#painelServidor.jsf"
+    NAME="output45" PATH="/protected/jsps/cadastros/painelServidor.jsf"
+    TARGET="rules:#protected#jsps#cadastros#painelServidor.jsf" TITLE="#{formularioHistoricoFinanceiroBean.selecionarFichaFuncional}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaServidoresComPensionistaBean.selecionar}:#protected#jsps#pesquisa#pesquisaPensionistaServidor.jsf"
+    NAME="output46"
+    PATH="/protected/jsps/pesquisa/pesquisaPensionistaServidor.jsf"
+    TARGET="rules:#protected#jsps#pesquisa#pesquisaPensionistaServidor.jsf" TITLE="#{pesquisaServidoresComPensionistaBean.selecionar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaPensionistaServidorBean.voltar}:#protected#jsps#pesquisa#pesquisaServidoresComPensionista.jsf"
+    NAME="output47"
+    PATH="/protected/jsps/pesquisa/pesquisaServidoresComPensionista.jsf"
+    TARGET="rules:#protected#jsps#pesquisa#pesquisaServidoresComPensionista.jsf" TITLE="#{pesquisaPensionistaServidorBean.voltar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPensionistaBean.incluir}:#protected#jsps#cadastros#formularioPensionista.jsf"
+    NAME="output48"
+    PATH="/protected/jsps/cadastros/formularioPensionista.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPensionista.jsf" TITLE="#{formularioPensionistaBean.incluir}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPensionistaBean.detalhar}:#protected#jsps#cadastros#formularioPensionista.jsf"
+    NAME="output49"
+    PATH="/protected/jsps/cadastros/formularioPensionista.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPensionista.jsf" TITLE="#{formularioPensionistaBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPensionistaBean.alterar}:#protected#jsps#cadastros#formularioPensionista.jsf"
+    NAME="output50"
+    PATH="/protected/jsps/cadastros/formularioPensionista.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPensionista.jsf" TITLE="#{formularioPensionistaBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPensionistaBean.cancelar}:#protected#jsps#pesquisa#pesquisaPensionistaServidor.jsf"
+    NAME="output51"
+    PATH="/protected/jsps/pesquisa/pesquisaPensionistaServidor.jsf"
+    TARGET="rules:#protected#jsps#pesquisa#pesquisaPensionistaServidor.jsf" TITLE="#{formularioPensionistaBean.cancelar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCensoBean.voltar}:#protected#jsps#pesquisa#pesquisaCenso.jsf"
+    NAME="output57" PATH="/protected/jsps/pesquisa/pesquisaCenso.jsf"
+    TARGET="rules:#protected#jsps#pesquisa#pesquisaCenso.jsf" TITLE="#{formularioCensoBean.voltar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCensoBean.detalhar}:#protected#jsps#cadastros#formularioCenso.jsf"
+    NAME="output58" PATH="/protected/jsps/cadastros/formularioCenso.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioCenso.jsf" TITLE="#{formularioCensoBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCensoBean.alterar}:#protected#jsps#cadastros#formularioCenso.jsf"
+    NAME="output59" PATH="/protected/jsps/cadastros/formularioCenso.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioCenso.jsf" TITLE="#{formularioCensoBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCensoBean.incluir}:#protected#jsps#cadastros#formularioCenso.jsf"
+    NAME="output60" PATH="/protected/jsps/cadastros/formularioCenso.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioCenso.jsf" TITLE="#{formularioCensoBean.incluir}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPostoAtendimentoBean.incluir}:#protected#jsps#cadastros#formularioPostoAtendimento.jsf"
+    NAME="output61"
+    PATH="/protected/jsps/cadastros/formularioPostoAtendimento.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPostoAtendimento.jsf" TITLE="#{formularioPostoAtendimentoBean.incluir}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPostoAtendimentoBean.detalhar}:#protected#jsps#cadastros#formularioPostoAtendimento.jsf"
+    NAME="output62"
+    PATH="/protected/jsps/cadastros/formularioPostoAtendimento.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPostoAtendimento.jsf" TITLE="#{formularioPostoAtendimentoBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioPostoAtendimentoBean.alterar}:#protected#jsps#cadastros#formularioPostoAtendimento.jsf"
+    NAME="output63"
+    PATH="/protected/jsps/cadastros/formularioPostoAtendimento.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioPostoAtendimento.jsf" TITLE="#{formularioPostoAtendimentoBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioUsuarioBean.incluir}:#protected#jsps#cadastros#formularioUsuario.jsf"
+    NAME="output17"
+    PATH="/protected/jsps/cadastros/formularioUsuario.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioUsuario.jsf" TITLE="#{formularioUsuarioBean.incluir}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioUsuarioBean.detalhar}:#protected#jsps#cadastros#formularioUsuario.jsf"
+    NAME="output18"
+    PATH="/protected/jsps/cadastros/formularioUsuario.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioUsuario.jsf" TITLE="#{formularioUsuarioBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioUsuarioBean.alterar}:#protected#jsps#cadastros#formularioUsuario.jsf"
+    NAME="output19"
+    PATH="/protected/jsps/cadastros/formularioUsuario.jsf"
+    TARGET="rules:#protected#jsps#cadastros#formularioUsuario.jsf" TITLE="#{formularioUsuarioBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioUsuarioBean.cancelar}:#protected#jsps#pesquisa#pesquisaUsuario.jsf"
+    NAME="output20" PATH="/protected/jsps/pesquisa/pesquisaUsuario.jsf"
+    TARGET="rules:#protected#jsps#pesquisa#pesquisaUsuario.jsf" TITLE="#{formularioUsuarioBean.cancelar}:sucesso"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioPensionista.jsf"
+  PATH="/protected/jsps/cadastros/formularioPensionista.jsf" SHAPE="304,4001,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#pesquisa#pesquisaUsuario.jsf"
+  PATH="/protected/jsps/pesquisa/pesquisaUsuario.jsf" SHAPE="304,369,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#pesquisa#pesquisaPensionistaServidor.jsf"
+  PATH="/protected/jsps/pesquisa/pesquisaPensionistaServidor.jsf" SHAPE="304,3777,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioEnte.jsf"
+  PATH="/protected/jsps/cadastros/formularioEnte.jsf" SHAPE="304,3217,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#pesquisa#pesquisaCenso.jsf"
+  PATH="/protected/jsps/pesquisa/pesquisaCenso.jsf" SHAPE="304,4337,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#pesquisa#pesquisaServidoresComPensionista.jsf"
+  PATH="/protected/jsps/pesquisa/pesquisaServidoresComPensionista.jsf" SHAPE="304,3889,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioUsuario.jsf"
+  PATH="/protected/jsps/cadastros/formularioUsuario.jsf" SHAPE="304,369,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#alteracaoLimites.jsf"
+  PATH="/protected/jsps/cadastros/alteracaoLimites.jsf" SHAPE="304,2769,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioRepresentante.jsf"
+  PATH="/protected/jsps/cadastros/formularioRepresentante.jsf" SHAPE="304,33,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioPostoAtendimento.jsf"
+  PATH="/protected/jsps/cadastros/formularioPostoAtendimento.jsf" SHAPE="304,369,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#formularioCenso.jsf"
+  PATH="/protected/jsps/cadastros/formularioCenso.jsf" SHAPE="304,4449,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#painelServidor.jsf"
+  PATH="/protected/jsps/cadastros/painelServidor.jsf" SHAPE="304,2545,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#cadastros#exibeLimites.jsf"
+  PATH="/protected/jsps/cadastros/exibeLimites.jsf" SHAPE="304,2657,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#maioridade#pesquisaMaioridade.jsf"
+  PATH="/protected/jsps/maioridade/pesquisaMaioridade.jsf" SHAPE="304,1953,0,0"/>
+</PROCESS>

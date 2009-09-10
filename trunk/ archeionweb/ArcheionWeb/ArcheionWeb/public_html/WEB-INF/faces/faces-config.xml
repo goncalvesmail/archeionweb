@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<converter>
+		<converter-id>funcionalidadeConverter</converter-id>
+		<converter-class>br.com.archeion.converters.FuncionalidadeConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>etiquetaPastaConverter</converter-id>
+		<converter-class>br.com.archeion.converters.EtiquetaPastaConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>etiquetaCaixaConverter</converter-id>
+		<converter-class>br.com.archeion.converters.EtiquetaCaixaConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>grupoConverter</converter-id>
+		<converter-class>br.com.archeion.converters.GrupoConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>booleanAtivoInativoConverter</converter-id>
+		<converter-class>br.com.archeion.converters.BooleanAtivoInativoConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>booleanSimNaoConverter</converter-id>
+		<converter-class>br.com.archeion.converters.BooleanSimNaoConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>doubleConverter</converter-id>
+		<converter-class>br.com.archeion.converters.DoubleConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>cepConverter</converter-id>
+		<converter-class>br.com.archeion.converters.CEPConverter</converter-class>
+	</converter>
+	
+	<application>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+		</locale-config>
+	  <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>  
+		<navigation-handler>br.com.archeion.jsf.ArcheionNavigationHandler</navigation-handler>
+		<resource-bundle>
+   		<base-name>br.com.archeion.resources.messages</base-name>
+   		<var>msgs</var>
+  	</resource-bundle>
+  	
+    </application>
+
+    <lifecycle>
+		<phase-listener>br.com.archeion.jsf.ArcheionPhaseListener</phase-listener>
+    </lifecycle>
+
+	<managed-bean>
+		<managed-bean-name>appUtilBean</managed-bean-name>
+		<managed-bean-class>br.com.archeion.mbean.ApplicationUtilBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>authenticationController</managed-bean-name>
+		<managed-bean-class>br.com.archeion.mbean.AuthenticationController</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>exceptionManagedBean</managed-bean-name>
+		<managed-bean-class>br.com.archeion.mbean.ExceptionManagedBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{authenticationController.authenticate}</from-action>
+			<from-outcome>sucesso</from-outcome>
+			<to-view-id>/protected/jsps/home.jsf</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{authenticationController.authenticate}</from-action>
+			<from-outcome>falha</from-outcome>
+			<to-view-id>/login.jsf</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+        	<from-action>#{authenticationController.logout}</from-action>
+            <from-outcome>sucesso</from-outcome>
+            <to-view-id>/login.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error.handler</from-outcome>
+            <to-view-id>/error.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>access.denied</from-outcome>
+            <to-view-id>/accessDenied.jsf</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToIndex</from-outcome>
+            <to-view-id>/protected/jsps/home.jsf</to-view-id>
+        </navigation-case>
+	</navigation-rule>
+</faces-config>

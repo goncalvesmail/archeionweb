@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS ENTITY="JSFProcess">
+ <PROCESS-ITEM ENTITY="JSFProcessGroup" NAME="rules:*" PATH="*" SHAPE="32,17,0,0">
+  <PROCESS-ITEM ENTITY="JSFProcessItem" ID="rules:*:0" NAME="item" PATH="*">
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.carregarTelaPesquisa}:#protected#jsps#carreira#pesquisaCarreira.jsf"
+    NAME="output" PATH="/protected/jsps/carreira/pesquisaCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#pesquisaCarreira.jsf" TITLE="#{pesquisaCarreiraBean.carregarTelaPesquisa}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.novo}:#protected#jsps#carreira#formularioCarreira.jsf"
+    NAME="output1"
+    PATH="/protected/jsps/carreira/formularioCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#formularioCarreira.jsf" TITLE="#{pesquisaCarreiraBean.novo}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.detalhar}:#protected#jsps#carreira#formularioCarreira.jsf"
+    NAME="output2"
+    PATH="/protected/jsps/carreira/formularioCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#formularioCarreira.jsf" TITLE="#{pesquisaCarreiraBean.detalhar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.alterar}:#protected#jsps#carreira#formularioCarreira.jsf"
+    NAME="output3"
+    PATH="/protected/jsps/carreira/formularioCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#formularioCarreira.jsf" TITLE="#{pesquisaCarreiraBean.alterar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCarreiraBean.update}:#protected#jsps#carreira#pesquisaCarreira.jsf"
+    NAME="output4" PATH="/protected/jsps/carreira/pesquisaCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#pesquisaCarreira.jsf" TITLE="#{formularioCarreiraBean.update}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCarreiraBean.salvar}:#protected#jsps#carreira#pesquisaCarreira.jsf"
+    NAME="output5" PATH="/protected/jsps/carreira/pesquisaCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#pesquisaCarreira.jsf" TITLE="#{formularioCarreiraBean.salvar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="fracasso:#{formularioCarreiraBean.salvar}:#protected#jsps#carreira#formularioCarreira.jsf"
+    NAME="output6"
+    PATH="/protected/jsps/carreira/formularioCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#formularioCarreira.jsf" TITLE="#{formularioCarreiraBean.salvar}:fracasso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.remover}:#protected#jsps#carreira#pesquisaCarreira.jsf"
+    NAME="output7" PATH="/protected/jsps/carreira/pesquisaCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#pesquisaCarreira.jsf" TITLE="#{pesquisaCarreiraBean.remover}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{pesquisaCarreiraBean.limpar}:#protected#jsps#carreira#formularioCarreira.jsf"
+    NAME="output8"
+    PATH="/protected/jsps/carreira/formularioCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#formularioCarreira.jsf" TITLE="#{pesquisaCarreiraBean.limpar}:sucesso"/>
+   <PROCESS-ITEM-OUTPUT ENTITY="JSFProcessItemOutput"
+    ID="sucesso:#{formularioCarreiraBean.voltar}:#protected#jsps#carreira#pesquisaCarreira.jsf"
+    NAME="output9" PATH="/protected/jsps/carreira/pesquisaCarreira.jsf"
+    TARGET="rules:#protected#jsps#carreira#pesquisaCarreira.jsf" TITLE="#{formularioCarreiraBean.voltar}:sucesso"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#carreira#formularioCarreira.jsf"
+  PATH="/protected/jsps/carreira/formularioCarreira.jsf" SHAPE="304,33,0,0"/>
+ <PROCESS-ITEM ENTITY="JSFProcessGroup"
+  NAME="rules:#protected#jsps#carreira#pesquisaCarreira.jsf"
+  PATH="/protected/jsps/carreira/pesquisaCarreira.jsf" SHAPE="304,337,0,0"/>
+</PROCESS>
