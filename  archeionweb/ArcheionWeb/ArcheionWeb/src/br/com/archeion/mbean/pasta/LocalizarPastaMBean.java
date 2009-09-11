@@ -419,7 +419,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 			ServletOutputStream responseStream;
 			responseStream = response.getOutputStream();
 			String pathJasper = ((ServletContext)context.getExternalContext().getContext()).getRealPath("/WEB-INF/relatorios/")+ 
-			"/ArcheionEtiquetaPastaPorCaixa.jasper";
+			"/ArcheionEtiquetaPastaPorCaixeta.jasper";
 			HashMap<String, Object> param = new HashMap<String, Object>();
 			ParametrosReport ids = new ParametrosReport();
 			for(Pasta p: listaPastaTarget) {
