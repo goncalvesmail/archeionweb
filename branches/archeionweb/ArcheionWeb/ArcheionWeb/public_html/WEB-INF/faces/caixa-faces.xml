@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	<managed-bean>
+		<managed-bean-name>caixaBean</managed-bean-name>
+		<managed-bean-class>
+			br.com.archeion.mbean.caixa.CaixaMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>expurgoCaixaBean</managed-bean-name>
+		<managed-bean-class>
+			br.com.archeion.mbean.caixa.ExpurgoCaixaMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+		
+	<managed-bean>
+		<managed-bean-name>emprestimoCaixaBean</managed-bean-name>
+		<managed-bean-class>
+			br.com.archeion.mbean.caixa.EmprestimoCaixaMBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>formularioEtiquetaCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/caixa/formularioCaixaEtiqueta.jsf
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formularioCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/caixa/formularioCaixa.jsf
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formularioAlterarCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/caixa/formularioAlterarCaixa.jsf
+			</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>listaCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/caixa/listaCaixa.jsf
+			</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>formularioExpurgoCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/caixa/formularioExpurgoCaixa.jsf
+			</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>formularioEmprestimoCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/emprestimoCaixa/formularioEmprestimoCaixa.jsf
+			</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>listaEmprestimoCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/emprestimoCaixa/listaEmprestimoCaixa.jsf
+			</to-view-id>
+		</navigation-case>	
+		<navigation-case>
+			<from-outcome>formularioAlterarEmprestimoCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/emprestimoCaixa/formularioAlterarEmprestimoCaixa.jsf
+			</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>formularioDevolverCaixa</from-outcome>
+			<to-view-id>
+				/protected/jsps/emprestimoCaixa/formularioDevolucaoCaixa.jsf
+			</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+
+</faces-config>

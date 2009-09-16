@@ -1,0 +1,93 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://sourceforge.net/projects/jsf-comp"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['grafico.documento.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+			
+			<h:form>
+				<table class="tabelasemlinha" align="center" cellpadding="2"
+					cellspacing="2">
+					<tr>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['empresa.nome']}:" for="emp" />
+						
+							<a4j:region id="localRegion">						
+								<h:selectOneMenu id="emp" value="#{graficoDocumentoBean.empresa.id}" 
+									styleClass="campo" valueChangeListener="#{graficoDocumentoBean.valueChangedLista}">
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/> 
+									<f:selectItems value="#{graficoDocumentoBean.listaEmpresa}" />  
+									<a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>  
+								</h:selectOneMenu> 
+							</a4j:region>
+						</td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['local.nome']}:" for="local" />
+						
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<h:selectOneMenu id="local" value="#{graficoDocumentoBean.local.id}" styleClass="campo">  
+									<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>
+									<f:selectItems value="#{graficoDocumentoBean.listaLocal}" />  
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+				        </td>
+						<td>
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['itemdocumental.nome']}:" for="item" />
+							<h:selectOneMenu id="tipo" value="#{graficoDocumentoBean.item.id}" styleClass="campo">  
+								<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.vazio']}"/>
+								<f:selectItems value="#{graficoDocumentoBean.listaTipoDocumento}" />  
+							</h:selectOneMenu>					
+						</td>				        
+						<td>				
+							<h:commandButton value="#{msgs['geral.botao.pesquisa']}" styleClass="botaoIntuitivo"
+								action="#{graficoDocumentoBean.pesquisar}" /><br/>					
+						</td>						
+					</tr>
+				</table>
+			</h:form>				
+					
+			<c:chart id="chart1" datasource="#{graficoDocumentoBean.categoryDataset}" 
+				type="line" 
+				antialias="true" 
+				outline="true" 
+				legend="false"
+				domainGridLines="true"
+				rangeGridLines="true"
+				width="500"
+				height="400"
+				is3d="false"
+				orientation="vertical">
+			</c:chart>						
+
+		</ui:define>
+	</ui:composition>
+</jsp:root>

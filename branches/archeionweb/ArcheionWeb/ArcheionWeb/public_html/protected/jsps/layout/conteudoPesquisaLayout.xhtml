@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:t="http://myfaces.apache.org/tomahawk"
+    version="2.0">
+	<div>
+  	<ui:insert name="abas" />
+    <div class="cabecalho">
+			<span class="titulopag"><ui:insert name="cabecalho" /></span>
+    </div>
+    <div class="botaoajuda">
+    	<form jsfc="h:form" id="formAjuda">
+    		<ui:insert name="botaoAjuda" />
+    	</form>
+    </div>
+    <div class="panel">
+			<ui:insert name="filtro" />
+    </div>
+    <div class="panel">
+			<ui:insert name="resultado" />
+    </div>
+	</div>
+</jsp:root>

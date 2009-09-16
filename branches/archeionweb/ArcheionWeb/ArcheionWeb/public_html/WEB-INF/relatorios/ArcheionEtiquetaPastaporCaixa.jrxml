@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ArcheionEtiquetaPastaporCaixa"
+		 columnCount="2"
+		 printOrder="Horizontal"
+		 orientation="Portrait"
+		 pageWidth="612"
+		 pageHeight="793"
+		 columnWidth="291"
+		 columnSpacing="14"
+		 leftMargin="8"
+		 rightMargin="8"
+		 topMargin="42"
+		 bottomMargin="34"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="idsPasta" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[select e.nm_empresa, l.nm_local, it.nm_item_documental, p.nm_titulo,
+       p.dt_previsao_recolhimento, p.dt_previsao_expurgo, p.nm_caixeta,
+       cx.nu_vao_endereco_caixa, ecx.vao_endereco_caixa
+from tb_pasta p join tb_local l on (p.id_local = l.id_local)
+     join tb_empresa e on (l.id_empresa = e.id_empresa) 
+     join tb_item_documental it on (p.id_item_documental = it.id_item_documental) 
+     left outer join tb_caixa cx on(p.id_caixa = cx.id_caixa)
+     left outer join tb_endereco_caixa ecx on (cx.id_endereco_caixa = ecx.id_endereco_caixa)
+  where p.id_pasta in ($P!{idsPasta})
+order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
+
+	<field name="nm_empresa" class="java.lang.String"/>
+	<field name="nm_local" class="java.lang.String"/>
+	<field name="nm_item_documental" class="java.lang.String"/>
+	<field name="nm_titulo" class="java.lang.String"/>
+	<field name="dt_previsao_recolhimento" class="java.sql.Date"/>
+	<field name="dt_previsao_expurgo" class="java.sql.Date"/>
+	<field name="nm_caixeta" class="java.lang.String"/>
+	<field name="nu_vao_endereco_caixa" class="java.lang.Integer"/>
+	<field name="vao_endereco_caixa" class="java.lang.String"/>
+
+	<variable name="caixaCaixeta" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new String(
+($F{vao_endereco_caixa} == null)?("Caixeta: "+$F{nm_caixeta}):("Caixa: "+ $F{vao_endereco_caixa}+$F{nu_vao_endereco_caixa})
+)]]></variableExpression>
+	</variable>
+	<variable name="dataExpurgo" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[new String(
+($F{dt_previsao_expurgo} == null)?"Permanente": new SimpleDateFormat("dd/MM/yyyy").format($F{dt_previsao_expurgo})
+)]]></variableExpression>
+	</variable>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="141"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="5"
+						y="5"
+						width="49"
+						height="18"
+						key="staticText-1"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Empresa:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="24"
+						width="49"
+						height="18"
+						key="staticText-2"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Local:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="81"
+						width="49"
+						height="18"
+						key="staticText-3"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Título:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="61"
+						width="49"
+						height="18"
+						key="staticText-4"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Item Doc:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="56"
+						y="5"
+						width="111"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_empresa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="56"
+						y="24"
+						width="218"
+						height="37"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_local}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="56"
+						y="62"
+						width="218"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_item_documental}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="56"
+						y="81"
+						width="218"
+						height="43"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_titulo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="167"
+						y="5"
+						width="107"
+						height="18"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{caixaCaixeta}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="155"
+						y="125"
+						width="54"
+						height="13"
+						key="staticText-5"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prev. Expurgo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="5"
+						y="125"
+						width="76"
+						height="13"
+						key="staticText-6"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Prev. Recolhimento]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="83"
+						y="125"
+						width="72"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dt_previsao_recolhimento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="211"
+						y="125"
+						width="76"
+						height="13"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{dataExpurgo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

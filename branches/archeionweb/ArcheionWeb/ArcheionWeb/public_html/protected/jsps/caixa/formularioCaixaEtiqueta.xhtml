@@ -1,0 +1,111 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+
+		<ui:define name="conteudo">
+		<center>
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['caixa.titulo.etiqueta']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>	
+
+			<h:form id="form">
+			
+				<table width="50%">			
+					<tr>
+						<td align="center" nowrap="nowrap">
+							<h:outputLabel styleClass="label" value="#{msgs['geral.endereco']}:" for="caixas" />
+							<h:selectOneMenu id="caixas" value="#{caixaBean.caixaSelecionada.id}" styleClass="campo" >  
+								<f:selectItem itemValue="-1" itemLabel="#{msgs['geral.combo.todos']}"/> 
+								<f:selectItems value="#{caixaBean.listaCaixaCombo}" />  
+							</h:selectOneMenu>
+						</td>	
+						<td align="center" nowrap="nowrap">
+							<h:outputLabel styleClass="label" value="#{msgs['caixa.data.criacao']}:" for="dataCriacao" />						
+							<t:inputCalendar id="dataCriacao"
+								renderAsPopup="true"
+								popupTodayString="#{msgs['geral.texto.data']}"
+								popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+								renderPopupButtonAsImage="true"
+								popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" styleClass="campo"
+								value="#{caixaBean.caixa.dataCriacao}"
+								converterMessage="#{msgs['error.business.dataInvalida']}">
+								
+							</t:inputCalendar>
+						</td>
+						<td align="center" nowrap="nowrap">
+							<h:outputLabel styleClass="label" value="#{msgs['caixa.tipo']}:" for="tipo" />	
+							<h:selectOneMenu id="tipo" value="#{caixaBean.caixa.tipo}" styleClass="campo" >  
+							<f:selectItems value="#{caixaBean.listaTipo}" />  
+							</h:selectOneMenu>
+						</td>				
+						<td align="center" nowrap="nowrap">
+							<h:commandButton value="#{msgs['geral.botao.pesquisar']}" styleClass="botaoIntuitivo"
+								action="#{caixaBean.consultaEtiquetaCaixa}" imediate="true" />								
+						</td>	
+					</tr>	
+				</table>
+
+
+				<table>
+					<tr>
+						<td colspan="4" align="center">
+							<br/>
+							<rich:listShuttle var="item" sourceValue="#{caixaBean.listaCaixaSource}" 
+								targetValue="#{caixaBean.listaCaixaTarget}" 
+								copyControlLabel="#{msgs['geral.componente.rich.copiar']}" 
+								removeControlLabel="#{msgs['geral.componente.rich.remover']}"
+                        		copyAllControlLabel="#{msgs['geral.componente.rich.copiar.todos']}" 
+                        		removeAllControlLabel="#{msgs['geral.componente.rich.copiar.todos']}"
+                        		fastOrderControlsVisible="false" orderControlsVisible="false"
+                        		converter="etiquetaCaixaConverter">
+								<h:column >							
+							    	<f:facet name="header">							
+							        	<h:outputText value="#{msgs['caixa.texto']}" />							
+							        </f:facet>	
+							        <h:outputText value="#{item.titulo}" />							
+							    </h:column>							
+							</rich:listShuttle>
+						</td>
+					</tr>								
+					<tr>
+						<td colspan="4" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.imprimir']}" styleClass="botaoIntuitivo"
+								action="#{caixaBean.imprimir}" />
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{caixaBean.findAll}" immediate="true" />	
+						</td>	
+					</tr>		
+				</table>	
+
+			</h:form>
+		</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

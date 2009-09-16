@@ -1,0 +1,247 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk" version="2.0">
+
+	<style>
+td,input {
+	color: #ffffff
+}
+</style>
+
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+		<f:loadBundle basename="br.com.archeion.resources.messages" var="msgs" />
+
+		<ui:define name="conteudo">
+			<br />
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				bgcolor="#FFFFFF">
+				<tr>
+					<td class="titulopag" align="left">#{msgs['local.titulo']}</td>
+				</tr>
+				<tr>
+					<td height="1"
+						background="${facesContext.externalContext.requestContextPath}/images/r_bg.gif">
+					</td>
+				</tr>
+				<tr>
+					<td height="30px">
+						<h:messages globalOnly="true" errorClass="errorClass" infoClass="infoClass" warnClass="warnClass" layout="table" />
+					</td>
+				</tr>				
+			</table>
+			
+			<center>
+			<a4j:form id="form">
+			
+				<table width="50%">
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.empresa']}:" for="empresa" />
+						</td>
+						<td align="left">
+						<a4j:region id="localRegion">
+							<h:selectOneMenu id="empresa" 
+								value="#{documentoBean.documento.local.empresa.id}" 
+								styleClass="campo" valueChangeListener="#{documentoBean.valueChanged}"
+								disabled="#{documentoBean.visualizar}">  
+								<f:selectItems value="#{documentoBean.listaEmpresa}" />  
+								 <a4j:support event="onchange" reRender="outLocal" id="empresaAjax"/>
+							</h:selectOneMenu>
+						</a4j:region>
+						</td>	
+					</tr>					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.local']}:" for="local" />
+						</td>
+						<td align="left">						
+						<a4j:region id="pastaRegion">
+							<a4j:outputPanel ajaxRendered="true" id="outLocal"> 
+								<h:selectOneMenu id="local" 
+										value="#{documentoBean.documento.local.id}" 
+										valueChangeListener="#{documentoBean.valueChangedLocal}"
+										styleClass="campo"
+										disabled="#{documentoBean.visualizar}">  
+									<f:selectItems value="#{documentoBean.listaLocal}" />  
+									 <a4j:support event="onchange" reRender="outPasta" id="localAjax"/>
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="localRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</a4j:region>
+						</td>	
+					</tr>	
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.pasta']}:" for="pasta" />
+						</td>
+						<td align="left">
+							<a4j:outputPanel ajaxRendered="true" id="outPasta"> 
+								<h:selectOneMenu id="pasta" 
+										value="#{documentoBean.documento.pasta.id}" 
+										styleClass="campo"
+										disabled="#{documentoBean.visualizar}">  
+									<f:selectItems value="#{documentoBean.listaPasta}" />  
+								</h:selectOneMenu>
+							</a4j:outputPanel>
+							<a4j:status for="pastaRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+						</td>	
+					</tr>					
+					<tr>
+						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.tipo']}:" for="tipo" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="tipo" 
+								value="#{documentoBean.documento.tipoDocumento.id}" 
+								styleClass="campo"
+								disabled="#{documentoBean.visualizar}">  
+								<f:selectItems value="#{documentoBean.listaTipoDocumento}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>	
+					<tr>
+						<td align="right">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.referencia']}:" for="referencia" />
+						</td>
+						<td align="left">
+						
+							<a4j:region id="refRegion">
+							    <a4j:outputPanel ajaxRendered="true" id="out"> 
+									<h:inputText id="referencia" required="false" 
+										styleClass="campo" value="#{documentoBean.documento.referencia}" 
+										requiredMessage="#{msgs['error.business.requiredField']}" 
+										rendered="true"
+										disabled="#{documentoBean.visualizar}"/>
+									<h:message for="referencia" errorStyle="color: red;" />
+								</a4j:outputPanel>
+								
+								<a4j:commandButton value="#{msgs['documento.gerar.referencia']}"
+									reRender="form" styleClass="botao" type="submit" 
+									action="#{documentoBean.gerarReferencia}" id="botaoRef"
+									rendered="#{!documentoBean.visualizar}">
+									 <a4j:actionparam name="local" 
+									 	value="document.getElementById('form:local').value" 
+									 	noEscape="true" 
+									 	assignTo="#{documentoBean.documento.local.id}"/>
+								</a4j:commandButton>	
+							</a4j:region>
+							
+							<a4j:status for="refRegion">
+				                <f:facet name="start">
+				                    <h:graphicImage  value="/images/loader.gif"/>
+				                </f:facet>
+				            </a4j:status>
+				            
+						</td>	
+					</tr>													
+					<tr>
+						<td align="right">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['geral.data']}:" for="data" />
+						</td>						
+						<td align="left" valign="middle">
+							<t:inputCalendar id="data"
+								renderAsPopup="true"
+								popupTodayString="#{msgs['geral.texto.data']}"
+								popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
+								renderPopupButtonAsImage="true"
+								popupSelectDateMessage="#{msgs['geral.texto.data.selecione']}" styleClass="campo"
+								value="#{documentoBean.documento.data}"
+								converterMessage="#{msgs['error.business.dataInvalida']}"
+								disabled="#{documentoBean.visualizar}">
+								
+							</t:inputCalendar>
+							<h:message for="data" errorStyle="color: red;" />
+						</td>	
+					</tr>
+					<tr>
+						<td align="right">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.origem']}:" for="origem" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="origem" disabled="#{documentoBean.visualizar}"
+								value="#{documentoBean.documento.origem}" styleClass="campo">  
+								<f:selectItems value="#{documentoBean.listaOrigem}" />  
+							</h:selectOneMenu>
+						</td>						
+					</tr>
+					<tr>					
+						<td colspan="2" align="right" >
+						<table width="10%"><tr><td>
+							<fieldset>
+							<legend><span class="label">#{msgs['documento.complemento']}</span></legend>
+								<table>
+									<tr>
+										<td align="right">
+											<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.remetente']}:" for="remetente" />
+										</td>
+										<td align="left">
+											<h:inputText id="remetente" required="false" 
+												styleClass="campo" value="#{documentoBean.documento.remetente}" 
+												requiredMessage="#{msgs['error.business.requiredField']}" 
+												size="94"
+												disabled="#{documentoBean.visualizar}"/>
+											<h:message for="remetente" errorStyle="color: red;" />
+										</td>	
+									</tr>	
+									<tr>
+										<td align="right">
+											<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['documento.destinatario']}:" for="destinatario" />
+										</td>
+										<td align="left">
+											<h:inputText id="destinatario" required="false" 
+												styleClass="campo" value="#{documentoBean.documento.destinatario}" 
+												requiredMessage="#{msgs['error.business.requiredField']}"  
+												size="94"
+												disabled="#{documentoBean.visualizar}"/>
+											<h:message for="destinatario" errorStyle="color: red;" />
+										</td>	
+									</tr>	
+								</table>
+							</fieldset>
+						</td></tr></table>
+						</td>	
+					</tr>
+					<tr>					
+						<td colspan="2" align="right" >
+							<table>
+								<tr><td><h:outputLabel styleClass="label" value="#{msgs['geral.observacao']}:" for="observacao" /></td></tr>
+								<tr>
+									<td>
+										<h:inputTextarea id="observacao" 
+											value="#{documentoBean.documento.observacao}" cols="75"
+											disabled="#{documentoBean.visualizar}"/>
+										<h:message for="observacao" errorStyle="color: red;" />
+									</td>
+								</tr>	
+							</table>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2" align="center">
+							<br/>
+							<h:commandButton value="#{msgs['geral.botao.salvar']}" styleClass="botaoIntuitivo"
+								action="#{documentoBean.alterar}" 
+								rendered="#{!documentoBean.visualizar}"/>	
+							<h:commandButton value="#{msgs['geral.botao.cancelar']}" styleClass="botaoIntuitivo"
+								action="#{documentoBean.findAll}" immediate="true" />													
+						</td>	
+					</tr>	
+								
+				</table>					
+			</a4j:form>
+			</center>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+    xmlns:f="http://java.sun.com/jsf/core">
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+	<f:loadBundle basename="br.gov.dataprev.siprev.resources.messages" var="msgs"/>
+		<ui:define name="conteudo">
+			<table height="200" align="center">
+				<tr>
+					<td align="center">
+					<p>ARCHEION WEB</p>
+					<p><font color="#003366"><span class="msgAtencao" color="#003366"><h:outputText value="#{msgs['home.selecione']}" /></span></font></p>
+					</td>
+				</tr>
+			</table>
+		</ui:define>
+	</ui:composition>
+</jsp:root>

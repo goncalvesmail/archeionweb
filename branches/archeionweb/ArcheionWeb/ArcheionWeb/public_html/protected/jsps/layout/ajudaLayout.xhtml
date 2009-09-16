@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    version="2.0">
+	<ui:composition template="/protected/jsps/layout/masterLayout.xhtml">
+	  <ui:define name="conteudo">
+	  	<div class="menuajuda">
+	  		<ui:include src="/protected/jsps/ajuda/menu.xhtml" />
+	  	</div>
+    	<div class="ajuda">
+		    <div class="cabecalho">
+					<span class="titulopag"><ui:insert name="cabecalho" /></span>
+		    </div>
+				<ui:insert name="texto" />
+			</div>
+	  </ui:define>
+	</ui:composition>
+</jsp:root>

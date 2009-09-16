@@ -1,0 +1,42 @@
+ul.mensagens {
+	list-style: none;
+	text-align:left;
+}
+
+.infoClass {
+	background: url('/archeion/images/msg_verde.gif') no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding-left: 25px;
+	background-repeat: no-repeat;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	background-position: left top;
+	text-align:left;
+	text-decoration: none;
+}
+
+.warnClass {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	padding-left: 25px;
+	background-repeat: no-repeat;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	background-position: left top;
+	background: url('/archeion/images/msg_amarela.gif') no-repeat;
+}
+
+.errorClass {
+	font-family: Arial;
+	font-size: 11px;
+	color: #ff0000;
+	padding-left: 25px;
+	background-repeat: no-repeat;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	background-position: left top;
+	background: url('/archeion/images/msg_vermelha.gif') no-repeat;
+}
