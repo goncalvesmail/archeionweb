@@ -15,7 +15,8 @@ public class EtiquetaPastaConverter implements Converter {
 	
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
 			throws ConverterException {
-		Pasta func = pastaBO.findByTitulo(arg2);
+		String result[] = arg2.split("-");
+		Pasta func = pastaBO.findByTituloNomeEmpresa(result[1], result[0]);
 		
 		return func;
 	}
@@ -23,7 +24,8 @@ public class EtiquetaPastaConverter implements Converter {
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
 			throws ConverterException {
 		Pasta p = (Pasta)arg2;
-		return p.getTitulo();
+		String result = p.getLocal().getEmpresa().getNome()+"-"+p.getTitulo();
+		return result;
 	}
 
 }

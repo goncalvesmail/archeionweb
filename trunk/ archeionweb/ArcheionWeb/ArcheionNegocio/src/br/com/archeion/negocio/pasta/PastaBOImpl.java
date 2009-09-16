@@ -35,6 +35,10 @@ public class PastaBOImpl implements PastaBO {
 		return pastaDAO.findById(id);
 	}
 	
+	public Pasta findByTituloNomeEmpresa(String titulo, String nomeEmpresa){
+		return pastaDAO.findByTituloNomeEmpresa(titulo, nomeEmpresa);
+	}
+	
 	public Pasta findByTitulo(String titulo) {
 		return pastaDAO.findByTitulo(titulo);
 	}
