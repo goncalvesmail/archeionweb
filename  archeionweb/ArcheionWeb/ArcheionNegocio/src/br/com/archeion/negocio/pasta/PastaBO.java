@@ -44,7 +44,10 @@ public interface PastaBO {
 	Pasta findByTitulo(String titulo);
 	
 	@Secured({ "ROLE_BUSCAR_PASTA" })
-	public List<Pasta> consultaEtiquetaPasta(String where);
+	Pasta findByTituloNomeEmpresa(String titulo, String nomeEmpresa);
+	
+	@Secured({ "ROLE_BUSCAR_PASTA" })
+	List<Pasta> consultaEtiquetaPasta(String where);
 	
 	@Secured({ "ROLE_BUSCAR_PASTA" })
 	List<Pasta> findByEmpresaLocal(int emp, int local);
