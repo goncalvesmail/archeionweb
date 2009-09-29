@@ -13,7 +13,7 @@ public interface PastaDAO extends GenericDAO<Pasta, Long> {
 	
 	List<Pasta> findByEmpresaLocal(int emp, int local);
 	Pasta findByTitulo(String titulo);
-	Pasta findByTituloNomeEmpresa(String titulo, String nomeEmpresa);
+	Pasta findByTituloLocalEmpresa(String titulo,String nomeLocal, String nomeEmpresa);
 	List<Pasta> consultaEtiquetaPasta(String where);
 	List<Pasta> consultaPermanenteRecolhimento(Local local);
 	List<Pasta> consultaTemporarioRecolhimento(Local local);

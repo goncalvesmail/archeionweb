@@ -97,14 +97,16 @@ public class PastaDAOImpl extends JpaGenericDAO<Pasta, Long> implements PastaDAO
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Pasta findByTituloNomeEmpresa(String titulo, String nomeEmpresa){
+	public Pasta findByTituloLocalEmpresa(String titulo,String nomeLocal, String nomeEmpresa){
 		StringBuilder sql = new StringBuilder("SELECT u FROM Pasta u, Local l, Empresa e WHERE u.titulo = :titulo ");
 		sql.append(" and u.local.id = l.id ");
 		sql.append(" and l.empresa.id = e.id ");
+		sql.append(" and l.nome = :nomeLoc ");
 		sql.append(" and e.nome = :nomeEmp");
 		HashMap<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("titulo", titulo);
 		parametros.put("nomeEmp", nomeEmpresa);
+		parametros.put("nomeLoc", nomeLocal);
 
 		List<Pasta> pastas = getJpaTemplate().findByNamedParams(sql.toString(),
 				parametros);

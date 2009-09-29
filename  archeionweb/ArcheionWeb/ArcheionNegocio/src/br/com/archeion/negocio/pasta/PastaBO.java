@@ -44,7 +44,7 @@ public interface PastaBO {
 	Pasta findByTitulo(String titulo);
 	
 	@Secured({ "ROLE_BUSCAR_PASTA" })
-	Pasta findByTituloNomeEmpresa(String titulo, String nomeEmpresa);
+	Pasta findByTituloLocalEmpresa(String titulo,String nomeLocal, String nomeEmpresa);
 	
 	@Secured({ "ROLE_BUSCAR_PASTA" })
 	List<Pasta> consultaEtiquetaPasta(String where);
