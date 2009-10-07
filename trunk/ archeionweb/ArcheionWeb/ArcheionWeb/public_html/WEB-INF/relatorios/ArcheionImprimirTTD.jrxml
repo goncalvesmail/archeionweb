@@ -291,7 +291,7 @@ order by 1,2,3]]></queryString>
 					<textElement textAlignment="Center">
 						<font pdfFontName="Helvetica" size="16" isBold="false"/>
 					</textElement>
-				<text><![CDATA[TTD - Tabela de Temporaliedade de Documentos]]></text>
+				<text><![CDATA[TTD - Tabela de Temporalidade de Documentos]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy h.mm a" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -318,8 +318,8 @@ order by 1,2,3]]></queryString>
 					<reportElement
 						x="1"
 						y="3"
-						width="245"
-						height="18"
+						width="254"
+						height="42"
 						key="textField"/>
 					<box></box>
 					<textElement>
