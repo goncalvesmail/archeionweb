@@ -78,19 +78,19 @@
 				<table class="tabelasemlinha" align="center" cellpadding="2"
 					cellspacing="2" >
 					<tr>
-						<td><h:dataTable id="itens" rows="10"
+						<td><t:dataTable id="itens" rows="10"
 							value="#{caixaBean.listaCaixa}" var="lista"
 							rendered="#{not empty caixaBean.listaCaixa}" align="center"
 							cellpadding="0" cellspacing="0" styleClass="tabela tabelaCss"
 							headerClass="tabela_header" rowClasses="odd, even"
 							columnClasses="col,col,col,col,col,col,col_btn,col_btn"
 							style="width: 100%; cellspacing:2;">
-							<h:column>
+							<t:column defaultSorted="true" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['caixa.texto.local']}" />
 								</f:facet>
 								<h:outputText value="#{lista.local.nome}" />
-							</h:column>
+							</t:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['caixa.texto.vao']}" />
@@ -140,7 +140,7 @@
 									<f:param name="_id" value="#{lista.id}" />
 								</h:commandLink>
 							</h:column>
-						</h:dataTable></td>
+						</t:dataTable></td>
 					</tr>
 				
 					<tr>
