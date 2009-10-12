@@ -225,6 +225,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 
 	private void consultarPasta() {
 		listaPasta = new ArrayList<Pasta>();
+		listaPastaTarget  = new ArrayList<Pasta>();
 		StringBuffer sb = new StringBuffer();
 
 		if(this.chave1 != -1 && !this.valor1.equals("")){

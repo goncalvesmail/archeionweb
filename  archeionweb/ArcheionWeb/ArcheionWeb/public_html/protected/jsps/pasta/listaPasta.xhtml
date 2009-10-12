@@ -87,18 +87,18 @@
 							columnClasses="col,col,col,col,col,col,col,col"
 							style="width: 100%; cellspacing:2;">
 		
-							<t:column defaultSorted="true" sortable="true">
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['pasta.texto.titulo']}" />
 								</f:facet>
 								<h:outputText value="#{lista.titulo}" />
 							</t:column>			
-							<h:column>
+							<t:column defaultSorted="true" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['pasta.texto.caixeta']}" />
 								</f:facet>
 								<h:outputText value="#{lista.caixeta}" />
-							</h:column>		
+							</t:column>		
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['emprestimo.caixa.situacao']}" />
