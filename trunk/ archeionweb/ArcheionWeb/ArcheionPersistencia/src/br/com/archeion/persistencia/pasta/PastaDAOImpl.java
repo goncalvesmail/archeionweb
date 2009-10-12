@@ -112,7 +112,7 @@ public class PastaDAOImpl extends JpaGenericDAO<Pasta, Long> implements PastaDAO
 				parametros);
 
 		Pasta p = null;
-		if(pastas != null) {
+		if(pastas != null && pastas.size()>0) {
 			p = pastas.get(0);
 		}
 		return p;

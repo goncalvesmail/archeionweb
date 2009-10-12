@@ -15,7 +15,7 @@ public class EtiquetaPastaConverter implements Converter {
 	
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2)
 			throws ConverterException {
-		String result[] = arg2.split("&");
+		String result[] = arg2.split(".@.@.");
 		Pasta func = pastaBO.findByTituloLocalEmpresa(result[2], result[1],result[0]);
 		
 		return func;
@@ -24,7 +24,8 @@ public class EtiquetaPastaConverter implements Converter {
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
 			throws ConverterException {
 		Pasta p = (Pasta)arg2;
-		String result = p.getLocal().getEmpresa().getNome()+"&"+p.getLocal().getNome()+"&"+p.getTitulo();
+		System.out.println(p.getTitulo());
+		String result = p.getLocal().getEmpresa().getNome()+".@.@."+p.getLocal().getNome()+".@.@."+p.getTitulo();
 		return result;
 	}
 
