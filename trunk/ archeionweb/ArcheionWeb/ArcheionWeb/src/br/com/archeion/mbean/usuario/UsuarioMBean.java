@@ -21,6 +21,7 @@ import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.jsf.Constants;
 import br.com.archeion.jsf.Util;
 import br.com.archeion.mbean.ArcheionBean;
+import br.com.archeion.mbean.AuthenticationController;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.modelo.usuario.Usuario;
@@ -34,7 +35,7 @@ public class UsuarioMBean extends ArcheionBean {
 
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
 	private GrupoBO grupoBO = (GrupoBO) Util.getSpringBean("grupoBO");
-
+	
 	private List<Grupo> grupoSource;
 	private List<Grupo> grupoTarget;
 
@@ -135,13 +136,44 @@ public class UsuarioMBean extends ArcheionBean {
 		}
 		return "formularioAlterarUsuario";
 	}
-
+	
+	public String goToAlterarSenha(){
+		try {
+			usuario = (Usuario)((AuthenticationController) Util.getManagedBean("authenticationController")).getUsuario().clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		};
+		usuario.setSenha("");
+		
+		return "formularioAlterarUsuarioSenha";
+	}
+	
 	public String alterar() {
 		try {
-
 			usuario.setGrupos(grupoTarget);
 			usuario = usuarioBO.merge(usuario);
 
+			addMessage(FacesMessage.SEVERITY_INFO, "geral.alteracao.sucesso",
+					ArcheionBean.PERSIST_SUCESS);
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		} catch (CadastroDuplicadoException e) {
+			addMessage(FacesMessage.SEVERITY_INFO, "error.business.cadastro.duplicado",ArcheionBean.PERSIST_FAILURE);
+			return "formularioAlterarUsuario";
+		} catch (Exception e) {
+			ExceptionManagedBean excBean = (ExceptionManagedBean) Util
+			.getManagedBean("exceptionManagedBean");
+			excBean.setExc(e);
+			return Constants.ERROR_HANDLER;
+		}
+		return findAll();
+	}
+	
+	public String alterarSenha() {
+		try {
+			//usuario.setGrupos(grupoTarget);
+			usuario = usuarioBO.merge(usuario);
+			
 			addMessage(FacesMessage.SEVERITY_INFO, "geral.alteracao.sucesso",
 					ArcheionBean.PERSIST_SUCESS);
 		} catch (AccessDeniedException aex) {

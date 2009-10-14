@@ -347,4 +347,20 @@ public class Usuario extends AbstractTO implements UserDetails {
 		
 		return buff.toString();
 	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Usuario novo = new Usuario();
+		novo.setId(getId());
+		novo.setAtivado(getAtivado());
+		novo.setGrupos(getGrupos());
+		novo.setLogin(getLogin());
+		novo.setNome(getNome());
+		novo.setSenha(getSenha());
+		novo.setPodeAlugar(getPodeAlugar());
+		
+		return novo;
+	}
+	
+	
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="formularioUsuario::#protected#jsps#usuario#formularioUsuario.jsf"
+    NAME="output" PATH="/protected/jsps/usuario/formularioUsuario.jsf"
+    TARGET="rules:#protected#jsps#usuario#formularioUsuario.jsf"
+    TITLE="formularioUsuario" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="formularioAlterarUsuario::#protected#jsps#usuario#formularioAlterarUsuario.jsf"
+    NAME="output1"
+    PATH="/protected/jsps/usuario/formularioAlterarUsuario.jsf"
+    TARGET="rules:#protected#jsps#usuario#formularioAlterarUsuario.jsf"
+    TITLE="formularioAlterarUsuario" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="listaUsuario::#protected#jsps#usuario#listaUsuario.jsf"
+    NAME="output2" PATH="/protected/jsps/usuario/listaUsuario.jsf"
+    TARGET="rules:#protected#jsps#usuario#listaUsuario.jsf"
+    TITLE="listaUsuario" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="formularioAlterarUsuarioSenha::#protected#jsps#usuario#formularioAlterarUsuarioSenha.jsf"
+    NAME="output3"
+    PATH="/protected/jsps/usuario/formularioAlterarUsuarioSenha.jsf"
+    TARGET="rules:#protected#jsps#usuario#formularioAlterarUsuarioSenha.jsf"
+    TITLE="formularioAlterarUsuarioSenha" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#protected#jsps#usuario#formularioAlterarUsuario.jsf"
+  PATH="/protected/jsps/usuario/formularioAlterarUsuario.jsf"
+  SHAPE="272,209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#protected#jsps#usuario#formularioUsuario.jsf"
+  PATH="/protected/jsps/usuario/formularioUsuario.jsf"
+  SHAPE="272,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#protected#jsps#usuario#listaUsuario.jsf"
+  PATH="/protected/jsps/usuario/listaUsuario.jsf" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#protected#jsps#usuario#formularioAlterarUsuarioSenha.jsf"
+  PATH="/protected/jsps/usuario/formularioAlterarUsuarioSenha.jsf"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -30,6 +30,12 @@
 				/protected/jsps/usuario/listaUsuario.jsf
 			</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>formularioAlterarUsuarioSenha</from-outcome>
+			<to-view-id>
+				/protected/jsps/usuario/formularioAlterarUsuarioSenha.jsf
+			</to-view-id>
+		</navigation-case>
 		
 	</navigation-rule>
 
