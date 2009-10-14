@@ -175,7 +175,7 @@ public class UsuarioMBean extends ArcheionBean {
 	public String alterarSenha() {
 		try {
 			//usuario.setGrupos(grupoTarget);
-			usuario = usuarioBO.merge(usuario);
+			usuario = usuarioBO.mergeSenha(usuario);
 			
 			addMessage(FacesMessage.SEVERITY_INFO, "geral.alteracao.sucesso",
 					ArcheionBean.PERSIST_SUCESS);
@@ -190,7 +190,7 @@ public class UsuarioMBean extends ArcheionBean {
 			excBean.setExc(e);
 			return Constants.ERROR_HANDLER;
 		}
-		return findAll();
+		return "goToIndex";
 	}
 
 	public String remover() {

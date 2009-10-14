@@ -162,6 +162,19 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 		}
 	}
 	
+	public Usuario mergeSenha(Usuario usuario) throws BusinessException, CadastroDuplicadoException {
+		this.valida(usuario);
+		Usuario usuarioAlterado = usuario;
+		validator = new Validator();
+		this.validarMerge(usuarioAlterado);		
+		if (validator.existError()) {
+			throw new BusinessException(validator.getExceptions());
+		} else {
+			usuarioAlterado.setSenha(criptografaSenha(usuarioAlterado.getSenha()));
+			return usuarioDAO.merge(usuarioAlterado);
+		}
+	}
+	
 	private void valida(Usuario usuario) throws CadastroDuplicadoException {
 		Usuario u = usuarioDAO.findByLogin(usuario.getLogin());
 		if(u != null){
