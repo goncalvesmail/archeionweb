@@ -140,6 +140,9 @@ public class UsuarioMBean extends ArcheionBean {
 	public String goToAlterarSenha(){
 		try {
 			usuario = (Usuario)((AuthenticationController) Util.getManagedBean("authenticationController")).getUsuario().clone();
+			
+			usuario = usuarioBO.findById(usuario.getId());
+			
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		};
