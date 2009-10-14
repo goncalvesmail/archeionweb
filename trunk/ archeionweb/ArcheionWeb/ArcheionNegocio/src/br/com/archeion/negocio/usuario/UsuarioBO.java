@@ -96,6 +96,9 @@ public interface UsuarioBO {
 	@Transactional
 	@Log(descricao="Alteração")
 	Usuario merge(Usuario usuario) throws BusinessException, CadastroDuplicadoException;
+
+	@Log(descricao="Alteração")
+	Usuario mergeSenha(Usuario usuario) throws BusinessException, CadastroDuplicadoException;
 	
 	/**
 	 * Exclui uma entidade Usuario passada como parametro
