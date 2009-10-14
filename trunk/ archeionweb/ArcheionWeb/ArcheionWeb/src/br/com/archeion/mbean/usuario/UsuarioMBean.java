@@ -17,6 +17,7 @@ import org.acegisecurity.AccessDeniedException;
 
 import util.Relatorio;
 import br.com.archeion.exception.ArcheionException;
+import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.jsf.Constants;
 import br.com.archeion.jsf.Util;
@@ -184,6 +185,9 @@ public class UsuarioMBean extends ArcheionBean {
 		} catch (CadastroDuplicadoException e) {
 			addMessage(FacesMessage.SEVERITY_INFO, "error.business.cadastro.duplicado",ArcheionBean.PERSIST_FAILURE);
 			return "formularioAlterarUsuario";
+		} catch (BusinessException e){
+			addMessage(FacesMessage.SEVERITY_INFO, "error.business.alterar.senha",ArcheionBean.PERSIST_FAILURE);
+			return "formularioAlterarUsuarioSenha";
 		} catch (Exception e) {
 			ExceptionManagedBean excBean = (ExceptionManagedBean) Util
 			.getManagedBean("exceptionManagedBean");

@@ -166,6 +166,7 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 		this.valida(usuario);
 		Usuario usuarioAlterado = usuario;
 		validator = new Validator();
+		this.validarConfirmacaSenha(usuarioAlterado);
 		this.validarMerge(usuarioAlterado);		
 		if (validator.existError()) {
 			throw new BusinessException(validator.getExceptions());
