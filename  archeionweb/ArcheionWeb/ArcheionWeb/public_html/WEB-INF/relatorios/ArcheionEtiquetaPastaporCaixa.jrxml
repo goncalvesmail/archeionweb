@@ -82,7 +82,7 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="staticText-1"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Empresa:]]></text>
 				</staticText>
@@ -95,7 +95,7 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="staticText-2"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Local:]]></text>
 				</staticText>
@@ -108,20 +108,20 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="staticText-3"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Título:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
 						x="5"
-						y="61"
+						y="54"
 						width="49"
 						height="18"
 						key="staticText-4"/>
 					<box></box>
 					<textElement textAlignment="Right">
-						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Item Doc:]]></text>
 				</staticText>
@@ -134,7 +134,7 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font size="9"/>
+						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_empresa}]]></textFieldExpression>
 				</textField>
@@ -143,24 +143,24 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						x="56"
 						y="24"
 						width="218"
-						height="37"
+						height="30"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font size="9"/>
+						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_local}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="56"
-						y="62"
+						y="55"
 						width="218"
-						height="18"
+						height="24"
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font size="9"/>
+						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_item_documental}]]></textFieldExpression>
 				</textField>
@@ -173,7 +173,7 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font size="9"/>
+						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_titulo}]]></textFieldExpression>
 				</textField>
@@ -186,15 +186,15 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 						key="textField"/>
 					<box></box>
 					<textElement>
-						<font size="9"/>
+						<font size="8"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{caixaCaixeta}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
-						x="155"
+						x="148"
 						y="125"
-						width="54"
+						width="61"
 						height="13"
 						key="staticText-5"/>
 					<box></box>
@@ -220,7 +220,7 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 					<reportElement
 						x="83"
 						y="125"
-						width="72"
+						width="66"
 						height="13"
 						key="textField"/>
 					<box></box>
