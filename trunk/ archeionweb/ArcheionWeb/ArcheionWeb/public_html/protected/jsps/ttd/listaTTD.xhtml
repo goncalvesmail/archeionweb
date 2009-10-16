@@ -91,18 +91,18 @@
 								</f:facet>
 								<h:outputText value="#{lista.local.nome}" />
 							</t:column>
-							<h:column>
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['ttd.texto.itemdocumental']}" />
 								</f:facet>
 								<h:outputText value="#{lista.itemDocumental.nome}" />
-							</h:column>			
-							<h:column>
+							</t:column>			
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['ttd.texto.eventocontagem']}" />
 								</f:facet>
 								<h:outputText value="#{lista.eventoContagem.nome}" />
-							</h:column>					
+							</t:column>					
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['geral.botao.visualizar']}" />

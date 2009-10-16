@@ -91,25 +91,25 @@
 								</f:facet>
 								<h:outputText value="#{lista.local.nome}" />
 							</t:column>
-							<h:column>
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['caixa.texto.vao']}" />
 								</f:facet>
 								<h:outputText value="#{lista.vao.vao}" />
 								<h:outputText value="#{lista.numeroVao}" />
-							</h:column>			
-							<h:column>
+							</t:column>			
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['geral.tipo']}" />
 								</f:facet>
 								<h:outputText value="#{lista.tipo.descricao}" />
-							</h:column>		
-							<h:column>
+							</t:column>		
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['emprestimo.caixa.situacao']}" />
 								</f:facet>
 								<h:outputText value="#{lista.situacao.descricao}" />
-							</h:column>								
+							</t:column>								
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['geral.botao.visualizar']}" />

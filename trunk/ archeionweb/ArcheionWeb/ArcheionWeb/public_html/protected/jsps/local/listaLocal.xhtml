@@ -40,18 +40,18 @@
 							headerClass="tabela_header" rowClasses="odd, even"
 							columnClasses="col,col,col,col_btn,col_btn">
 				
-							<h:column>
+							<t:column defaultSorted="true" sortable="true">
 							<f:facet name="header">
 									<h:outputText value="#{msgs['local.empresa.nome']}" />
 								</f:facet>
 								<h:outputText value="#{lista.empresa.nome}" />
-							</h:column>							
-							<h:column>
+							</t:column>							
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['geral.texto.nome']}" />
 								</f:facet>
 								<h:outputText value="#{lista.nome}" />
-							</h:column>
+							</t:column>
 							<h:column>
 							<f:facet name="header">
 									<h:outputText value="#{msgs['local.ultimo.documento.lista']}" />

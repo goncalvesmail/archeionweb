@@ -99,12 +99,12 @@
 								</f:facet>
 								<h:outputText value="#{lista.caixeta}" />
 							</t:column>		
-							<h:column>
+							<t:column defaultSorted="false" sortable="true">
 								<f:facet name="header">
 									<h:outputText value="#{msgs['emprestimo.caixa.situacao']}" />
 								</f:facet>
 								<h:outputText value="#{lista.situacao.descricao}" />
-							</h:column>								
+							</t:column>								
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="#{msgs['geral.botao.visualizar']}" />
