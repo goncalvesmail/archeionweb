@@ -139,7 +139,7 @@ public class TTDMBean extends ArcheionBean {
 
 	public String goToAlterar() {
 		try {
-			this.preencherCombosAlterar();
+			
 			Long id = Long.valueOf(Util.getParameter("_id"));
 			ttd = ttdBO.findById(id);
 
@@ -151,6 +151,8 @@ public class TTDMBean extends ArcheionBean {
 				ttd.setTemporaliedadeSelecionada("1");
 			}
 
+			this.preencherCombosAlterar();
+			
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		} catch (Exception e) {

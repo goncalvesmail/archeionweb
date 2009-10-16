@@ -72,6 +72,16 @@ td,input {
 					</tr>
 					<tr>
 						<td align="right" width="50%">
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['itemdocumental.nome']}:" for="itemDocumental" />
+						</td>
+						<td align="left">
+							<h:selectOneMenu id="itemDocumental" value="#{ttdBean.ttd.itemDocumental.id}" styleClass="campo" disabled="#{ttdBean.visualizar}">  
+								<f:selectItems value="#{ttdBean.listaItemDocumental}" />  
+							</h:selectOneMenu>
+						</td>	
+					</tr>						
+					<tr>
+						<td align="right" width="50%">
 							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['eventocontagem.nome']}:" for="evento" />
 						</td>
 						<td align="left">
