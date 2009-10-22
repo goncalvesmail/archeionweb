@@ -268,17 +268,21 @@ public class PastaMBean extends ArcheionBean {
 		}			
 		return goToForm();
 	}
-	
+
 	public void incluirMBean() throws AccessDeniedException, CadastroDuplicadoException, BusinessException {
 		pasta.setId(null);
 		pasta.setDataReferencia(pasta.getDataAbertura());
 		pasta.setSituacao(SituacaoExpurgo.ATIVA);
+
+
+
 		pasta = pastaBO.persist(pasta);
-		
+
 		pasta.setLocal(localBO.findById(pasta.getLocal().getId()));
 		pasta.setItemDocumental(itemDocumentalBO.findById(pasta.getItemDocumental().getId()));
-		
+
 		addMessage(FacesMessage.SEVERITY_INFO,"geral.inclusao.sucesso",ArcheionBean.PERSIST_SUCESS);
+
 	}
 
 	public String goToAlterar() {
@@ -320,7 +324,7 @@ public class PastaMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} catch (BusinessException e) {
 			addMessage(FacesMessage.SEVERITY_INFO, e.getMessageCode(),ArcheionBean.PERSIST_FAILURE);
-			return "formularioPasta";
+			return "formularioAlterarPasta";
 		} catch (CadastroDuplicadoException e) {
 			addMessage(FacesMessage.SEVERITY_INFO, "error.business.cadastro.duplicado",ArcheionBean.PERSIST_FAILURE);
 			return "formularioPasta";
