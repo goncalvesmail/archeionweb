@@ -16,9 +16,11 @@ import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.modelo.local.Local;
 import br.com.archeion.modelo.pasta.EmprestimoPasta;
 import br.com.archeion.modelo.pasta.Pasta;
+import br.com.archeion.modelo.ttd.TTD;
 import br.com.archeion.persistencia.documento.DocumentoDAO;
 import br.com.archeion.persistencia.pasta.EmprestimoPastaDAO;
 import br.com.archeion.persistencia.pasta.PastaDAO;
+import br.com.archeion.persistencia.ttd.TTDDAO;
 
 public class PastaBOImpl implements PastaBO {
 	
@@ -26,6 +28,7 @@ public class PastaBOImpl implements PastaBO {
 	//Estou injetando o DAO para evitar dependencia ciclica com os dois BOs
 	private DocumentoDAO documentoDAO;
 	private EmprestimoPastaDAO emprestimoPastaDAO;
+	private TTDDAO ttdDAO;
 
 	public List<Pasta> findAll() {
 		return pastaDAO.findAll();
@@ -53,6 +56,14 @@ public class PastaBOImpl implements PastaBO {
 
 	public Pasta merge(Pasta pasta) throws BusinessException,
 			CadastroDuplicadoException {
+		
+		List<TTD> ttds = ttdDAO.findByEmpresaLocalItemDocumental(0, pasta.getLocal().getId().intValue(), 
+				pasta.getItemDocumental().getId().intValue());
+		
+		if ( ttds==null || ttds.size()<=0 ) {
+			throw new BusinessException("pasta.erro.alteracao.ttd");
+		}
+		
 		return pastaDAO.merge(pasta);
 	}
 
@@ -141,8 +152,16 @@ public class PastaBOImpl implements PastaBO {
 		this.documentoDAO = documentoDAO;
 	}
 	
+	
 	private void validaPasta(Pasta pasta) throws CadastroDuplicadoException, BusinessException{
 
+		List<TTD> ttds = ttdDAO.findByEmpresaLocalItemDocumental(0, pasta.getLocal().getId().intValue(), 
+				pasta.getItemDocumental().getId().intValue());
+		
+		if ( ttds==null || ttds.size()<=0 ) {
+			throw new BusinessException("pasta.erro.inclusao.ttd");
+		}
+		
 		if ( (pasta.getLimiteDataFinal()==null && pasta.getLimiteDataInicial()==null) &&
 				((pasta.getLimiteNomeFinal()==null && pasta.getLimiteNomeInicial()==null) ||
 					(pasta.getLimiteNomeFinal().equals("") && pasta.getLimiteNomeInicial().equals(""))) && 
@@ -166,4 +185,21 @@ public class PastaBOImpl implements PastaBO {
 			Date inicio, Date fim) {
 		return pastaDAO.consultaPermanenteRecolhimentoIntervalo(empresa, local, inicio, fim);
 	}
+
+	public TTDDAO getTtdDAO() {
+		return ttdDAO;
+	}
+
+	public void setTtdDAO(TTDDAO ttdDAO) {
+		this.ttdDAO = ttdDAO;
+	}
+
+	public DocumentoDAO getDocumentoDAO() {
+		return documentoDAO;
+	}
+
+	public EmprestimoPastaDAO getEmprestimoPastaDAO() {
+		return emprestimoPastaDAO;
+	}
+
 }

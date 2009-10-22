@@ -8,13 +8,16 @@ import net.sf.jasperreports.engine.JRException;
 import util.Relatorio;
 import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
+import br.com.archeion.modelo.pasta.Pasta;
 import br.com.archeion.modelo.ttd.TTD;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
+import br.com.archeion.persistencia.pasta.PastaDAO;
 import br.com.archeion.persistencia.ttd.TTDDAO;
 
 public class TTDBOImpl implements TTDBO {
 	
 	private TTDDAO ttdDAO;
+	private PastaDAO pastaDAO;
 	private ItemDocumentalBO itemDocumentalBO;
 	
 	public List<TTD> findAll() {
@@ -45,6 +48,15 @@ public class TTDBOImpl implements TTDBO {
 	public TTD merge(TTD ttd) throws BusinessException,
 			CadastroDuplicadoException {
 		this.validaTTD(ttd);
+		
+		//Verificar se existe pasta
+		List<Pasta> pastas = pastaDAO.findByLocalItemDocumental(ttd.getItemDocumental().getId(), 
+				ttd.getLocal().getId());
+		
+		if ( pastas!=null && pastas.size()>0 ) {
+			throw new BusinessException("ttd.erro.alterar.pasta");
+		}
+		
 		return ttdDAO.merge(ttd);
 	}
 	public TTD persist(TTD ttd) throws CadastroDuplicadoException, BusinessException {
@@ -52,6 +64,13 @@ public class TTDBOImpl implements TTDBO {
 		return ttdDAO.persist(ttd);
 	}
 	public void remove(TTD ttd) throws BusinessException {
+		//Verificar se existe pasta
+		List<Pasta> pastas = pastaDAO.findByLocalItemDocumental(ttd.getItemDocumental().getId(), 
+				ttd.getLocal().getId());
+		
+		if ( pastas!=null && pastas.size()>0 ) {
+			throw new BusinessException("ttd.erro.removerr.pasta");
+		}
 		ttdDAO.remove(ttd);
 	}
 	public TTDDAO getTtdDAO() {
@@ -66,6 +85,14 @@ public class TTDBOImpl implements TTDBO {
 	public void setItemDocumentalBO(ItemDocumentalBO itemDocumentalBO) {
 		this.itemDocumentalBO = itemDocumentalBO;
 	}
+
+	public PastaDAO getPastaDAO() {
+		return pastaDAO;
+	}
+	public void setPastaDAO(PastaDAO pastaDAO) {
+		this.pastaDAO = pastaDAO;
+	}
+	
 	private void validaTTD(TTD ttd) throws CadastroDuplicadoException, BusinessException{
 		TTD t = ttdDAO.findByTTD(ttd);
 		
