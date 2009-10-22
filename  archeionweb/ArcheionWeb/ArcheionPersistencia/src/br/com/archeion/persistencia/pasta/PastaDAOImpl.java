@@ -316,4 +316,33 @@ public class PastaDAOImpl extends JpaGenericDAO<Pasta, Long> implements PastaDAO
 		
 		return getJpaTemplate().findByNamedParams(sql.toString(),parametros);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Pasta> findByLocalItemDocumental(long item, long local) {
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+
+		StringBuilder sql = new StringBuilder("SELECT u FROM Pasta u ");
+
+		boolean where = false;
+		if(item > 0) {
+			parametros.put("item", item);
+			sql.append(" WHERE u.itemDocumental.id = :item ");
+			where = true;
+		}			
+
+		if(local > 0) {
+			parametros.put("local", local);
+			if ( where ) {
+				sql.append(" and u.local.id = :local ");
+			}
+			else {
+				sql.append(" WHERE u.local.id = :local ");
+				where = true;
+			}
+		}	
+
+		List<Pasta> list = getJpaTemplate().findByNamedParams(sql.toString(),
+				parametros);
+		return list;
+	}	
 }
