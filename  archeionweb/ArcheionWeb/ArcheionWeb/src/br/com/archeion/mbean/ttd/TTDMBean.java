@@ -195,7 +195,20 @@ public class TTDMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} catch (BusinessException e) {
 			addMessage(FacesMessage.SEVERITY_INFO, e.getMessageCode(),ArcheionBean.PERSIST_FAILURE);
-			return goToForm();
+			
+			ttd = ttdBO.findById(ttd.getId());
+
+			if(ttd.getArquivoPermanente()){
+				ttd.setTemporaliedadeSelecionada("2");
+			} else if(ttd.getArquivoIntermediario()){
+				ttd.setTemporaliedadeSelecionada("3");
+			} else {
+				ttd.setTemporaliedadeSelecionada("1");
+			}
+
+			this.preencherCombosAlterar();
+			
+			return "formularioAlterarTTD";
 		} catch (CadastroDuplicadoException e) {
 			addMessage(FacesMessage.SEVERITY_INFO, "error.business.cadastro.duplicado",ArcheionBean.PERSIST_FAILURE);
 			return "formularioAlterarEmpresa";
