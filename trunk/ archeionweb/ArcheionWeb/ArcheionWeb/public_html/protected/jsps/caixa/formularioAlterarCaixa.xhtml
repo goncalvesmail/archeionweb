@@ -127,7 +127,7 @@ td,input {
 									
 									<h:outputText value="#{msgs['pasta.lista.vazia']}" styleClass="label" rendered="#{empty caixaBean.listaPastas}"/>
 									
-									<t:dataTable id="itens" align="center" 
+									<t:dataTable id="itens" align="center" rows="#{caixaBean.listaPastaSize}"
 										value="#{caixaBean.listaPastas}" var="lista"	
 										rendered="#{not empty caixaBean.listaPastas}"									
 										cellpadding="0" cellspacing="0" styleClass="tabela tabelaCss"
@@ -141,12 +141,6 @@ td,input {
 											</f:facet>
 											<h:selectBooleanCheckbox id="add" value="#{caixaBean.selecionados[ lista.id ]}" 
 												disabled="#{caixaBean.visualizar}"/>	
-										</h:column>
-										<h:column>
-											<f:facet name="header">
-												<h:outputText value="#{msgs['pasta.texto.local']}" />
-											</f:facet>
-											<h:outputText value="#{lista.local.nome}" />
 										</h:column>
 										<h:column>
 											<f:facet name="header">
@@ -190,8 +184,9 @@ td,input {
 							</table>
 						
 						</td>
-					</tr>				
-														
+					</tr>			
+					
+																			
 					<tr>
 						<td colspan="2" align="center">
 							<br/>

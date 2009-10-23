@@ -72,6 +72,8 @@ public class CaixaMBean extends ArcheionBean {
 
 	private Map<Long, Boolean> selecionados;
 	private boolean visualizar = false;
+	
+	private int listaPastaSize;
 
 	public CaixaMBean() {
 		caixa = new Caixa();
@@ -86,16 +88,21 @@ public class CaixaMBean extends ArcheionBean {
 
 		if ( empresa!=null ) {
 			caixa.getLocal().setId(null);
-			caixa.getLocal().setEmpresa(empresa);			
+			caixa.getLocal().setEmpresa(empresa);	
+			
+			preencherCombos();
+			atualizaListaPasta();
+			
+			List<Local> locais = localBO.findByEmpresa(caixa.getLocal().getEmpresa());
+			
+			if ( locais!=null && locais.size()>0 ) {
+				caixa.setLocal(locais.get(0));
+			}
 		}
-		preencherCombos();
-		atualizaListaPasta();
-		
-		List<Local> locais = localBO.findByEmpresa(caixa.getLocal().getEmpresa());
-		
-		if ( locais!=null && locais.size()>0 ) {
-			caixa.setLocal(locais.get(0));
+		else {
+			listaLocal = new ArrayList<SelectItem>();
 		}
+		
 	}
 
 	public void valueChangedLocal(ValueChangeEvent event) {
@@ -138,6 +145,7 @@ public class CaixaMBean extends ArcheionBean {
 						selecionados.put(idPasta, Boolean.TRUE);
 					}
 				}
+				listaPastaSize = listaPastas.size();
 			}
 		}	
 	}
@@ -405,6 +413,7 @@ public class CaixaMBean extends ArcheionBean {
 					listaPastas.add(p);
 					selecionados.put(idPasta, Boolean.TRUE);
 				}
+				listaPastaSize = listaPastas.size();
 			}
 
 		} catch (AccessDeniedException aex) {
@@ -589,6 +598,7 @@ public class CaixaMBean extends ArcheionBean {
 				listaPastas = pastaBO.consultaTemporarioRecolhimento(caixa.getLocal());
 			}
 		}
+		listaPastaSize = listaPastas.size();
 	}
 
 	public String imprimir() {
@@ -834,6 +844,14 @@ public class CaixaMBean extends ArcheionBean {
 
 	public void setListaSituacao(List<SelectItem> listaSituacao) {
 		this.listaSituacao = listaSituacao;
+	}
+
+	public int getListaPastaSize() {
+		return listaPastaSize;
+	}
+
+	public void setListaPastaSize(int listaPastaSize) {
+		this.listaPastaSize = listaPastaSize;
 	}
 	
 	
