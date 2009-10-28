@@ -1,9 +1,13 @@
 package br.com.archeion.mbean.grupo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.acegisecurity.AccessDeniedException;
 
@@ -17,6 +21,7 @@ import br.com.archeion.modelo.funcionalidade.Funcionalidade;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.negocio.funcionalidade.FuncionalidadeBO;
 import br.com.archeion.negocio.grupo.GrupoBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class GrupoMBean extends ArcheionBean {
 
@@ -28,13 +33,43 @@ public class GrupoMBean extends ArcheionBean {
 
 	private GrupoBO grupoBO = (GrupoBO) Util.getSpringBean("grupoBO");
 	private FuncionalidadeBO funcionalidadeBO = (FuncionalidadeBO) Util.getSpringBean("funcionalidadeBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public GrupoMBean() {
 		grupo = new Grupo();
 		funcSource = new ArrayList<Funcionalidade>();
 		funcTarget = new ArrayList<Funcionalidade>();
 	}
-
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select a.nm_grupo as grupo ");
+			sb.append("from tb_grupos a ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
+	}
+	
 	public String incluir() {
 		try {
 			incluirMBean();	

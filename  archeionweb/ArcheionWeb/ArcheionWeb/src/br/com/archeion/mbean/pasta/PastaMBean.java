@@ -19,8 +19,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 
 import org.acegisecurity.AccessDeniedException;
 
@@ -43,6 +41,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
 import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.negocio.pasta.PastaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class PastaMBean extends ArcheionBean {
@@ -76,6 +75,7 @@ public class PastaMBean extends ArcheionBean {
 	private PastaBO pastaBO = (PastaBO) Util.getSpringBean("pastaBO");
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	private TTDBO ttdBO = (TTDBO) Util.getSpringBean("ttdBO");
 	
@@ -369,51 +369,6 @@ public class PastaMBean extends ArcheionBean {
 		return "listaPasta";
 	}
 	
-	public String imprimirEtiqueta() {
-		FacesContext context = getContext();
-		try {
-			if(listaPastaTarget.size() <= 0){
-				addMessage(FacesMessage.SEVERITY_INFO, "pasta.error.selecione.pasta",ArcheionBean.PERSIST_FAILURE);
-				return listEtiquetaPasta();
-			}
-			HttpServletResponse response = (HttpServletResponse) context
-					.getExternalContext().getResponse();
-			
-			//Cria um cache no  C:\tmp
-			JRFileVirtualizer fileVirtualizer = new JRFileVirtualizer(4, "c:\\tmp");
-			
-			ServletOutputStream responseStream;
-			responseStream = response.getOutputStream();
-			String pathJasper = ((ServletContext)context.getExternalContext().getContext()).getRealPath("/WEB-INF/relatorios/")+ 
-			"/ArcheionEtiquetaPasta.jasper";
-			HashMap<String, Object> param = new HashMap<String, Object>();
-			ParametrosReport ids = new ParametrosReport();
-			for(Pasta p: listaPastaTarget) {
-				ids.add(p.getId());
-			}
-			//Seta o parametro REPORT_VIRTUALIZER com o diretório onde será armazenado o cache
-			param.put(JRParameter.REPORT_VIRTUALIZER, fileVirtualizer);
-			param.put("idsPasta", ids.toString());
-			Relatorio relatorio = pastaBO.getRelatorio(param, pathJasper);
-			relatorio.exportarParaPdfStream(responseStream);
-			
-			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition",
-					"filename=\"EtiquetaPasta.pdf\"");
-			responseStream.flush();
-			responseStream.close();
-			context.renderResponse();
-			context.responseComplete();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JRException e) {
-			e.printStackTrace();
-		} catch (AccessDeniedException aex) {
-			return Constants.ACCESS_DENIED;
-		}
-		return findAll();
-	}
-	
 	public String imprimir() {
 		FacesContext context = getContext();
 		try {
@@ -439,6 +394,40 @@ public class PastaMBean extends ArcheionBean {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select d.nm_empresa as empresa, b.nm_local as local, c.nm_item_documental as item_documental, ");
+			sb.append("a.nm_titulo as titulo, a.nm_caixeta as caixeta, a.dt_expurgo as data_expurgo, (f.vao_endereco_caixa || e.nu_vao_endereco_caixa) as caixa, ");
+			sb.append("(case when a.cs_situacao_pasta = 1 then 'Ativa' when a.cs_situacao_pasta = 2 then 'Expurgada' end ) as situacao ");
+			sb.append("from tb_pasta a join tb_local b on (a.id_local = b.id_local) ");
+			sb.append("join tb_item_documental c on (a.id_item_documental = c.id_item_documental) ");
+			sb.append("join tb_empresa d on (b.id_empresa = d.id_empresa) ");
+			sb.append("left join tb_caixa e on (a.id_caixa = e.id_caixa) ");
+			sb.append("left join tb_endereco_caixa f on (e.id_endereco_caixa = f.id_endereco_caixa) ");
+			
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"ImprimirPasta.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;

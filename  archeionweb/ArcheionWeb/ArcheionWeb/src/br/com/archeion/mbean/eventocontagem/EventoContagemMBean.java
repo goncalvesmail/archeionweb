@@ -23,6 +23,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.eventocontagem.EventoContagem;
 import br.com.archeion.negocio.eventocontagem.EventoContagemBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class EventoContagemMBean extends ArcheionBean {
 	
@@ -30,6 +31,7 @@ public class EventoContagemMBean extends ArcheionBean {
 	private List<EventoContagem> listEventoContagem;
 	
 	private EventoContagemBO eventoContagemBO = (EventoContagemBO) Util.getSpringBean("eventoContagemBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 	
 	public EventoContagemMBean() {
 		this.eventoContagem = new EventoContagem();
@@ -154,6 +156,35 @@ public class EventoContagemMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} 
 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select a.nm_evento_contagem as evento_contagem ");
+			sb.append("from tb_evento_contagem a ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 	

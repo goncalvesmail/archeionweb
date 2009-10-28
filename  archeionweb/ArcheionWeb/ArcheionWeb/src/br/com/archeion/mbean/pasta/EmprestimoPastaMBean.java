@@ -35,6 +35,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.negocio.pasta.EmprestimoPastaBO;
 import br.com.archeion.negocio.pasta.PastaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class EmprestimoPastaMBean extends ArcheionBean {
@@ -59,10 +60,44 @@ public class EmprestimoPastaMBean extends ArcheionBean {
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
 	private EmprestimoPastaBO emprestimoPastaBO = (EmprestimoPastaBO) Util.getSpringBean("emprestimoPastaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public EmprestimoPastaMBean() {
 		emprestimo = new EmprestimoPasta();
 		pastaFiltro = new Pasta();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select b.nm_titulo as pasta, a.dt_emprestimo as data_emprestimo, a.dt_devolucao as data_devolucao, ");
+			sb.append("a.tx_solicitante_externo as solicitante_externo, ");
+			sb.append("c.nm_usuario as solicitante_interno, d.nm_usuario as responsavel_emprestimo ");
+			sb.append("from tb_emprestimo_pasta a join tb_pasta b on (a.id_pasta = b.id_pasta) ");
+			sb.append("join tb_usuarios d on (a.id_usuario_responsavel  = d.id_usuario) ");
+			sb.append("left join tb_usuarios c on (a.id_usuario_solicitante = c.id_usuario) ");
+			sb.append("order by 2,1");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
 	}
 
 	public void valueChangedLista(ValueChangeEvent event) {

@@ -33,6 +33,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.eventocontagem.EventoContagemBO;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
 import br.com.archeion.negocio.local.LocalBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class TTDMBean extends ArcheionBean {
@@ -44,7 +45,8 @@ public class TTDMBean extends ArcheionBean {
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	private EventoContagemBO eventoContagemBO = (EventoContagemBO) Util.getSpringBean("eventoContagemBO");
-
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	
 	private List<SelectItem> listaEmpresa;
 	private List<SelectItem> listaLocal;
 	private List<SelectItem> listaItemDocumental;
@@ -403,6 +405,53 @@ public class TTDMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} 
 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			
+			
+			ParametrosReport ids = new ParametrosReport();
+			for(TTD p: listaTTD) {
+				ids.add(p.getId());
+			}
+			
+			StringBuilder sb = new StringBuilder("select c.nm_empresa as empresa, b.nm_local as local, d.nm_item_documental as item_documental, ");
+			sb.append("e.nm_evento_contagem as evento_contagem, "); 
+			sb.append("a.nm_tempo_arq_corrente as arquivo_corrente, a.nm_tempo_arq_intermediario as arquivo_intermediario, ");
+			sb.append("(case when a.cs_microfilmagem = 1 then 'Sim' else 'Nao' end) as microfilmagem, ");
+			sb.append("(case when a.cs_digitalizacao = 1 then 'Sim' else 'Nao' end) as digitalizacao, ");
+			sb.append("a.tx_observacao as observacao ");
+			sb.append("from tb_ttd a join tb_local b on (a.id_local = b.id_local) ");
+			sb.append("join tb_empresa c on (b.id_empresa = c.id_empresa) ");
+			sb.append("join tb_item_documental d on (a.id_item_documental = d.id_item_documental) ");
+			sb.append("join tb_evento_contagem e on (a.id_evento_contagem = e.id_evento_contagem) ");
+			sb.append("where a.id_ttd in (");
+			sb.append(ids.toString());
+			sb.append(") ");
+			sb.append("order by 1,2 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 

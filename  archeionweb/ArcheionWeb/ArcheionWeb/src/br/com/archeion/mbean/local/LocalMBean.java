@@ -28,6 +28,7 @@ import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.modelo.local.Local;
 import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.local.LocalBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class LocalMBean extends ArcheionBean {
 
@@ -37,6 +38,7 @@ public class LocalMBean extends ArcheionBean {
 
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public LocalMBean() {
 		local = new Local();
@@ -193,6 +195,35 @@ public class LocalMBean extends ArcheionBean {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select b.nm_empresa as empresa, a.nm_local as local, a.nu_ultimo_documento as numero_ultimo_documento ");
+			sb.append("from tb_local a join tb_empresa b on (a.id_empresa = b.id_empresa) ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;

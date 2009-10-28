@@ -27,6 +27,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.negocio.empresa.EmpresaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class EmpresaMBean extends ArcheionBean {
 
@@ -36,6 +37,7 @@ public class EmpresaMBean extends ArcheionBean {
 	private List<SelectItem> listaEmpresaPai;
 
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public EmpresaMBean() {
 		empresa = new Empresa();
@@ -211,6 +213,35 @@ public class EmpresaMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} 
 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select a.nm_empresa as empresa ");
+			sb.append("from tb_empresa a ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 
