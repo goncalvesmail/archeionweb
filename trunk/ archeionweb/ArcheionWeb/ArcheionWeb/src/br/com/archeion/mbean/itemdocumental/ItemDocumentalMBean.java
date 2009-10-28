@@ -24,12 +24,13 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.itemdocumental.ItemDocumental;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class ItemDocumentalMBean extends ArcheionBean {
 
 	private ItemDocumental itemDocumental;
 	private List<ItemDocumental> listaDocumental;
-	
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	
 	public ItemDocumentalMBean() {
@@ -154,6 +155,35 @@ public class ItemDocumentalMBean extends ArcheionBean {
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		} 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select a.nm_item_documental as item_documental ");
+			sb.append("from tb_item_documental a ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 	

@@ -27,6 +27,7 @@ import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.modelo.usuario.Usuario;
 import br.com.archeion.negocio.grupo.GrupoBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class UsuarioMBean extends ArcheionBean {
@@ -36,6 +37,7 @@ public class UsuarioMBean extends ArcheionBean {
 
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
 	private GrupoBO grupoBO = (GrupoBO) Util.getSpringBean("grupoBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 	
 	private List<Grupo> grupoSource;
 	private List<Grupo> grupoTarget;
@@ -270,6 +272,37 @@ public class UsuarioMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		}
 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select a.nm_usuario as nome, a.nm_login as login, ");
+			sb.append("(case when a.cs_situacao_usuario = 1 then 'Ativo' when a.cs_situacao_usuario = 0 then 'Desativado' end) as situacao, ");
+			sb.append("(case when a.cs_pode_alugar = 1 then 'Pode Alugar' when a.cs_pode_alugar = 0 then 'Nao Pode Alugar' end) as pode_alugar ");
+			sb.append("from tb_usuarios a ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 

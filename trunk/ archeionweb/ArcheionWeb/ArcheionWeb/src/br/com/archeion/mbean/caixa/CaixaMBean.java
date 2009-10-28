@@ -43,6 +43,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.enderecocaixa.EnderecoCaixaBO;
 import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.negocio.pasta.PastaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class CaixaMBean extends ArcheionBean {
@@ -69,6 +70,7 @@ public class CaixaMBean extends ArcheionBean {
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
 	private TTDBO ttdBO = (TTDBO) Util.getSpringBean("ttdBO");
 	private EnderecoCaixaBO enderecoCaixaBO = (EnderecoCaixaBO) Util.getSpringBean("enderecoCaixaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	private Map<Long, Boolean> selecionados;
 	private boolean visualizar = false;
@@ -646,6 +648,41 @@ public class CaixaMBean extends ArcheionBean {
 		return findAll();
 	}
 	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+		
+			StringBuilder sb = new StringBuilder("select c.nm_empresa as empresa, b.nm_local as local, (d.vao_endereco_caixa || a.nu_vao_endereco_caixa) as caixa, ");
+			sb.append("a.dt_criacao as data_criacao, a.dt_previsao_expurgo as data_expurgo, ");
+			sb.append("(case when a.cs_tipo_arquivo = 2 then 'Permanente' when a.cs_tipo_arquivo = 3 then 'Intermediario' end) as tipo, ");
+			sb.append("(case when a.cs_situacao = 1 then 'Ativa' when a.cs_situacao = 2 then 'Expurgada' end) as situacao ");
+			sb.append("from tb_caixa a join tb_local b on (a.id_local = b.id_local) ");
+			sb.append("join tb_empresa c on (b.id_empresa = c.id_empresa) ");
+			sb.append("join tb_endereco_caixa d on (a.id_endereco_caixa = d.id_endereco_caixa) ");
+			sb.append("order by 1,2,3 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
+	}
+	
 	public String imprimirLista() {
 		FacesContext context = getContext();
 		try {
@@ -676,7 +713,7 @@ public class CaixaMBean extends ArcheionBean {
 		}
 		return findAll();
 	}
-
+	
 	public Caixa getCaixa() {
 		return caixa;
 	}

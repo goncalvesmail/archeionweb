@@ -30,6 +30,7 @@ import br.com.archeion.modelo.caixa.EmprestimoCaixa;
 import br.com.archeion.modelo.usuario.Usuario;
 import br.com.archeion.negocio.caixa.CaixaBO;
 import br.com.archeion.negocio.caixa.EmprestimoCaixaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class EmprestimoCaixaMBean extends ArcheionBean {
@@ -50,6 +51,7 @@ public class EmprestimoCaixaMBean extends ArcheionBean {
 	private CaixaBO caixaBO = (CaixaBO) Util.getSpringBean("caixaBO");
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
 	private EmprestimoCaixaBO emprestimoCaixaBO = (EmprestimoCaixaBO) Util.getSpringBean("emprestimoCaixaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public EmprestimoCaixaMBean() {
 		emprestimo = new EmprestimoCaixa();
@@ -310,6 +312,40 @@ public class EmprestimoCaixaMBean extends ArcheionBean {
 		preencherCombos();
 		
 		return "formularioEmprestimoCaixa";
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select (e.vao_endereco_caixa || b.nu_vao_endereco_caixa) as caixa, a.dt_emprestimo as data_emprestimo, a.dt_devolucao as data_devolucao, "); 
+			sb.append("a.tx_solicitante_externo as solicitante_externo, "); 
+			sb.append("c.nm_usuario as solicitante_interno, d.nm_usuario as responsavel_emprestimo "); 
+			sb.append("from tb_emprestimo_caixa a join tb_caixa b on (a.id_caixa = b.id_caixa) "); 
+			sb.append("join tb_endereco_caixa e on (b.id_endereco_caixa = e.id_endereco_caixa) ");
+			sb.append("join tb_usuarios d on (a.id_usuario_responsavel  = d.id_usuario) "); 
+			sb.append("left join tb_usuarios c on (a.id_usuario_solicitante = c.id_usuario) ");
+			sb.append("order by 2,1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return findAll();
 	}
 	
 	public String imprimirProtocoloEmprestimo() {

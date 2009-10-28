@@ -23,6 +23,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.enderecocaixa.EnderecoCaixa;
 import br.com.archeion.negocio.enderecocaixa.EnderecoCaixaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class EnderecoCaixaMBean extends ArcheionBean {
 
@@ -30,7 +31,8 @@ public class EnderecoCaixaMBean extends ArcheionBean {
 	private List<EnderecoCaixa> listaEnderecoCaixa;
 
 	private EnderecoCaixaBO enderecoCaixaBO = (EnderecoCaixaBO) Util.getSpringBean("enderecoCaixaBO");
-
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	
 	public EnderecoCaixaMBean() {
 		enderecoCaixa = new EnderecoCaixa();
 	}
@@ -196,6 +198,35 @@ public class EnderecoCaixaMBean extends ArcheionBean {
 			return Constants.ACCESS_DENIED;
 		} 
 
+		return findAll();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			StringBuilder sb = new StringBuilder("select b.vao_endereco_caixa as vao, b.nu_inicial as inicial, b.nu_final as final ");
+			sb.append("from tb_endereco_caixa b ");
+			sb.append("order by 1 ");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
 		return findAll();
 	}
 

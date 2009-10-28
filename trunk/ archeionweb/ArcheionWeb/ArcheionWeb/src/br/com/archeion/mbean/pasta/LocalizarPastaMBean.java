@@ -32,6 +32,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.modelo.SituacaoExpurgo;
 import br.com.archeion.modelo.pasta.Pasta;
 import br.com.archeion.negocio.pasta.PastaBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
 
 public class LocalizarPastaMBean extends ArcheionBean {
 
@@ -67,6 +68,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 	private List<Pasta> listaPasta;
 
 	private PastaBO pastaBO = (PastaBO) Util.getSpringBean("pastaBO");
+	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
 
 	public String goToLocalizarPasta() {
 		preparaTelaConsulta();		
@@ -311,7 +313,6 @@ public class LocalizarPastaMBean extends ArcheionBean {
 			}
 		}
 
-		System.out.println(sb.toString());
 		
 		if ( !sb.toString().equals("") ) {
 			listaPasta = pastaBO.consultaEtiquetaPasta(sb.toString());	
@@ -354,6 +355,49 @@ public class LocalizarPastaMBean extends ArcheionBean {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JRException e) {
+			e.printStackTrace();
+		} catch (AccessDeniedException aex) {
+			return Constants.ACCESS_DENIED;
+		}
+		return goToLocalizarPasta();
+	}
+	
+	public String imprimirTxt() {
+		FacesContext context = getContext();
+		try {
+			HttpServletResponse response = (HttpServletResponse) context
+			.getExternalContext().getResponse();
+			
+			ServletOutputStream responseStream;
+			responseStream = response.getOutputStream();
+			
+			ParametrosReport ids = new ParametrosReport();
+			for(Pasta p: listaPasta) {
+				ids.add(p.getId());
+			}
+			
+			StringBuilder sb = new StringBuilder("select d.nm_empresa as empresa, b.nm_local as local, c.nm_item_documental as item_documental, ");
+			sb.append("a.nm_titulo as titulo, a.nm_caixeta as caixeta, a.dt_expurgo as data_expurgo, (f.vao_endereco_caixa || e.nu_vao_endereco_caixa) as caixa, ");
+			sb.append("(case when a.cs_situacao_pasta = 1 then 'Ativa' when a.cs_situacao_pasta = 2 then 'Expurgada' end ) as situacao ");
+			sb.append("from tb_pasta a join tb_local b on (a.id_local = b.id_local) ");
+			sb.append("join tb_item_documental c on (a.id_item_documental = c.id_item_documental) ");
+			sb.append("join tb_empresa d on (b.id_empresa = d.id_empresa) ");
+			sb.append("left join tb_caixa e on (a.id_caixa = e.id_caixa) ");
+			sb.append("left join tb_endereco_caixa f on (e.id_endereco_caixa = f.id_endereco_caixa) ");
+			sb.append("where a.id_pasta in (");
+			sb.append(ids.toString());
+			sb.append(") order by 1,2,3,4");
+						
+			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			
+			response.setContentType("application/txt");
+			response.setHeader("Content-disposition",
+			"filename=\"relatorio.txt\"");
+			responseStream.flush();
+			responseStream.close();
+			context.renderResponse();
+			context.responseComplete();
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
