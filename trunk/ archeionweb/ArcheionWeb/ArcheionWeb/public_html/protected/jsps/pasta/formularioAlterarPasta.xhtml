@@ -108,12 +108,14 @@ td,input {
 					</tr>
 					<tr>
 						<td align="right">
-							<h:outputLabel styleClass="label" value="#{msgs['pasta.data.abertura.referencia']}:" for="dataAbertura" />
+							<h:outputLabel styleClass="labelObrigatorio" value="#{msgs['pasta.data.abertura.referencia']}:" for="dataAbertura" />
 						</td>						
 						<td align="left" valign="middle">
 							<a4j:region id="containerData">
 								<t:inputCalendar id="dataAbertura"
 									renderAsPopup="true"
+									required="true" 
+									requiredMessage="#{msgs['error.business.requiredField']}"
 									popupTodayString="#{msgs['geral.texto.data']}"
 									popupWeekString="SM" popupDateFormat="dd/MM/yyyy"
 									renderPopupButtonAsImage="true"
