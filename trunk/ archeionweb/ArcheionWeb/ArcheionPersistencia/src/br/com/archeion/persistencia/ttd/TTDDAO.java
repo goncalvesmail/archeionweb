@@ -9,4 +9,5 @@ public interface TTDDAO extends GenericDAO<TTD, Long> {
 	TTD findByTTD(TTD ttd);
 	List<TTD> findByEmpresaLocalItemDocumental(int emp, int local, int item);
 	List<TTD> findByEvento(Long idEvento);
+	void atualizarPastasTTD(TTD ttd);
 }

@@ -48,16 +48,42 @@ public class TTDBOImpl implements TTDBO {
 	public TTD merge(TTD ttd) throws BusinessException,
 			CadastroDuplicadoException {
 		this.validaTTD(ttd);
-		
-		//Verificar se existe pasta
-		List<Pasta> pastas = pastaDAO.findByLocalItemDocumental(ttd.getItemDocumental().getId(), 
+
+		/*
+		 * Retirada a validação para permitir a alteração
+		 * Nova regra:
+		 * Não é possível alterar o Item Documental, Empresa e o Local a qual a TTD esta associada.
+		 * Quando for alterado o tempo de permanencia no arquivo corrente todas as pastas que possuem aquela TTD serão atualizadas, 
+		 * a não ser as pastas já EXPURGADAS.
+		 * Quando for alterado o tempo de permanencia no arquivo temporário todas as pastas que possuem aquela TTD serão atualizadas, 
+		 * a não ser as pastas já EXPURGADAS.
+         * Poderá ser alterada a Temporalidade (Temporaria para Permanente e vice-versa).
+         * Em nenhum caso o sistema irá retirar Pastas de dentro de uma Caixa.
+		 */
+		//Verificar se existe pasta		
+		/*List<Pasta> pastas = pastaDAO.findByLocalItemDocumental(ttd.getItemDocumental().getId(), 
 				ttd.getLocal().getId());
 		
 		if ( pastas!=null && pastas.size()>0 ) {
 			throw new BusinessException("ttd.erro.alterar.pasta");
-		}
+		}*/
 		
-		return ttdDAO.merge(ttd);
+		ttd = ttdDAO.merge(ttd);
+		
+		//Atualiza as pastas de acordo com a nova regra
+		/*
+		 * Nova regra:
+		 * Não é possível alterar o Item Documental, Empresa e o Local a qual a TTD esta associada.
+		 * Quando for alterado o tempo de permanencia no arquivo corrente todas as pastas que possuem aquela TTD serão atualizadas, 
+		 * a não ser as pastas já EXPURGADAS.
+		 * Quando for alterado o tempo de permanencia no arquivo temporário todas as pastas que possuem aquela TTD serão atualizadas, 
+		 * a não ser as pastas já EXPURGADAS.
+         * Poderá ser alterada a Temporalidade (Temporaria para Permanente e vice-versa).
+         * Em nenhum caso o sistema irá retirar Pastas de dentro de uma Caixa.
+		 */
+		ttdDAO.atualizarPastasTTD(ttd);
+		
+		return ttd;
 	}
 	public TTD persist(TTD ttd) throws CadastroDuplicadoException, BusinessException {
 		this.validaTTD(ttd);
