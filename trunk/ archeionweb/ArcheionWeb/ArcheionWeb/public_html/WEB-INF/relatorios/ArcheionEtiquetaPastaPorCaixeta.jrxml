@@ -198,7 +198,7 @@ order by p.nm_caixeta]]></queryString>
 						height="13"
 						key="staticText-5"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Left">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Prev. Expurgo]]></text>

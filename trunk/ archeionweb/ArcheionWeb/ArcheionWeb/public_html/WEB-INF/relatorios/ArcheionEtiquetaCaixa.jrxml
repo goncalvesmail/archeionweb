@@ -110,16 +110,16 @@ $F{cs_tipo_arquivo}.equals(new Integer(2))? "(Permanente)":
 				</textField>
 				<staticText>
 					<reportElement
-						x="53"
+						x="47"
 						y="202"
-						width="87"
+						width="93"
 						height="18"
 						key="staticText-1"/>
 					<box></box>
 					<textElement>
 						<font/>
 					</textElement>
-				<text><![CDATA[Data de Espurgo:]]></text>
+				<text><![CDATA[Data de Expurgo:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

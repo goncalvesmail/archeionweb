@@ -192,13 +192,13 @@ order by  ecx.vao_endereco_caixa, cx.nu_vao_endereco_caixa]]></queryString>
 				</textField>
 				<staticText>
 					<reportElement
-						x="148"
+						x="147"
 						y="125"
 						width="61"
 						height="13"
 						key="staticText-5"/>
 					<box></box>
-					<textElement textAlignment="Right">
+					<textElement textAlignment="Left">
 						<font pdfFontName="Helvetica-Bold" size="8" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Prev. Expurgo]]></text>
