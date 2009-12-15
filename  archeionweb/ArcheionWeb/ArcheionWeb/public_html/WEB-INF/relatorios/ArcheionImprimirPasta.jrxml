@@ -24,12 +24,14 @@
 	<import value="net.sf.jasperreports.engine.data.*" />
 
 	<parameter name="idEmprestimoCaixa" isForPrompting="false" class="java.lang.Long"/>
+	<parameter name="ids" isForPrompting="false" class="java.lang.String"/>
 	<queryString><![CDATA[select e.nm_empresa, l.nm_local, itd.nm_item_documental, p.nm_titulo, p.cs_situacao_pasta, 
        p.dt_expurgo
 from tb_pasta p join tb_local l on (p.id_local = l.id_local)
      join tb_item_documental itd on (p.id_item_documental = itd.id_item_documental)
      join tb_empresa e on (l.id_empresa = e.id_empresa)
-order by 1,2,3]]></queryString>
+where p.id_pasta in ($P!{ids})
+order by 1,2,3,4]]></queryString>
 
 	<field name="nm_empresa" class="java.lang.String"/>
 	<field name="nm_local" class="java.lang.String"/>

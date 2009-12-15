@@ -380,6 +380,11 @@ public class PastaMBean extends ArcheionBean {
 			String pathJasper = ((ServletContext)context.getExternalContext().getContext()).getRealPath("/WEB-INF/relatorios/")+ 
 			"/ArcheionImprimirPasta.jasper";
 			HashMap<String, Object> param = new HashMap<String, Object>();
+			ParametrosReport ids = new ParametrosReport();
+			for(Pasta p: listaPasta) {
+				ids.add(p.getId());
+			}
+			param.put("ids", ids.toString());
 
 			Relatorio relatorio = pastaBO.getRelatorio(param, pathJasper);
 			relatorio.exportarParaPdfStream(responseStream);
