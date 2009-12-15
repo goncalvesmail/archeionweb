@@ -90,7 +90,7 @@ public class PastaMBean extends ArcheionBean {
 	
 	public String goToVisualizar() {
 		visualizar=true;
-		return goToAlterar();
+		return preparaTelaAlterar();
 	}
 	
 	public void valueChangedEmpresa(ValueChangeEvent event) {
@@ -286,7 +286,12 @@ public class PastaMBean extends ArcheionBean {
 	}
 
 	public String goToAlterar() {
-		try {
+		visualizar=false;
+		return preparaTelaAlterar();
+	}
+
+	private String preparaTelaAlterar() {
+		try {			
 			Long id = Long.valueOf(Util.getParameter("_id"));			
 			pasta = pastaBO.findById(id);
 			
