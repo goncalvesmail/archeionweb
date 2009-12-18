@@ -10,7 +10,6 @@ import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.pasta.Pasta;
 import br.com.archeion.modelo.ttd.TTD;
-import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
 import br.com.archeion.persistencia.pasta.PastaDAO;
 import br.com.archeion.persistencia.ttd.TTDDAO;
 
@@ -18,7 +17,6 @@ public class TTDBOImpl implements TTDBO {
 	
 	private TTDDAO ttdDAO;
 	private PastaDAO pastaDAO;
-	private ItemDocumentalBO itemDocumentalBO;
 	
 	public List<TTD> findAll() {
 		return ttdDAO.findAll();
@@ -105,12 +103,6 @@ public class TTDBOImpl implements TTDBO {
 	public void setTtdDAO(TTDDAO ttdDAO) {
 		this.ttdDAO = ttdDAO;
 	}	
-	public ItemDocumentalBO getItemDocumentalBO() {
-		return itemDocumentalBO;
-	}
-	public void setItemDocumentalBO(ItemDocumentalBO itemDocumentalBO) {
-		this.itemDocumentalBO = itemDocumentalBO;
-	}
 
 	public PastaDAO getPastaDAO() {
 		return pastaDAO;

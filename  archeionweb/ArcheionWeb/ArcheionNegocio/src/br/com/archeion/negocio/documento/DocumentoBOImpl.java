@@ -6,28 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
-
 import util.Relatorio;
-
 import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.exception.CompareDateException;
 import br.com.archeion.modelo.documento.Documento;
 import br.com.archeion.modelo.local.Local;
-import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.persistencia.documento.DocumentoDAO;
+import br.com.archeion.persistencia.local.LocalDAO;
 
 public class DocumentoBOImpl implements DocumentoBO {
 
 	private DocumentoDAO documentoDAO;
-	private LocalBO localBO;
+	private LocalDAO localDAO;
 	
 	public Documento persist(Documento documento) throws BusinessException, CadastroDuplicadoException {
 		this.valida(documento);
 		
 		Local local = documento.getLocal();
 		local.setUltimoDocumento(local.getUltimoDocumento()+1);
-		localBO.merge(local);
+		localDAO.merge(local);
 		
 		return documentoDAO.persist(documento);
 	}
@@ -62,7 +60,8 @@ public class DocumentoBOImpl implements DocumentoBO {
 		
 		Local local = documento.getLocal();
 		local.setUltimoDocumento(local.getUltimoDocumento()+1);
-		localBO.merge(local);
+		//localBO.merge(local);
+		localDAO.merge(local);
 		
 		return documentoDAO.merge(documento);
 	}
@@ -80,11 +79,7 @@ public class DocumentoBOImpl implements DocumentoBO {
 		if ( documento.getData().after(atual) ) {
 			throw new CompareDateException();
 		}
-	}
-
-	public void setLocalBO(LocalBO localBO) {
-		this.localBO = localBO;
-	}
+	}	
 
 	public Relatorio getRelatorio(HashMap<String, Object> parameters,
 			String localRelatorio) {

@@ -10,13 +10,13 @@ import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.modelo.local.Local;
-import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.persistencia.empresa.EmpresaDAO;
+import br.com.archeion.persistencia.local.LocalDAO;
 
 public class EmpresaBOImpl implements EmpresaBO {
 
 	private EmpresaDAO empresaDAO;
-	private LocalBO localBO;
+	private LocalDAO localDAO;
 
 	public Empresa persist(Empresa empresa) throws CadastroDuplicadoException {
 		validaEmpresa(empresa);
@@ -50,16 +50,12 @@ public class EmpresaBOImpl implements EmpresaBO {
 
 	public void remove(Empresa empresa) throws BusinessException {
 		
-		List<Local> locais = localBO.findByEmpresa(empresa);
+		List<Local> locais = localDAO.findByEmpresa(empresa);
 		if ( locais!=null && locais.size()>0 ) {
 			throw new BusinessException("empresa.erro.local");
 		}
 		
 		empresaDAO.remove(empresa);		
-	}
-
-	public void setLocalBO(LocalBO localBO) {
-		this.localBO = localBO;
 	}
 
 	public Relatorio getRelatorio(HashMap<String, Object> parameters,
@@ -88,6 +84,18 @@ public class EmpresaBOImpl implements EmpresaBO {
 			
 			throw new CadastroDuplicadoException();
 		}
+	}
+
+	public LocalDAO getLocalDAO() {
+		return localDAO;
+	}
+
+	public void setLocalDAO(LocalDAO localDAO) {
+		this.localDAO = localDAO;
+	}
+
+	public EmpresaDAO getEmpresaDAO() {
+		return empresaDAO;
 	}
 	
 }

@@ -10,20 +10,21 @@ import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.modelo.local.Local;
 import br.com.archeion.modelo.pasta.Pasta;
 import br.com.archeion.modelo.ttd.TTD;
-import br.com.archeion.negocio.ttd.TTDBO;
 import br.com.archeion.persistencia.caixa.CaixaDAO;
 import br.com.archeion.persistencia.documento.DocumentoDAO;
 import br.com.archeion.persistencia.local.LocalDAO;
 import br.com.archeion.persistencia.pasta.PastaDAO;
+import br.com.archeion.persistencia.ttd.TTDDAO;
 
 public class LocalBOImpl implements LocalBO {
 
 	private LocalDAO localDAO;
-	private TTDBO ttdBO;
+	
 	//Estou injetando o DAO para evitar dependencia ciclica com os dois BOs
 	private DocumentoDAO documentoDAO;
 	private PastaDAO pastaDAO;
 	private CaixaDAO caixaDAO;
+	private TTDDAO ttdDAO;
 	
 	public Local persist(Local local) throws CadastroDuplicadoException {
 		this.valida(local);
@@ -54,7 +55,7 @@ public class LocalBOImpl implements LocalBO {
 	public void remove(Local local) throws BusinessException {
 		
 		//Verificar TTD
-		List<TTD> ttds = ttdBO.findByEmpresaLocalItemDocumental(0, local.getId().intValue(), 0);
+		List<TTD> ttds = ttdDAO.findByEmpresaLocalItemDocumental(0, local.getId().intValue(), 0);
 		if ( ttds!=null && ttds.size()>0 ) {
 			throw new BusinessException("local.erro.ttd");
 		}
@@ -90,10 +91,6 @@ public class LocalBOImpl implements LocalBO {
 		}
 	}
 
-	public void setTtdBO(TTDBO ttdBO) {
-		this.ttdBO = ttdBO;
-	}
-
 	public void setDocumentoDAO(DocumentoDAO documentoDAO) {
 		this.documentoDAO = documentoDAO;
 	}
@@ -104,6 +101,30 @@ public class LocalBOImpl implements LocalBO {
 
 	public void setCaixaDAO(CaixaDAO caixaDAO) {
 		this.caixaDAO = caixaDAO;
+	}
+
+	public TTDDAO getTtdDAO() {
+		return ttdDAO;
+	}
+
+	public void setTtdDAO(TTDDAO ttdDAO) {
+		this.ttdDAO = ttdDAO;
+	}
+
+	public LocalDAO getLocalDAO() {
+		return localDAO;
+	}
+
+	public DocumentoDAO getDocumentoDAO() {
+		return documentoDAO;
+	}
+
+	public PastaDAO getPastaDAO() {
+		return pastaDAO;
+	}
+
+	public CaixaDAO getCaixaDAO() {
+		return caixaDAO;
 	}
 	
 }
