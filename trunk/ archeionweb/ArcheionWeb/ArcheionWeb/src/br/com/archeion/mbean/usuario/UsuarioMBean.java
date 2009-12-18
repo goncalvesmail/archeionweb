@@ -211,10 +211,11 @@ public class UsuarioMBean extends ArcheionBean {
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		} catch (Exception e) {
-			ExceptionManagedBean excBean = (ExceptionManagedBean) Util
+			/*ExceptionManagedBean excBean = (ExceptionManagedBean) Util
 			.getManagedBean("exceptionManagedBean");
-			excBean.setExc(e);
-			return Constants.ERROR_HANDLER;
+			excBean.setExc(e);*/
+			addMessage(FacesMessage.SEVERITY_INFO, "usuario.nao.pode.ser.removido",ArcheionBean.PERSIST_FAILURE);
+			//return Constants.ERROR_HANDLER;
 		}
 		return findAll();
 	}

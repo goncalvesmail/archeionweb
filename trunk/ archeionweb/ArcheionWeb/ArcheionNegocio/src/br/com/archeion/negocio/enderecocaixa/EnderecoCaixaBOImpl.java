@@ -10,13 +10,13 @@ import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.caixa.Caixa;
 import br.com.archeion.modelo.enderecocaixa.EnderecoCaixa;
-import br.com.archeion.negocio.caixa.CaixaBO;
+import br.com.archeion.persistencia.caixa.CaixaDAO;
 import br.com.archeion.persistencia.enderecocaixa.EnderecoCaixaDAO;
 
 public class EnderecoCaixaBOImpl implements EnderecoCaixaBO {
 
 	private EnderecoCaixaDAO enderecoCaixaDAO;
-	private CaixaBO caixaBO;
+	private CaixaDAO caixaDAO;
 	
 	public EnderecoCaixa persist(EnderecoCaixa enderecoCaixa) throws CadastroDuplicadoException, BusinessException  {
 		validaEnderecoCaixa(enderecoCaixa);
@@ -43,7 +43,7 @@ public class EnderecoCaixaBOImpl implements EnderecoCaixaBO {
 	public void remove(EnderecoCaixa enderecoCaixa) throws BusinessException {
 		
 		//Verificar Caixa
-		List<Caixa> caixas = caixaBO.findByEndereco(enderecoCaixa.getId());
+		List<Caixa> caixas = caixaDAO.findByEndereco(enderecoCaixa.getId());
 		if ( caixas!=null && caixas.size()>0 ) {
 			throw new BusinessException("enderecoCaixa.erro.caixa");
 		}
@@ -91,8 +91,16 @@ public class EnderecoCaixaBOImpl implements EnderecoCaixaBO {
 		}
 	}
 
-	public void setCaixaBO(CaixaBO caixaBO) {
-		this.caixaBO = caixaBO;
+	public CaixaDAO getCaixaDAO() {
+		return caixaDAO;
+	}
+
+	public void setCaixaDAO(CaixaDAO caixaDAO) {
+		this.caixaDAO = caixaDAO;
+	}
+
+	public EnderecoCaixaDAO getEnderecoCaixaDAO() {
+		return enderecoCaixaDAO;
 	}
 	
 }

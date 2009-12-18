@@ -5,19 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
-
 import util.Relatorio;
 import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.eventocontagem.EventoContagem;
 import br.com.archeion.modelo.ttd.TTD;
-import br.com.archeion.negocio.ttd.TTDBO;
 import br.com.archeion.persistencia.eventocontagem.EventoContagemDAO;
+import br.com.archeion.persistencia.ttd.TTDDAO;
 
 public class EventoContagemBOImpl implements EventoContagemBO {
 	
 	private EventoContagemDAO eventoContagemDAO;
-	private TTDBO ttdBO;
+	private TTDDAO ttdDAO;
 
 	public List<EventoContagem> findAll() {
 		return eventoContagemDAO.findAll();
@@ -62,7 +61,7 @@ public class EventoContagemBOImpl implements EventoContagemBO {
 	public void remove(EventoContagem item) throws BusinessException {
 
 		//Verifcar TTD
-		List<TTD> ttds = ttdBO.findByEvento(item.getId());
+		List<TTD> ttds = ttdDAO.findByEvento(item.getId());
 		if ( ttds!=null && ttds.size()>0 ) {
 			throw new BusinessException("eventocontagem.erro.ttd");
 		}
@@ -78,8 +77,12 @@ public class EventoContagemBOImpl implements EventoContagemBO {
 		this.eventoContagemDAO = eventoContagemDAO;
 	}
 
-	public void setTtdBO(TTDBO ttdBO) {
-		this.ttdBO = ttdBO;
+	public TTDDAO getTtdDAO() {
+		return ttdDAO;
+	}
+
+	public void setTtdDAO(TTDDAO ttdDAO) {
+		this.ttdDAO = ttdDAO;
 	}
 
 }

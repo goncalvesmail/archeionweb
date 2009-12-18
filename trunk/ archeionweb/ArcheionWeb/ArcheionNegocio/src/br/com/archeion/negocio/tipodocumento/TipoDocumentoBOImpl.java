@@ -10,13 +10,13 @@ import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.documento.Documento;
 import br.com.archeion.modelo.tipodocumento.TipoDocumento;
-import br.com.archeion.negocio.documento.DocumentoBO;
+import br.com.archeion.persistencia.documento.DocumentoDAO;
 import br.com.archeion.persistencia.tipodocumento.TipoDocumentoDAO;
 
 public class TipoDocumentoBOImpl implements TipoDocumentoBO {
 	
 	private TipoDocumentoDAO tipoDocumentoDAO;
-	private DocumentoBO documentoBO;
+	private DocumentoDAO documentoDAO;
 	
 	public TipoDocumento persist(TipoDocumento item) throws CadastroDuplicadoException {
 		this.valida(item);
@@ -39,7 +39,7 @@ public class TipoDocumentoBOImpl implements TipoDocumentoBO {
 	public void remove(TipoDocumento item) throws BusinessException {
 		
 		//Verificar Documento
-		List<Documento> documentos = documentoBO.findByTipo(item.getId());
+		List<Documento> documentos = documentoDAO.findByTipo(item.getId());
 		if ( documentos!=null && documentos.size()>0 ) {
 			throw new BusinessException("tipodocumento.erro.documento");
 		}
@@ -73,8 +73,16 @@ public class TipoDocumentoBOImpl implements TipoDocumentoBO {
 		return null;
 	}
 
-	public void setDocumentoBO(DocumentoBO documentoBO) {
-		this.documentoBO = documentoBO;
+	public DocumentoDAO getDocumentoDAO() {
+		return documentoDAO;
+	}
+
+	public void setDocumentoDAO(DocumentoDAO documentoDAO) {
+		this.documentoDAO = documentoDAO;
+	}
+
+	public TipoDocumentoDAO getTipoDocumentoDAO() {
+		return tipoDocumentoDAO;
 	}
 	
 }

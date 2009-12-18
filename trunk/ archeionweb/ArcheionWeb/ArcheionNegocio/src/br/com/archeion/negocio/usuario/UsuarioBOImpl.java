@@ -19,7 +19,7 @@ import br.com.archeion.exception.BusinessException;
 import br.com.archeion.exception.CadastroDuplicadoException;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.modelo.usuario.Usuario;
-import br.com.archeion.negocio.grupo.GrupoBO;
+import br.com.archeion.persistencia.grupo.GrupoDAO;
 import br.com.archeion.persistencia.usuario.UsuarioDAO;
 import br.com.archeion.util.Validator;
 
@@ -36,10 +36,9 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 	private UsuarioDAO usuarioDAO;
 	
 	/**
-	 * BO do Grupo de usuarios
+	 * DAO do Grupo de usuarios
 	 */
-	private GrupoBO grupoBO;
-	
+	private GrupoDAO grupoDAO;
 	
 	/**
 	 * Classe utilizada para fazer as validações do BO.
@@ -87,14 +86,14 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 	 * retorna uma lista de grupos de usuarios
 	 */
 	public List<Grupo> findAllGrupo() {
-		return this.grupoBO.findAll();
+		return this.grupoDAO.findAll();
 	}
 	
 	/**
 	 * retorna uma lista de grupos de usuarios passando como parametro um lista de id's
 	 */
 	public List<Grupo> findGrupobyId( List<Grupo> listaId ) {
-		return this.grupoBO.findById(listaId);
+		return this.grupoDAO.findById(listaId);
 	}
 
 	/**
@@ -307,15 +306,6 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 		this.usuarioDAO = usuarioDAO;
 	}
 	
-	/**
-	 * Seta o BO do Grupo 
-	 * @param grupoBO
-	 */
-	public void setGrupoBO(GrupoBO grupoBO) {
-		this.grupoBO = grupoBO;
-	}
-
-
 	public Relatorio getRelatorio(HashMap<String, Object> parameters,
 			String localRelatorio) {
 		Connection conn = usuarioDAO.getConnection();
@@ -330,6 +320,31 @@ public class UsuarioBOImpl implements UsuarioBO, UserDetailsService {
 	
 	public List<Usuario> findAllAluga() {
 		return usuarioDAO.findAllAluga();
+	}
+
+
+	public GrupoDAO getGrupoDAO() {
+		return grupoDAO;
+	}
+
+
+	public void setGrupoDAO(GrupoDAO grupoDAO) {
+		this.grupoDAO = grupoDAO;
+	}
+
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
 	}
 
 }
