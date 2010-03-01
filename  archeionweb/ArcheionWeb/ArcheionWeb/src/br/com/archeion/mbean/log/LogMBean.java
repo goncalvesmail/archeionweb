@@ -18,7 +18,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.modelo.log.Log;
 import br.com.archeion.modelo.usuario.Usuario;
 import br.com.archeion.negocio.log.LogBusiness;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class LogMBean extends ArcheionBean {
@@ -31,7 +31,7 @@ public class LogMBean extends ArcheionBean {
 	
 	private LogBusiness logBO = (LogBusiness) Util.getSpringBean("logBusiness");
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	
 	public LogMBean() {
 		listaLog = new ArrayList<Log>();
@@ -50,7 +50,7 @@ public class LogMBean extends ArcheionBean {
 			sb.append("from tb_log a join tb_usuarios b on (a.id_usuario = b.id_usuario) ");
 			sb.append("order by 2 desc, 1 asc ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

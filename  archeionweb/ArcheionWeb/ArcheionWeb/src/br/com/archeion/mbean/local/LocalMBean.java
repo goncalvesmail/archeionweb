@@ -28,7 +28,7 @@ import br.com.archeion.modelo.empresa.Empresa;
 import br.com.archeion.modelo.local.Local;
 import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.local.LocalBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 
 public class LocalMBean extends ArcheionBean {
 
@@ -38,7 +38,7 @@ public class LocalMBean extends ArcheionBean {
 
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 
 	public LocalMBean() {
 		local = new Local();
@@ -214,7 +214,7 @@ public class LocalMBean extends ArcheionBean {
 			sb.append("from tb_local a join tb_empresa b on (a.id_empresa = b.id_empresa) ");
 			sb.append("order by 1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

@@ -41,7 +41,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
 import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.negocio.pasta.PastaBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class PastaMBean extends ArcheionBean {
@@ -75,7 +75,7 @@ public class PastaMBean extends ArcheionBean {
 	private PastaBO pastaBO = (PastaBO) Util.getSpringBean("pastaBO");
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	private TTDBO ttdBO = (TTDBO) Util.getSpringBean("ttdBO");
 	
@@ -428,7 +428,7 @@ public class PastaMBean extends ArcheionBean {
 			sb.append("left join tb_caixa e on (a.id_caixa = e.id_caixa) ");
 			sb.append("left join tb_endereco_caixa f on (e.id_endereco_caixa = f.id_endereco_caixa) ");
 			
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",
