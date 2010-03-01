@@ -30,7 +30,7 @@ import br.com.archeion.modelo.caixa.EmprestimoCaixa;
 import br.com.archeion.modelo.usuario.Usuario;
 import br.com.archeion.negocio.caixa.CaixaBO;
 import br.com.archeion.negocio.caixa.EmprestimoCaixaBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class EmprestimoCaixaMBean extends ArcheionBean {
@@ -51,7 +51,7 @@ public class EmprestimoCaixaMBean extends ArcheionBean {
 	private CaixaBO caixaBO = (CaixaBO) Util.getSpringBean("caixaBO");
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
 	private EmprestimoCaixaBO emprestimoCaixaBO = (EmprestimoCaixaBO) Util.getSpringBean("emprestimoCaixaBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 
 	public EmprestimoCaixaMBean() {
 		emprestimo = new EmprestimoCaixa();
@@ -331,7 +331,7 @@ public class EmprestimoCaixaMBean extends ArcheionBean {
 			sb.append("left join tb_usuarios c on (a.id_usuario_solicitante = c.id_usuario) ");
 			sb.append("order by 2,1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

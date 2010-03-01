@@ -25,18 +25,19 @@
 
 	<parameter name="idEmprestimoCaixa" isForPrompting="false" class="java.lang.Long"/>
 	<parameter name="ids" isForPrompting="false" class="java.lang.String"/>
-	<queryString><![CDATA[select e.nm_empresa, l.nm_local, itd.nm_item_documental, p.nm_titulo, p.cs_situacao_pasta, 
+	<queryString><![CDATA[select e.nm_empresa, l.nm_local, itd.nm_item_documental, p.nm_titulo, p.nm_descricao, p.cs_situacao_pasta, 
        p.dt_expurgo
 from tb_pasta p join tb_local l on (p.id_local = l.id_local)
      join tb_item_documental itd on (p.id_item_documental = itd.id_item_documental)
      join tb_empresa e on (l.id_empresa = e.id_empresa)
 where p.id_pasta in ($P!{ids})
-order by 1,2,3,4]]></queryString>
+order by 1,2,3,4,5]]></queryString>
 
 	<field name="nm_empresa" class="java.lang.String"/>
 	<field name="nm_local" class="java.lang.String"/>
 	<field name="nm_item_documental" class="java.lang.String"/>
 	<field name="nm_titulo" class="java.lang.String"/>
+	<field name="nm_descricao" class="java.lang.String"/>
 	<field name="cs_situacao_pasta" class="java.lang.Integer"/>
 	<field name="dt_expurgo" class="java.sql.Date"/>
 
@@ -160,8 +161,8 @@ order by 1,2,3,4]]></queryString>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="326"
-						y="25"
+						x="394"
+						y="21"
 						width="49"
 						height="13"
 						key="staticText-7"/>
@@ -173,8 +174,8 @@ order by 1,2,3,4]]></queryString>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="429"
-						y="26"
+						x="448"
+						y="22"
 						width="86"
 						height="13"
 						key="staticText-8"/>
@@ -183,6 +184,19 @@ order by 1,2,3,4]]></queryString>
 						<font pdfFontName="Helvetica-Bold" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Data de Expurgo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="226"
+						y="26"
+						width="49"
+						height="13"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font pdfFontName="Helvetica-Bold" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Descrição]]></text>
 				</staticText>
 			</band>
 			</groupHeader>
@@ -261,7 +275,7 @@ order by 1,2,3,4]]></queryString>
 					<reportElement
 						x="0"
 						y="5"
-						width="314"
+						width="221"
 						height="28"
 						key="textField"/>
 					<box></box>
@@ -272,8 +286,8 @@ order by 1,2,3,4]]></queryString>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="326"
-						y="4"
+						x="394"
+						y="0"
 						width="49"
 						height="13"
 						key="textField"/>
@@ -286,8 +300,8 @@ $F{cs_situacao_pasta}.equals(new Integer(1))?"Ativa":"Expurgada" )]]></textField
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="429"
-						y="4"
+						x="448"
+						y="0"
 						width="85"
 						height="13"
 						key="textField"/>
@@ -296,6 +310,19 @@ $F{cs_situacao_pasta}.equals(new Integer(1))?"Ativa":"Expurgada" )]]></textField
 						<font/>
 					</textElement>
 				<textFieldExpression   class="java.util.Date"><![CDATA[$F{dt_expurgo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="225"
+						y="5"
+						width="161"
+						height="28"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{nm_descricao}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>

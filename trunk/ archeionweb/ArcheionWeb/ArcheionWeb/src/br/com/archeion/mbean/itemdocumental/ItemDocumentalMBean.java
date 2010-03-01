@@ -24,13 +24,13 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.itemdocumental.ItemDocumental;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 
 public class ItemDocumentalMBean extends ArcheionBean {
 
 	private ItemDocumental itemDocumental;
 	private List<ItemDocumental> listaDocumental;
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	
 	public ItemDocumentalMBean() {
@@ -170,7 +170,7 @@ public class ItemDocumentalMBean extends ArcheionBean {
 			sb.append("from tb_item_documental a ");
 			sb.append("order by 1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",
