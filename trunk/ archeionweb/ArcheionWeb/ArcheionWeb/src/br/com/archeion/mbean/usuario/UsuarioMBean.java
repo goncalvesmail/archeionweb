@@ -27,7 +27,7 @@ import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.modelo.usuario.Usuario;
 import br.com.archeion.negocio.grupo.GrupoBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.usuario.UsuarioBO;
 
 public class UsuarioMBean extends ArcheionBean {
@@ -37,7 +37,7 @@ public class UsuarioMBean extends ArcheionBean {
 
 	private UsuarioBO usuarioBO = (UsuarioBO) Util.getSpringBean("usuarioBO");
 	private GrupoBO grupoBO = (GrupoBO) Util.getSpringBean("grupoBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	
 	private List<Grupo> grupoSource;
 	private List<Grupo> grupoTarget;
@@ -290,7 +290,7 @@ public class UsuarioMBean extends ArcheionBean {
 			sb.append("from tb_usuarios a ");
 			sb.append("order by 1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

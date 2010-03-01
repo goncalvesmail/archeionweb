@@ -26,13 +26,15 @@ import util.ChavesPasta;
 import util.Operadores;
 import util.OperadoresBoleanos;
 import util.Relatorio;
+import util.TipoRelatorio;
 import br.com.archeion.jsf.Constants;
 import br.com.archeion.jsf.Util;
 import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.modelo.SituacaoExpurgo;
 import br.com.archeion.modelo.pasta.Pasta;
 import br.com.archeion.negocio.pasta.PastaBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatorio.RelatorioBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 
 public class LocalizarPastaMBean extends ArcheionBean {
 
@@ -68,7 +70,8 @@ public class LocalizarPastaMBean extends ArcheionBean {
 	private List<Pasta> listaPasta;
 
 	private PastaBO pastaBO = (PastaBO) Util.getSpringBean("pastaBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
+	private RelatorioBO relatorioBO = (RelatorioBO) Util.getSpringBean("relatorioBO");
 
 	public String goToLocalizarPasta() {
 		preparaTelaConsulta();		
@@ -388,7 +391,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 			sb.append(ids.toString());
 			sb.append(") order by 1,2,3,4");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",
@@ -406,7 +409,13 @@ public class LocalizarPastaMBean extends ArcheionBean {
 	}
 	
 	public String imprimirEtiquetaPorCaixa() {
-		FacesContext context = getContext();
+		ParametrosReport ids = new ParametrosReport();
+		for(Pasta p: listaPastaTarget) {
+			ids.add(p.getId());
+		}
+		relatorioBO.gerar(TipoRelatorio.ETIQUETAPASTACAIXA,ids.toString());
+		
+		/*FacesContext context = getContext();
 		try {
 			if(listaPastaTarget.size() <= 0){
 				addMessage(FacesMessage.SEVERITY_INFO, "pasta.error.selecione.pasta",ArcheionBean.PERSIST_FAILURE);
@@ -445,7 +454,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 			e.printStackTrace();
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
-		}
+		}*/
 		return goToEtiquetaPasta();
 	}
 		
@@ -725,6 +734,22 @@ public class LocalizarPastaMBean extends ArcheionBean {
 
 	public void setListaSituacao(List<SelectItem> listaSituacao) {
 		this.listaSituacao = listaSituacao;
+	}
+
+	public RelatorioConsultaBO getRelatorioTxtBO() {
+		return relatorioConsultaBO;
+	}
+
+	public void setRelatorioTxtBO(RelatorioConsultaBO relatorioConsultaBO) {
+		this.relatorioConsultaBO = relatorioConsultaBO;
+	}
+
+	public RelatorioBO getRelatorioBO() {
+		return relatorioBO;
+	}
+
+	public void setRelatorioBO(RelatorioBO relatorioBO) {
+		this.relatorioBO = relatorioBO;
 	}
 
 }

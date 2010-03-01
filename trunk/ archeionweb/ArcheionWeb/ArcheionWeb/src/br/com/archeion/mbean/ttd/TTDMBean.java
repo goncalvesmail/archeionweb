@@ -33,7 +33,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.eventocontagem.EventoContagemBO;
 import br.com.archeion.negocio.itemdocumental.ItemDocumentalBO;
 import br.com.archeion.negocio.local.LocalBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class TTDMBean extends ArcheionBean {
@@ -45,7 +45,7 @@ public class TTDMBean extends ArcheionBean {
 	private LocalBO localBO = (LocalBO) Util.getSpringBean("localBO");
 	private ItemDocumentalBO itemDocumentalBO = (ItemDocumentalBO) Util.getSpringBean("itemDocumentalBO");
 	private EventoContagemBO eventoContagemBO = (EventoContagemBO) Util.getSpringBean("eventoContagemBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	
 	private List<SelectItem> listaEmpresa;
 	private List<SelectItem> listaLocal;
@@ -438,7 +438,7 @@ public class TTDMBean extends ArcheionBean {
 			sb.append(") ");
 			sb.append("order by 1,2 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",
