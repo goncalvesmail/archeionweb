@@ -13,9 +13,7 @@
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<!-- DAOs -->
-	<bean id="relatorioDAO" class="br.com.archeion.persistencia.relatorio.RelatorioDAOImpl" autowire="byName"/>
 
 	<!-- BOs -->
-	<bean id="relatorioConsultaBO" class="br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBOImpl" autowire="byName"/>
+	<bean id="relatorioBO" class="br.com.archeion.negocio.relatorio.RelatorioBOImpl" autowire="byName"/>
 </beans>

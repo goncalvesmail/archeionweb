@@ -23,7 +23,7 @@ import br.com.archeion.mbean.ArcheionBean;
 import br.com.archeion.mbean.ExceptionManagedBean;
 import br.com.archeion.modelo.enderecocaixa.EnderecoCaixa;
 import br.com.archeion.negocio.enderecocaixa.EnderecoCaixaBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 
 public class EnderecoCaixaMBean extends ArcheionBean {
 
@@ -31,7 +31,7 @@ public class EnderecoCaixaMBean extends ArcheionBean {
 	private List<EnderecoCaixa> listaEnderecoCaixa;
 
 	private EnderecoCaixaBO enderecoCaixaBO = (EnderecoCaixaBO) Util.getSpringBean("enderecoCaixaBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	
 	public EnderecoCaixaMBean() {
 		enderecoCaixa = new EnderecoCaixa();
@@ -213,7 +213,7 @@ public class EnderecoCaixaMBean extends ArcheionBean {
 			sb.append("from tb_endereco_caixa b ");
 			sb.append("order by 1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

@@ -21,7 +21,7 @@ import br.com.archeion.modelo.funcionalidade.Funcionalidade;
 import br.com.archeion.modelo.grupo.Grupo;
 import br.com.archeion.negocio.funcionalidade.FuncionalidadeBO;
 import br.com.archeion.negocio.grupo.GrupoBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 
 public class GrupoMBean extends ArcheionBean {
 
@@ -33,7 +33,7 @@ public class GrupoMBean extends ArcheionBean {
 
 	private GrupoBO grupoBO = (GrupoBO) Util.getSpringBean("grupoBO");
 	private FuncionalidadeBO funcionalidadeBO = (FuncionalidadeBO) Util.getSpringBean("funcionalidadeBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 
 	public GrupoMBean() {
 		grupo = new Grupo();
@@ -53,7 +53,7 @@ public class GrupoMBean extends ArcheionBean {
 			sb.append("from tb_grupos a ");
 			sb.append("order by 1 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",

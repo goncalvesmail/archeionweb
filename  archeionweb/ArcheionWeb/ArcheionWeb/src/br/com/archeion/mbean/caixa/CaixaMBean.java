@@ -43,7 +43,7 @@ import br.com.archeion.negocio.empresa.EmpresaBO;
 import br.com.archeion.negocio.enderecocaixa.EnderecoCaixaBO;
 import br.com.archeion.negocio.local.LocalBO;
 import br.com.archeion.negocio.pasta.PastaBO;
-import br.com.archeion.negocio.relatoriotxt.RelatorioTxtBO;
+import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 import br.com.archeion.negocio.ttd.TTDBO;
 
 public class CaixaMBean extends ArcheionBean {
@@ -70,7 +70,7 @@ public class CaixaMBean extends ArcheionBean {
 	private EmpresaBO empresaBO = (EmpresaBO) Util.getSpringBean("empresaBO");
 	private TTDBO ttdBO = (TTDBO) Util.getSpringBean("ttdBO");
 	private EnderecoCaixaBO enderecoCaixaBO = (EnderecoCaixaBO) Util.getSpringBean("enderecoCaixaBO");
-	private RelatorioTxtBO relatorioTxtBO = (RelatorioTxtBO) Util.getSpringBean("relatorioTxtBO");
+	private RelatorioConsultaBO relatorioConsultaBO = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 
 	private Map<Long, Boolean> selecionados;
 	private boolean visualizar = false;
@@ -666,7 +666,7 @@ public class CaixaMBean extends ArcheionBean {
 			sb.append("join tb_endereco_caixa d on (a.id_endereco_caixa = d.id_endereco_caixa) ");
 			sb.append("order by 1,2,3 ");
 						
-			relatorioTxtBO.geraRelatorioTxt(sb.toString(), responseStream);
+			relatorioConsultaBO.geraRelatorio(sb.toString(), responseStream);
 			
 			response.setContentType("application/txt");
 			response.setHeader("Content-disposition",
