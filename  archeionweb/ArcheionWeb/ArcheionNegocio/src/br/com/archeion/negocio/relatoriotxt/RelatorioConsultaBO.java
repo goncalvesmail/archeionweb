@@ -8,4 +8,5 @@ import br.com.archeion.mbean.pasta.EtiquetaPastaBean;
 public interface RelatorioConsultaBO {
 	public void geraRelatorio(String sql, OutputStream stream);
 	public List<EtiquetaPastaBean> geraEtiquetaPastaPorCaixa(String ids);
+	public List<EtiquetaPastaBean> geraEtiquetaPastaPorCaixeta(String ids);
 }
