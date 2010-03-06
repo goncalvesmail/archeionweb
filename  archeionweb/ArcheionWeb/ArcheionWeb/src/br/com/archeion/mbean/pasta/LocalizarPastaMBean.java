@@ -16,8 +16,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 
 import org.acegisecurity.AccessDeniedException;
 
@@ -368,6 +366,10 @@ public class LocalizarPastaMBean extends ArcheionBean {
 	public String imprimirTxt() {
 		FacesContext context = getContext();
 		try {
+			if(listaPasta.size() <= 0){
+				addMessage(FacesMessage.SEVERITY_INFO, "pasta.error.selecione.pasta",ArcheionBean.PERSIST_FAILURE);
+				return goToLocalizarPasta();
+			}
 			HttpServletResponse response = (HttpServletResponse) context
 			.getExternalContext().getResponse();
 			
@@ -459,7 +461,13 @@ public class LocalizarPastaMBean extends ArcheionBean {
 	}
 		
 	public String imprimirEtiquetaPorCaixeta() {
-		FacesContext context = getContext();
+		ParametrosReport ids = new ParametrosReport();
+		for(Pasta p: listaPastaTarget) {
+			ids.add(p.getId());
+		}
+		relatorioBO.gerar(TipoRelatorio.ETIQUETAPASTACAIXETA,ids.toString());
+		
+		/*FacesContext context = getContext();
 		try {
 			if(listaPastaTarget.size() <= 0){
 				addMessage(FacesMessage.SEVERITY_INFO, "pasta.error.selecione.pasta",ArcheionBean.PERSIST_FAILURE);
@@ -498,7 +506,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 			e.printStackTrace();
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
-		}
+		}*/
 		return goToEtiquetaPasta();
 	}
 
