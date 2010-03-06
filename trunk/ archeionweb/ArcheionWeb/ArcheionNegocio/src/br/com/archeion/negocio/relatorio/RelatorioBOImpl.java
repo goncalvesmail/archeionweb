@@ -17,6 +17,8 @@ public class RelatorioBOImpl implements RelatorioBO {
 					new HashMap<String, Object>(), relatorioConsultaBO.geraEtiquetaPastaPorCaixa(ids), "etiquetaPasta");
 			break;
 		case ETIQUETAPASTACAIXETA:
+			JasperReportUtil.gerarPDF("/WEB-INF/relatorios/ArcheionEtiquetaPastaPorCaixaBean.jasper", 
+					new HashMap<String, Object>(), relatorioConsultaBO.geraEtiquetaPastaPorCaixeta(ids), "etiquetaPasta");
 			break;
 		default:
 			break;
