@@ -360,7 +360,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		}
-		return goToLocalizarPasta();
+		return "";
 	}
 	
 	public String imprimirTxt() {
@@ -457,7 +457,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		}*/
-		return goToEtiquetaPasta();
+		return "";
 	}
 		
 	public String imprimirEtiquetaPorCaixeta() {
@@ -507,7 +507,7 @@ public class LocalizarPastaMBean extends ArcheionBean {
 		} catch (AccessDeniedException aex) {
 			return Constants.ACCESS_DENIED;
 		}*/
-		return goToEtiquetaPasta();
+		return "";
 	}
 
 	//GETs & SETs

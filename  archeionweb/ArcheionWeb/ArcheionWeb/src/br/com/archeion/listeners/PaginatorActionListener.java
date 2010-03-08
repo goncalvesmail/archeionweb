@@ -13,14 +13,14 @@ public class PaginatorActionListener implements ActionListener {
 	public void processAction(ActionEvent arg0) throws AbortProcessingException {
 		Map<String, Object> attributes = arg0.getComponent().getAttributes();
 		Collection<Object> values = attributes.values();
-		System.out.println("TESTE --- ");
+		//System.out.println("TESTE --- ");
 		for (Object object : values) {
-			System.out.println("TESTE --- " + object);
+			//System.out.println("TESTE --- " + object);
 		}
 	}
 
 	public PhaseId getPhaseId() {
-		System.out.println("getPhaseId called");
+		//System.out.println("getPhaseId called");
 		return PhaseId.APPLY_REQUEST_VALUES;
 	}
 

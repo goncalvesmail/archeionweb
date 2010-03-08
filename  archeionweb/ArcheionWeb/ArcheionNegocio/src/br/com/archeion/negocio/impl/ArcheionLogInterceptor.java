@@ -29,7 +29,7 @@ public class ArcheionLogInterceptor implements MethodInterceptor {
 			String descricao = "";
 			Annotation[] annotations = method.getMethod().getDeclaredAnnotations();
 			for ( Annotation a:annotations ) {
-				System.out.println(a.annotationType());
+				//System.out.println(a.annotationType());
 				if ( a.annotationType().equals(br.com.archeion.util.Log.class) ) {
 					isLoged = true;
 					descricao = ((br.com.archeion.util.Log)a).descricao();
