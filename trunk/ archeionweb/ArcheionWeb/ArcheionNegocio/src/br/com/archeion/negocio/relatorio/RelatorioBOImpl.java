@@ -9,7 +9,7 @@ import br.com.archeion.negocio.relatoriotxt.RelatorioConsultaBO;
 public class RelatorioBOImpl implements RelatorioBO {
 	private RelatorioConsultaBO relatorioConsultaBO;// = (RelatorioConsultaBO) Util.getSpringBean("relatorioConsultaBO");
 	
-	@Override
+
 	public void gerar(TipoRelatorio tipoRelatorio, String ids) {
 		switch (tipoRelatorio) {
 		case ETIQUETAPASTACAIXA: 

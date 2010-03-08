@@ -24,7 +24,7 @@ public class EtiquetaPastaConverter implements Converter {
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2)
 			throws ConverterException {
 		Pasta p = (Pasta)arg2;
-		System.out.println(p.getTitulo());
+		//System.out.println(p.getTitulo());
 		String result = p.getLocal().getEmpresa().getNome()+".@.@."+p.getLocal().getNome()+".@.@."+p.getTitulo();
 		return result;
 	}
