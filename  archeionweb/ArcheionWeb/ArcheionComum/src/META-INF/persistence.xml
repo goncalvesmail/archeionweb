@@ -34,6 +34,8 @@
 			<property name="toplink.jdbc.user" value="postgres" />
 			<property name="toplink.jdbc.password" value="123456" />
 			<property name="toplink.target-database" value="PostgreSQL"/>
+			<property name="toplink.max-write-connections" value="500"/>
+			<property name="toplink.max-read-connections" value="500"/>
 		</properties>
 		<!-- 
 		<properties>
